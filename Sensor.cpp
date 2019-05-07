@@ -1,0 +1,50 @@
+/*************************************************************************
+Sensor
+-------------------
+Date                 : 05/05/2019
+Copyright            :
+*************************************************************************/
+
+//---------- Réalisation de la classe <Sensor> (fichier Sensor.cpp) ------------
+
+//---------------------------------------------------------------- INCLUDE
+
+//-------------------------------------------------------- Include système
+
+
+//------------------------------------------------------ Include personnel
+#include "Sensor.h"
+
+//------------------------------------------------------------- Constantes
+
+//----------------------------------------------------------------- PUBLIC
+
+//----------------------------------------------------- Méthodes publiques
+ostream & operator << (ostream & out, const Sensor & sensor) {
+    out << "ID : " << sensor.id << ", Desc : " << sensor.description << ", Status : " << sensor.status << ", Location : " << sensor.location;
+    return out;
+}
+
+//-------------------------------------------- Constructeurs - destructeur
+
+Sensor::Sensor(string id, Point location, string description) {
+    this.id = id;
+    this.status = true;
+    this.location = location;
+    this.description = description;
+#ifdef MAP
+    cout << "Appel au constructeur de <Point>" << "\r\n";
+#endif
+
+}
+
+Point::~Point() {
+#ifdef MAP
+    cout << "Appel au destructeur de <Top10>" << "\r\n";
+#endif
+}
+
+
+//------------------------------------------------------------------ PRIVE
+
+//----------------------------------------------------- Méthodes protégées
