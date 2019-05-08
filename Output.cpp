@@ -13,8 +13,7 @@ Copyright            :
 
 
 //------------------------------------------------------ Include personnel
-#include <vector>
-using namespace std;
+#include <iostream>
 
 #include "Output.h"
 
@@ -39,10 +38,11 @@ void Output::afficherCapteurs(const vector<Sensor> & sensors) {
 }
 
 void Output::afficherResultatATMO((int methode, const vector<tuple<Attribute, int, double, int>> & resultat)) {
-cout << "--- Résultat ATMO ---" << endl;
-for (vector<tuple<Attribute, int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend; i++) {
-cout << "Type de gaz : " << *i.get(0) << ", ATMO : " << *i.get(1) << ", Concentration : " << *i.get(2) << ", Nombre de capteurs utilisés : " << *i.get(3) << endl;
-}
+    cout << "--- Résultat ATMO ---" << endl;
+    for (vector<tuple<Attribute, int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend; i++)
+    {
+        cout << "Type de gaz : " << *i.get(0) << ", ATMO : " << *i.get(1) << ", Concentration : " << *i.get(2) << ", Nombre de capteurs utilisés : " << *i.get(3) << endl;
+    }
 }
 
 void afficherEvolution(const tuple<double, double, double, Date> & resultat) {

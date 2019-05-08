@@ -1,11 +1,11 @@
 /*************************************************************************
-Parser
+RequestView
 -------------------
 Date                 : 05/05/2019
 Copyright            :
 *************************************************************************/
 
-//---------- Réalisation de la classe <Parser> (fichier Parser.cpp) ------------
+//---------- Réalisation de la classe <RequestView> (fichier RequestView.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -13,7 +13,7 @@ Copyright            :
 
 
 //------------------------------------------------------ Include personnel
-#include "Parser.h"
+#include "RequestView.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -21,10 +21,9 @@ Copyright            :
 
 //----------------------------------------------------- Méthodes publiques
 
-boolean RequestView :: goToNext()
+bool RequestView::goToNext()
 {
-    /*methode pour aller a la ligne prochaine et obtenir les attributs prochaines
-        a remplir
+    /*methode pour aller a la ligne prochaine et obtenir les prochaines attributs
     */
     if(Measure.dateMeasure<=fin)
     {
@@ -37,7 +36,7 @@ boolean RequestView :: goToNext()
 
 }
 
-Measure RequestView :: getMeasure()
+Measure RequestView::getMeasure()
 {
     return actualMeasure;
 }
@@ -46,11 +45,10 @@ Measure RequestView :: getMeasure()
 
 //-------------------------------------------- Constructeurs - destructeur
 
-Parser::Parser(vector<String> files, Date debut, Date fin) {
-    this.files = files;
-    actualFile.open(files);
-    indexFile = 0;
-    String str;
+RequestView::RequestView(vector<string> files, Date debut, Date fin) {
+    this->files = files;
+    this->debut = debut;
+    this->fin = fin;
     /*methode pour obtenir les attributs dans la ligne
         a remplir
     */
@@ -59,12 +57,12 @@ Parser::Parser(vector<String> files, Date debut, Date fin) {
         indexFile ++;
     }
 #ifdef MAP
-    cout << "Appel au constructeur de <Parser>" << "\r\n";
+    cout << "Appel au constructeur de <RequestView>" << "\r\n";
 #endif
 
 }
 
-Parser::~Parser() {
+RequestView::~RequestView() {
     actualFile.close();
 
 #ifdef MAP
@@ -76,6 +74,3 @@ Parser::~Parser() {
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
-
-
---

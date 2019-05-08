@@ -12,12 +12,15 @@ interactions entre les différents noeuds */
 #ifndef PROJET_CAPTIF_REQUESTVIEW_H
 #define PROJET_CAPTIF_REQUESTVIEW_H
 
+//--------------------------------------------------- Interfaces utilisées
 #include <vector>
 #include <fstream>
 #include <set>
+#include <string>
+using namespace std;
 
-
-//--------------------------------------------------- Interfaces utilisées
+#include "Measure.h"
+#include "Date.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -31,7 +34,7 @@ class RequestView {
 public:
     //----------------------------------------------------- Méthodes publiques
 
-    boolean goToNext();
+    bool goToNext();
 
     Measure getMeasure();
 
@@ -39,12 +42,9 @@ public:
 
     //-------------------------------------------- Constructeurs - destructeur
 
-    RequestView();
-
-
+    RequestView(vector<string> files, Date debut, Date fin);
 
     virtual ~RequestView();
-
 
     //------------------------------------------------------------------ PRIVE
 
@@ -52,19 +52,18 @@ protected:
     //----------------------------------------------------- Méthodes protégées
 
     //----------------------------------------------------- Attributs protégés
-    vector<String> files;
+    vector<string> files;
     ifstream actualFile;
     int indexFile;
 
     Measure actualMeasure;
 
-    set<String> sensorsIds;
+    set<string> sensorsIds;
     Date debut;
     Date fin;
 
-
 };
 
-//-------------------------------- Autres définitions dépendantes de <Reader>
+//---------------------------- Autres définitions dépendantes de <RequestView>
 
 #endif

@@ -10,7 +10,14 @@ Copyright            :
 #define PROJET_CAPTIF_OUTPUT_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <tuple>
+#include <vector>
+using namespace std;
+
+#include "Date.h"
+#include "Point.h"
 #include "Sensor.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types

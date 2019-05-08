@@ -21,15 +21,12 @@ Copyright            :
 
 //----------------------------------------------------- Méthodes publiques
 
-tuple<vector<Sensor>,vector<Attribute>> Parser :: getSensorsAndAttributes()
+void Parser::getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribute> & resAttributes)
 {
-    vector<Sensor> sensors;
-    vector<Attribute> attributes;
-
 
 }
 
-set<Measure> Parser :: getMeasures(set<String> sensorIds, Date debut, Date fin)
+set<Measure> Parser::getMeasures(const set<string> & sensorIds,Date debut, Date fin)
 {
     boolean next = true;
     set<Measure> measures;
@@ -46,7 +43,7 @@ set<Measure> Parser :: getMeasures(set<String> sensorIds, Date debut, Date fin)
     return measures;
 }
 
-RequestView Parser :: getRequestView(set<String> sensorIds,Date debut, Date fin);
+RequestView Parser::getRequestView(const set<string> & sensorIds,Date debut, Date fin)
 {
 
 }
@@ -55,18 +52,17 @@ RequestView Parser :: getRequestView(set<String> sensorIds,Date debut, Date fin)
 
 //-------------------------------------------- Constructeurs - destructeur
 
-Parser::Parser(vector<String> files,RequestView requestView>) {
-this.files = files;
-this.requestView = requestView;
-#ifdef MAP
-cout << "Appel au constructeur de <Parser>" << "\r\n";
-#endif
+Parser::Parser(const vector<string> & filesInit) {
+    files = filesInit;
+    #ifdef MAP
+    cout << "Appel au constructeur de <Parser>" << "\r\n";
+    #endif
 
 }
 
 Parser::~Parser() {
 #ifdef MAP
-    cout << "Appel au destructeur de <Top10>" << "\r\n";
+    cout << "Appel au destructeur de <Parser>" << "\r\n";
 #endif
 }
 
@@ -76,4 +72,3 @@ Parser::~Parser() {
 //----------------------------------------------------- Méthodes protégées
 
 
---

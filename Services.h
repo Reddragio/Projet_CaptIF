@@ -9,6 +9,11 @@
 #include <string>
 using namespace std;
 
+#include "Attribute.h"
+#include "Point.h"
+#include "Date.h"
+#include "Sensor.h"
+
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types

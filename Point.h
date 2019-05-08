@@ -10,6 +10,8 @@ Copyright            :
 #define PROJET_CAPTIF_POINT_H
 
 //--------------------------------------------------- Interfaces utilisées
+#include <ostream>
+using namespace std;
 
 //------------------------------------------------------------- Constantes
 
@@ -25,7 +27,8 @@ public:
     double distance(Point p);
 
     //------------------------------------------------- Surcharge d'opérateurs
-    ostream & operator << (ostream & out, const Point & p);
+    //ostream & operator << (ostream & out, const Point & p);
+
     //-------------------------------------------- Constructeurs - destructeur
 
     Point();

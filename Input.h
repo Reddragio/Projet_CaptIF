@@ -6,6 +6,10 @@
 using namespace std;
 #include <iostream>
 #include <string>
+#include <tuple>
+
+#include "Date.h"
+#include "Point.h"
 
 //------------------------------------------------------------- Constantes
 

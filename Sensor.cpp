@@ -20,18 +20,18 @@ Copyright            :
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-ostream & operator << (ostream & out, const Sensor & sensor) {
+/*ostream & operator << (ostream & out, const Sensor & sensor) {
     out << "ID : " << sensor.id << ", Desc : " << sensor.description << ", Status : " << sensor.status << ", Location : " << sensor.location;
     return out;
-}
+}*/
 
 //-------------------------------------------- Constructeurs - destructeur
 
 Sensor::Sensor(string id, Point location, string description) {
-    this.id = id;
-    this.status = true;
-    this.location = location;
-    this.description = description;
+    this->id = id;
+    this->status = true;
+    this->location = location;
+    this->description = description;
 #ifdef MAP
     cout << "Appel au constructeur de <Point>" << "\r\n";
 #endif

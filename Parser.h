@@ -5,9 +5,6 @@ Date                 : 05/05/2019
 Copyright            :
 *************************************************************************/
 
-/* Cette classe permet de créer le fichier nécessaire pour visualiser les
-interactions entre les différents noeuds */
-
 //---------- Interface de la classe <Parser> (fichier Parser.h) ----------------
 #ifndef PROJET_CAPTIF_PARSER_H
 #define PROJET_CAPTIF_PARSER_H
@@ -17,6 +14,12 @@ interactions entre les différents noeuds */
 #include<vector>
 
 //--------------------------------------------------- Interfaces utilisées
+#include <vecotr>
+#include <tuple>
+#include <string>
+
+#include "Sensor.h"
+#include "Date.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -30,11 +33,11 @@ class Parser {
 public:
     //----------------------------------------------------- Méthodes publiques
 
-    tuple<vector<Sensor>,vector<Attribute>> getToNext();
+    void getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribute> & resAttributes);
 
-    set<Measure> getMeasures(set<String> sensorIds, Date debut, Date fin);
+    set<Measure> getMeasures(const set<string> & sensorIds,Date debut, Date fin);
 
-    RequestView getRequestView(set<String> sensorIds,Date debut, Date fin);
+    RequestView getRequestView(const set<string> & sensorIds,Date debut, Date fin);
 
     //------------------------------------------------- Surcharge d'opérateurs
 
@@ -42,7 +45,7 @@ public:
 
     Parser();
 
-    Parser(vector<String> files)
+    Parser(const vector<string> & filesInit);
 
     virtual ~Parser();
 
@@ -53,12 +56,10 @@ protected:
     //----------------------------------------------------- Méthodes protégées
 
     //----------------------------------------------------- Attributs protégés
-    vector<String> files;
-
-    RequestView requestView;
+    vector<string> files;
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <Reader>
+//-------------------------------- Autres définitions dépendantes de <Parser>
 
 #endif

@@ -13,6 +13,8 @@ Copyright            :
 
 
 //------------------------------------------------------ Include personnel
+#include <cmath>
+
 #include "Point.h"
 
 //------------------------------------------------------------- Constantes
@@ -27,10 +29,11 @@ double Point::distance(Point p) {
     return d;
 }
 
+/*
 ostream & operator << (ostream & out, const Point & p) {
     out << "( " << p.longitude << "," << p.latitude " ) ";
     return out;
-}
+}*/
 
 
 
@@ -38,8 +41,8 @@ ostream & operator << (ostream & out, const Point & p) {
 //-------------------------------------------- Constructeurs - destructeur
 
 Point::Point(double latitude, double longitude) {
-    this.latitude = latitude;
-    this.longitude = longitude;
+    this->latitude = latitude;
+    this->longitude = longitude;
 #ifdef MAP
     cout << "Appel au constructeur de <Point>" << "\r\n";
 #endif
