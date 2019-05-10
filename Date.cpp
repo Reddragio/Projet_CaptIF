@@ -50,30 +50,53 @@ int Date::toSeconds()
 bool Date::operator<=(const Date & d2)
 {
     double diff = difftime(temps, d2.temps);
+    if(diff==0.0){
+        return msec <= d2.msec;
+    }
     return diff <= 0;
 }
 
 bool Date::operator<(const Date & d2)
 {
     double diff = difftime(temps, d2.temps);
+    if(diff==0.0){
+        return msec < d2.msec;
+    }
     return diff < 0;
 }
 
 bool Date::operator>=(const Date & d2)
 {
     double diff = difftime(temps, d2.temps);
+    if(diff==0.0){
+        return msec >= d2.msec;
+    }
     return diff >= 0;
 }
 
 bool Date::operator>(const Date & d2)
 {
     double diff = difftime(temps, d2.temps);
+    if(diff==0.0){
+        return msec > d2.msec;
+    }
     return diff > 0;
 }
 
 bool Date::operator==(const Date & d2)
 {
-    return temps == d2.temps;
+    return temps == d2.temps && msec == d2.msec;
+}
+
+time_t Date::operator-(const Date & d2){
+    //Calcul la différence entre 2 dates et le ramène arbitrairement à 0 si le résultat est négatif
+    double diff = difftime(temps, d2.temps);
+    if(diff >= 0){
+        return (time_t)diff;
+    }
+    else{
+        return (time_t)0;
+    }
 }
 
 //-------------------------------------------- Constructeurs - destructeur
@@ -84,6 +107,18 @@ Date::Date() {
 
 Date::Date(time_t tempsInit) {
     temps = tempsInit;
+}
+
+Date::Date(int year, int month,int day,int hour, int min, int sec,int msecInit){
+    tm date;
+    date.tm_year = year-1900;
+    date.tm_mon = month-1;
+    date.tm_mday = day;
+    date.tm_hour = hour;
+    date.tm_min = min;
+    date.tm_sec = sec;
+    temps = mktime(&date);
+    msec = msecInit;
 }
 
 //------------------------------------------------------------------ PRIVE
