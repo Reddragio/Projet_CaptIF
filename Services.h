@@ -13,6 +13,8 @@ using namespace std;
 #include "Point.h"
 #include "Date.h"
 #include "Sensor.h"
+#include "Parser.h"
+#include "RequestView.h"
 
 //------------------------------------------------------------- Constantes
 
