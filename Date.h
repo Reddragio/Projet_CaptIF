@@ -29,7 +29,7 @@ public:
     //
     Date();
 
-    Date(time_t tempsInit);
+    Date(time_t tempsInit,int msecInit);
 
     Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
 
@@ -54,7 +54,7 @@ public:
 
     bool operator==(const Date & d2);
 
-    time_t operator-(const Date & d2);
+    Date operator-(const Date & d2);
 
     int toMinutes();
 
