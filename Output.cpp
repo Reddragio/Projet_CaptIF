@@ -25,6 +25,7 @@ Copyright            :
 
 void Output::afficherMessageAccueil() {
     cout << "Bienvenue sur l'application Capt'IF" << endl;
+    //commentaire Sofiane
 }
 
 void Output::afficherMenu() {
