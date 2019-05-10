@@ -132,7 +132,7 @@ tuple<Date, Date> Input::rentrerDebutFin()
             cout << "Date début et date fin incohérente" << endl;
             conversionReussie = false;
         }else if (!conversionReussie) {
-            cout << "Rayon incorrecte. Réessayez." << endl;
+            cout << "Date incorrecte. Réessayez." << endl;
         }
     } while (!conversionReussie);
 
@@ -141,7 +141,32 @@ tuple<Date, Date> Input::rentrerDebutFin()
 
 Date Input::rentrerMoment()
 {
-    return Date();
+    Date moment;
+    int annee;
+    int mois;
+    int jour;
+    int heure;
+    int minute;
+    int seconde;
+    int milliseconde = 0;
+    bool conversionReussie = true;
+    do {
+        cout << "Veuillez rentrez le moment rechercher: (exemple: 2000 01 01 00 00 00)" << endl;
+        cin >> annee >> mois >> jour >> heure >> minute >> seconde;
+        try {
+            moment = Date(annee,mois,jour,heure,minute,seconde,milliseconde);
+        }
+        catch (const std::invalid_argument&) {
+            conversionReussie = false;
+        }
+        catch (const std::out_of_range&) {
+            conversionReussie = false;
+        }
+        if (!conversionReussie) {
+            cout << "Moment incorrecte. Réessayez." << endl;
+        }
+    } while (!conversionReussie);
+    return moment;
 }
 
 int Input::rentrerIdCapteur()
