@@ -88,14 +88,18 @@ bool Date::operator==(const Date & d2)
     return temps == d2.temps && msec == d2.msec;
 }
 
-time_t Date::operator-(const Date & d2){
+Date Date::operator-(const Date & d2){
     //Calcul la différence entre 2 dates et le ramène arbitrairement à 0 si le résultat est négatif
     double diff = difftime(temps, d2.temps);
+    int msecDiff = msec - d2.msec;
+    if(msecDiff < 0){
+        msecDiff=0;
+    }
     if(diff >= 0){
-        return (time_t)diff;
+        return Date((time_t)diff,msecDiff);
     }
     else{
-        return (time_t)0;
+        return Date((time_t)0,0);
     }
 }
 
@@ -105,8 +109,9 @@ Date::Date() {
     temps = time(nullptr);
 }
 
-Date::Date(time_t tempsInit) {
+Date::Date(time_t tempsInit,int msecInit) {
     temps = tempsInit;
+    msec = msecInit;
 }
 
 Date::Date(int year, int month,int day,int hour, int min, int sec,int msecInit){
