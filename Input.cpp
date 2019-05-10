@@ -23,7 +23,50 @@ Copyright            :
 
 Point Input::rentrerPoint()
 {
-    return Point();
+    string texte;
+    double latitude,longitude;
+    bool conversionReussie = true;
+
+    cout << "Latitude du point:" << endl;
+    do {
+        conversionReussie = true;
+        cin >> texte;
+        try {
+            latitude = stod(texte);
+        }
+        catch (const std::invalid_argument&) {
+            conversionReussie = false;
+        }
+        catch (const std::out_of_range&) {
+            conversionReussie = false;
+        }
+        if (!conversionReussie) {
+            cout << "Latitude incorrecte. Réessayez." << endl;
+        }
+    } while (!conversionReussie);
+
+
+    cout << "Longitude du point:" << endl;
+    do {
+        conversionReussie = true;
+        cin >> texte;
+        try {
+            longitude = stod(texte);
+        }
+        catch (const std::invalid_argument&) {
+            conversionReussie = false;
+        }
+        catch (const std::out_of_range&) {
+            conversionReussie = false;
+        }
+        if (!conversionReussie) {
+            cout << "Longitude incorrecte. Réessayez." << endl;
+        }
+    } while (!conversionReussie);
+
+
+
+    return Point(latitude,longitude);
 }
 
 double Input::rentrerRayon()
