@@ -29,6 +29,7 @@ void Output::afficherMessageAccueil() {
 
 void Output::afficherMenu() {
     cout << "Menu" << endl;
+    //COmmentaire Jacques
 }
 
 void Output::afficherCapteurs(const vector<Sensor> & sensors) {
