@@ -15,6 +15,7 @@ Copyright            :
 //------------------------------------------------------ Include personnel
 #include "Services.h"
 
+
 //------------------------------------------------------------- Constantes
 
 //----------------------------------------------------------------- PUBLIC
@@ -28,6 +29,11 @@ unordered_set<string> Services::getSensorsTerritoryIds(Point p, double rayon, Da
 
 vector<tuple<Attribute, int, double, int>> Services::qualiteAirTerritoirePeriode(Point p, double rayon, Date debut, Date fin)
 {
+    set<string> sensorsId = getSensorsTerritoryIds(p, rayon, debut, fin);
+    const vector<string>  filesInit= "";
+    Parser parser = new Parser(&filesInit);
+    RequestView request = parser.getRequestView(sensorsId,debut,fin);
+
     return vector<tuple<Attribute, int, double, int>>();
 }
 
