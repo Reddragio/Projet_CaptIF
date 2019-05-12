@@ -57,7 +57,9 @@ public:
 
     vector<Sensor> listerCapteurs(Point p, double rayon);
 
+    //-------------------------------------------- Constructeurs - Destructeur
 
+    Services();
 
     //------------------------------------------------------------------ PRIVE
 
@@ -65,6 +67,7 @@ protected:
     //----------------------------------------------------- Méthodes protégées
     vector<Sensor> sensors;
     vector<Attribute> attributes;
+    Parser parser;
     //----------------------------------------------------- Attributs protégés
 
 };

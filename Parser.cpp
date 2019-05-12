@@ -12,13 +12,14 @@ Copyright            :
 //-------------------------------------------------------- Include système
 #include <fstream>
 #include <regex>
+#include <iostream>
 
 //------------------------------------------------------ Include personnel
 #include "Parser.h"
 
 //------------------------------------------------------------- Constantes
-static const regex patternSensor(R"(\w+;(-?\d+\.\d+);(-?\d+\.\d+);\w*;)");
-static const regex patternAttribute(R"(\w+;\w+;\w*;)");
+static const regex patternSensor(R"([[:print:]]+;(-?\d+\.\d+);(-?\d+\.\d+);[[:print:]]*;)");
+static const regex patternAttribute(R"([[:print:]]+;[^[:print:]]{0,2}[[:print:]]+/[[:print:]]+;[[:print:]]*;)");
 
 //----------------------------------------------------------------- PUBLIC
 
@@ -45,6 +46,7 @@ void Parser::getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribut
         //Lecture de ses données
         while(file){
             getline(file,line);
+            //cout << line << endl;
             if(regex_match(line,patternSensor))
             {
                 debut = 0;
@@ -114,6 +116,13 @@ Parser::Parser(const vector<string> & filesInit) {
     #ifdef MAP
     cout << "Appel au constructeur de <Parser>" << "\r\n";
     #endif
+
+}
+
+Parser::Parser() {
+#ifdef MAP
+    cout << "Appel au constructeur de <Parser>" << "\r\n";
+#endif
 
 }
 
