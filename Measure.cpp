@@ -1,11 +1,11 @@
 /*************************************************************************
-CaptIF
+Measure
 -------------------
 Date                 : 05/05/2019
 Copyright            :
 *************************************************************************/
 
-//---------- Réalisation de la classe <CaptIF> (fichier CaptIF.cpp) ------------
+//---------- Réalisation de la classe <Measure> (fichier Measure.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
@@ -13,7 +13,9 @@ Copyright            :
 
 
 //------------------------------------------------------ Include personnel
-#include "CaptIF.h"
+#include <cmath>
+
+#include "Measure.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -21,14 +23,23 @@ Copyright            :
 
 //----------------------------------------------------- Méthodes publiques
 
-void CaptIF::run()
-{
-}
-
 //-------------------------------------------- Constructeurs - destructeur
 
-CaptIF::CaptIF() {}
+Measure::Measure() {
+#ifdef MAP
+    cout << "Appel au constructeur de <Measure>" << "\r\n";
+#endif
+
+}
+
+Measure::~Measure() {
+#ifdef MAP
+    cout << "Appel au destructeur de <Top10>" << "\r\n";
+#endif
+}
+
 
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées
+

@@ -34,16 +34,18 @@ void Output::afficherMenu() {
 }
 
 void Output::afficherCapteurs(const vector<Sensor> & sensors) {
-    for (vector<Sensor>::const_iterator i = sensors.cbegin(); i != sensors.cend; i++) {
-        cout << *i << endl;
+    for (vector<Sensor>::const_iterator i = sensors.cbegin(); i != sensors.cend(); i++) {
+        //cout << *i << endl;
+        //Pierre, fait un surcharge qui marche :)
     }
 }
 
-void Output::afficherResultatATMO((int methode, const vector<tuple<Attribute, int, double, int>> & resultat)) {
+void Output::afficherResultatATMO(int methode, const vector<tuple<Attribute, int, double, int>> & resultat) {
     cout << "--- Résultat ATMO ---" << endl;
-    for (vector<tuple<Attribute, int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend; i++)
+    for (vector<tuple<Attribute, int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        cout << "Type de gaz : " << *i.get(0) << ", ATMO : " << *i.get(1) << ", Concentration : " << *i.get(2) << ", Nombre de capteurs utilisés : " << *i.get(3) << endl;
+        //cout << "Type de gaz : " << get<0>(*i) << ", ATMO : " << get<1>(*i) << ", Concentration : " << get<2>(*i) << ", Nombre de capteurs utilisés : " << get<3>(*i) << endl;
+        //Faites ca une fois que vous aurez surchargé << pour les Attribute !!!
     }
 }
 
@@ -64,11 +66,11 @@ Output::Output() {
 
 }
 
-Output::~Output() {
+/*Output::~Output() {
 #ifdef MAP
     cout << "Appel au destructeur de <Top10>" << "\r\n";
 #endif
-}
+}*/
 
 
 //------------------------------------------------------------------ PRIVE

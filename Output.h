@@ -45,7 +45,7 @@ public:
 
     Output();
 
-    virtual ~Output();
+    //virtual ~Output();
 
 
     //------------------------------------------------------------------ PRIVE
@@ -54,7 +54,7 @@ protected:
     //----------------------------------------------------- Méthodes protégées
 
     //----------------------------------------------------- Attributs protégés
-    ostream outputStream;
+    //ostream outputStream;
 
 
 };

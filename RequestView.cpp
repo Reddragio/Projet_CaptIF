@@ -14,6 +14,7 @@ Copyright            :
 
 //------------------------------------------------------ Include personnel
 #include "RequestView.h"
+#include "Measure.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -25,14 +26,15 @@ bool RequestView::goToNext()
 {
     /*methode pour aller a la ligne prochaine et obtenir les prochaines attributs
     */
-    if(Measure.dateMeasure<=fin)
+    /*if(Measure.dateMeasure<=fin)
     {
         indexFile++;
         return true;
     }else
     {
         return false;
-    }
+    }*/
+    return true;
 
 }
 
@@ -52,10 +54,10 @@ RequestView::RequestView(vector<string> files, Date debut, Date fin) {
     /*methode pour obtenir les attributs dans la ligne
         a remplir
     */
-    while (std::getline(actualFile,str) && Measure.dateMeasure < debut)
+    /*while (std::getline(actualFile,str) && Measure.dateMeasure < debut)
     {
         indexFile ++;
-    }
+    }*/
 #ifdef MAP
     cout << "Appel au constructeur de <RequestView>" << "\r\n";
 #endif
@@ -71,7 +73,7 @@ RequestView::RequestView() {
 }
 
 RequestView::~RequestView() {
-    actualFile.close();
+    //actualFile.close();
 
 #ifdef MAP
     cout << "Appel au destructeur de <Top10>" << "\r\n";

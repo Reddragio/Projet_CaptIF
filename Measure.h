@@ -11,6 +11,7 @@ Copyright            :
 
 //--------------------------------------------------- Interfaces utilisées
 #include "Attribute.h"
+#include "Date.h"
 
 //------------------------------------------------------------- Constantes
 

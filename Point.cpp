@@ -49,6 +49,15 @@ Point::Point(double latitude, double longitude) {
 
 }
 
+Point::Point() {
+    this->latitude = 0.0;
+    this->longitude = 0.0;
+#ifdef MAP
+    cout << "Appel au constructeur de <Point>" << "\r\n";
+#endif
+
+}
+
 Point::~Point() {
 #ifdef MAP
     cout << "Appel au destructeur de <Top10>" << "\r\n";

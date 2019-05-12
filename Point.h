@@ -33,6 +33,8 @@ public:
 
     Point(double latitude, double longitude);
 
+    Point();
+
     virtual ~Point();
 
 

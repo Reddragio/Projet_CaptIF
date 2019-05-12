@@ -28,6 +28,11 @@ Attribute::Attribute(const string &id, const string &unit, const string &descrip
 
 }
 
+Attribute::Attribute()
+{
+
+}
+
 Attribute::~Attribute() {
 #ifdef MAP
     cout << "Appel au destructeur de <Top10>" << "\r\n";

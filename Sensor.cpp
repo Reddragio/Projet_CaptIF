@@ -38,7 +38,7 @@ Sensor::Sensor(string id, Point location, string description) {
 
 }
 
-Point::~Point() {
+Sensor::~Sensor() {
 #ifdef MAP
     cout << "Appel au destructeur de <Top10>" << "\r\n";
 #endif

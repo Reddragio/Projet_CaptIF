@@ -44,11 +44,19 @@ public:
 
     int choisirMethode();
 
+    //------------------------------------------------- Surcharge d'opérateurs
+
+    //-------------------------------------------- Constructeurs - Destructeur
+
+    Input();
+
+    virtual ~Input();
+
     //------------------------------------------------------------------ PRIVE
 
 protected:
     //----------------------------------------------------- Méthodes protégées
-    istream inputStream;
+    //istream inputStream;
     //----------------------------------------------------- Attributs protégés
 
 };
