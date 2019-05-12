@@ -78,9 +78,10 @@ vector<Sensor> Services::listerCapteurs(Point p, double rayon)
 //-------------------------------------------- Constructeurs - destructeur
 
 Services::Services(){
-    vector<string> fichiers;
-    fichiers.push_back("Sensors.csv");
-    fichiers.push_back("AttributeType.csv");
+
+}
+
+Services::Services(vector<string> fichiers){
     parser = Parser(fichiers);
     //vector<Sensor> sensors;
     //vector<Attribute> attributes;

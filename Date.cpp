@@ -107,6 +107,7 @@ Date Date::operator-(const Date & d2){
 
 Date::Date() {
     temps = time(nullptr);
+    msec = 0;
 }
 
 Date::Date(time_t tempsInit,int msecInit) {

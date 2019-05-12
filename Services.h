@@ -61,6 +61,8 @@ public:
 
     Services();
 
+    Services(vector<string> fichiers);
+
     //------------------------------------------------------------------ PRIVE
 
 protected:

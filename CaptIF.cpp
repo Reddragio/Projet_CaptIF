@@ -30,6 +30,11 @@ void CaptIF::run()
 
 CaptIF::CaptIF() {}
 
+CaptIF::CaptIF(vector<string> fichiers):services(fichiers)
+{
+
+}
+
 //------------------------------------------------------------------ PRIVE
 
 //----------------------------------------------------- Méthodes protégées

@@ -31,6 +31,8 @@ public:
 
     Measure();
 
+    Measure(const string &sensorId, const string &attributeId, const Date &dateMeasure, double value);
+
     virtual ~Measure();
 
 
@@ -40,7 +42,8 @@ protected:
     //----------------------------------------------------- Méthodes protégées
 
     //----------------------------------------------------- Attributs protégés
-    Attribute attribute;
+    string sensorId;
+    string attributeId;
     Date dateMeasure;
     double value;
 

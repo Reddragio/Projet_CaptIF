@@ -32,6 +32,11 @@ Measure::Measure() {
 
 }
 
+Measure::Measure(const string &sensorId, const string &attributeId, const Date &dateMeasure, double value) : sensorId(sensorId), attributeId(attributeId), dateMeasure(dateMeasure), value(value)
+{
+
+}
+
 Measure::~Measure() {
 #ifdef MAP
     cout << "Appel au destructeur de <Top10>" << "\r\n";

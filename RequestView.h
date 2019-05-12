@@ -42,7 +42,7 @@ public:
 
     //-------------------------------------------- Constructeurs - destructeur
 
-    RequestView(vector<string> files, Date debut, Date fin);
+    RequestView(vector<string> filesInit, set<string> sensorsIdsInit, Date debutInit, Date finInit);
 
     RequestView();
 
@@ -55,7 +55,7 @@ protected:
 
     //----------------------------------------------------- Attributs protégés
     vector<string> files;
-    ifstream * actualFile;
+    ifstream actualFile;
     int indexFile;
 
     Measure actualMeasure;

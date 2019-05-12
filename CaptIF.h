@@ -35,6 +35,8 @@ public:
 
     CaptIF();
 
+    CaptIF(vector<string> fichiers);
+
     //------------------------------------------------------------------ PRIVE
 
 protected:
