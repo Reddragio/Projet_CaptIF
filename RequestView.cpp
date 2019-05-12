@@ -62,6 +62,14 @@ RequestView::RequestView(vector<string> files, Date debut, Date fin) {
 
 }
 
+RequestView::RequestView() {
+
+#ifdef MAP
+    cout << "Appel au constructeur de <RequestView>" << "\r\n";
+#endif
+
+}
+
 RequestView::~RequestView() {
     actualFile.close();
 

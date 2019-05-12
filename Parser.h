@@ -14,9 +14,10 @@ Copyright            :
 #include<vector>
 
 //--------------------------------------------------- Interfaces utilisées
-#include <vecotr>
+#include <vector>
 #include <tuple>
 #include <string>
+using namespace std;
 
 #include "Sensor.h"
 #include "Date.h"
@@ -33,7 +34,7 @@ class Parser {
 public:
     //----------------------------------------------------- Méthodes publiques
 
-    void getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribute> & resAttributes);
+    void getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribute> & resAttributes) const;
 
     set<Measure> getMeasures(const set<string> & sensorIds,Date debut, Date fin);
 

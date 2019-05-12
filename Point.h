@@ -31,7 +31,7 @@ public:
 
     //-------------------------------------------- Constructeurs - destructeur
 
-    Point();
+    Point(double latitude, double longitude);
 
     virtual ~Point();
 

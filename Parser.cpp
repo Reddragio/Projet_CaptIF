@@ -10,25 +10,81 @@ Copyright            :
 //---------------------------------------------------------------- INCLUDE
 
 //-------------------------------------------------------- Include système
-
+#include <fstream>
+#include <regex>
 
 //------------------------------------------------------ Include personnel
 #include "Parser.h"
 
 //------------------------------------------------------------- Constantes
+static const regex patternSensor(R"(\w+;(-?\d+\.\d+);(-?\d+\.\d+);\w*;)");
+static const regex patternAttribute(R"(\w+;\w+;\w*;)");
 
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
 
-void Parser::getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribute> & resAttributes)
+void Parser::getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribute> & resAttributes) const
 {
-
+    string line;
+    int debut=0;
+    int fin=0;
+    //variables liées au Sensor:
+    string idSensor;
+    double latitude;
+    double longitude;
+    string descSensor;
+    //variables liées à l'Attribute:
+    string idAttribute;
+    string unit;
+    string descAttribute;
+    for(vector<string>::const_iterator nameFile = files.cbegin();nameFile != files.cend();++nameFile)
+    {
+        //Ouverture du fichier
+        ifstream file(*nameFile);
+        //Lecture de ses données
+        while(file){
+            getline(file,line);
+            if(regex_match(line,patternSensor))
+            {
+                debut = 0;
+                fin = line.find(';',debut);
+                idSensor = line.substr(debut,fin-debut);
+                debut = fin+1;
+                fin = line.find(';',debut);
+                latitude = stod(line.substr(debut,fin-debut));
+                debut = fin+1;
+                fin = line.find(';',debut);
+                longitude = stod(line.substr(debut,fin-debut));
+                debut = fin+1;
+                fin = line.find(';',debut);
+                descSensor = line.substr(debut,fin-debut);
+                //Ajout du nouveau Sensor:
+                resSensors.push_back(Sensor(idSensor,Point(latitude,longitude),descSensor));
+            }
+            else if(regex_match(line,patternAttribute))
+            {
+                debut = 0;
+                fin = line.find(';',debut);
+                idAttribute = line.substr(debut,fin-debut);
+                debut = fin+1;
+                fin = line.find(';',debut);
+                unit = line.substr(debut,fin-debut);
+                debut = fin+1;
+                fin = line.find(';',debut);
+                descAttribute = line.substr(debut,fin-debut);
+                //Ajout du nouvel Attribute:
+                resAttributes.push_back(Attribute(idAttribute,unit,descAttribute));
+            }
+        }
+        //fermeture du fichier
+        file.close();
+    }
 }
 
 set<Measure> Parser::getMeasures(const set<string> & sensorIds,Date debut, Date fin)
 {
-    boolean next = true;
+    /*boolean next = true;
     set<Measure> measures;
     requestView.debut = debut;
     requestView.fin = fin;
@@ -40,12 +96,13 @@ set<Measure> Parser::getMeasures(const set<string> & sensorIds,Date debut, Date 
             next = goToNext();
         }
     }
-    return measures;
+    return measures;*/
+    return set<Measure>();
 }
 
 RequestView Parser::getRequestView(const set<string> & sensorIds,Date debut, Date fin)
 {
-
+    return RequestView();
 }
 
 

@@ -10,8 +10,9 @@ Copyright            :
 #define PROJET_CAPTIF_ATTRIBUTE_H
 
 //--------------------------------------------------- Interfaces utilisées
-
+#include <string>
 #include "Attribute.h"
+using namespace std;
 
 //------------------------------------------------------------- Constantes
 
@@ -31,6 +32,8 @@ public:
     //-------------------------------------------- Constructeurs - destructeur
 
     Attribute();
+
+    Attribute(const string &id, const string &unit, const string &description);
 
     virtual ~Attribute();
 

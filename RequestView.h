@@ -44,6 +44,8 @@ public:
 
     RequestView(vector<string> files, Date debut, Date fin);
 
+    RequestView();
+
     virtual ~RequestView();
 
     //------------------------------------------------------------------ PRIVE
@@ -53,7 +55,7 @@ protected:
 
     //----------------------------------------------------- Attributs protégés
     vector<string> files;
-    ifstream actualFile;
+    ifstream * actualFile;
     int indexFile;
 
     Measure actualMeasure;
