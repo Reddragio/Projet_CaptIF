@@ -21,18 +21,6 @@ Copyright            :
 
 //----------------------------------------------------- Méthodes publiques
 
-/*struct tm {
-    int tm_sec;         seconds,  range 0 to 59
-    int tm_min;          minutes, range 0 to 59
-    int tm_hour;         hours, range 0 to 23
-    int tm_mday;         day of the month, range 1 to 31
-    int tm_mon;          month, range 0 to 11
-    int tm_year;         The number of years since 1900
-    int tm_wday;        day of the week, range 0 to 6
-    int tm_yday;         day in the year, range 0 to 365
-    int tm_isdst;        daylight saving time
-};*/
-
 int Date::toMinutes()
 {
     //Nombre de minutes écoulées depuis 1970
@@ -101,6 +89,45 @@ Date Date::operator-(const Date & d2){
     else{
         return Date((time_t)0,0);
     }
+}
+
+//------------------------------- Surcharge des opérateurs d'Entrée/Sortie
+
+/*struct tm {
+    int tm_sec;         seconds,  range 0 to 59
+    int tm_min;          minutes, range 0 to 59
+    int tm_hour;         hours, range 0 to 23
+    int tm_mday;         day of the month, range 1 to 31
+    int tm_mon;          month, range 0 to 11
+    int tm_year;         The number of years since 1900
+    int tm_wday;        day of the week, range 0 to 6
+    int tm_yday;         day in the year, range 0 to 365
+    int tm_isdst;        daylight saving time
+};*/
+
+ostream & operator << (ostream & out, const Date & d){
+    tm * date = gmtime(&d.temps);
+    out << (1900+date->tm_year) << "-";
+    ((date->tm_mon+1) > 9) ? (out << (date->tm_mon+1)) : (out << "0" << (date->tm_mon+1));
+    out << "-";
+    (date->tm_mday > 9) ? (out << date->tm_mday) : (out << "0" << date->tm_mday);
+    out << "T";
+    (date->tm_hour > 9) ? (out << date->tm_hour) : (out << "0" << date->tm_hour);
+    out << ":";
+    (date->tm_min > 9) ? (out << date->tm_min) : (out << "0" << date->tm_min);
+    out << ":";
+    (date->tm_sec > 9) ? (out << date->tm_sec) : (out << "0" << date->tm_sec);
+    out<< ".";
+    if(d.msec <= 9){
+        out << "00" << d.msec;
+    }
+    else if(d.msec <= 99){
+        out << "0" << d.msec;
+    }
+    else{
+        out << d.msec;
+    }
+    return out;
 }
 
 //-------------------------------------------- Constructeurs - destructeur

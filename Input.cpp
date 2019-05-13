@@ -114,29 +114,32 @@ tuple<Date, Date> Input::rentrerDebutFin()
     bool conversionReussie = true;
 
     do {
-        cout << "Veuillez rentrez la date début de la recherche: (exemple: 2000 01 01 00 00 00)" << endl;
+        cout << "Veuillez rentrez la date début de la recherche: (format: YYYY MM DD HH MM SS)" << endl;
         cin >> annee1 >> mois1 >> jour1 >> heure1 >> minute1 >> seconde1;
-        cout << "Veuillez rentrez la date fin de la recherche: (exemple: 2000 01 01 00 00 00)" << endl;
+        cout << "Veuillez rentrez la date fin de la recherche: (format: YYYY MM DD HH MM SS)" << endl;
         cin >> annee2>> mois2 >> jour2 >> heure2 >> minute2 >> seconde2;
         try {
             debut = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
             fin = Date(annee2,mois2,jour2,heure2,minute2,seconde2,milliseconde);
+            conversionReussie = true;
         }
-        catch (const std::invalid_argument&) {
+        catch (...) {
             conversionReussie = false;
         }
-        catch (const std::out_of_range&) {
-            conversionReussie = false;
+
+        if(conversionReussie){
+            //Si on a réussi à parser les dates
+            if(debut>fin){
+                cout << "Date début et date de fin incohérentes" << endl;
+                conversionReussie = false;
+            }
         }
-        if(debut>fin){
-            cout << "Date début et date fin incohérente" << endl;
-            conversionReussie = false;
-        }else if (!conversionReussie) {
+        else{
             cout << "Date incorrecte. Réessayez." << endl;
         }
     } while (!conversionReussie);
 
-    return tuple<Date, Date>();
+    return make_tuple(debut,fin);
 }
 
 Date Input::rentrerMoment()
@@ -151,18 +154,16 @@ Date Input::rentrerMoment()
     int milliseconde = 0;
     bool conversionReussie = true;
     do {
-        cout << "Veuillez rentrez le moment rechercher: (exemple: 2000 01 01 00 00 00)" << endl;
+        cout << "Veuillez rentrez le moment rechercher: (format: YYYY MM DD HH MM SS)" << endl;
         cin >> annee >> mois >> jour >> heure >> minute >> seconde;
         try {
             moment = Date(annee,mois,jour,heure,minute,seconde,milliseconde);
+            conversionReussie = true;
         }
-        catch (const std::invalid_argument&) {
+        catch (...) {
             conversionReussie = false;
         }
-        catch (const std::out_of_range&) {
-            conversionReussie = false;
-        }
-        if (!conversionReussie) {
+        if(!conversionReussie){
             cout << "Moment incorrecte. Réessayez." << endl;
         }
     } while (!conversionReussie);

@@ -23,7 +23,8 @@ Copyright            :
 
 void CaptIF::run()
 {
-
+    Date testDate = input.rentrerMoment();
+    cout << testDate << endl;
 }
 
 //-------------------------------------------- Constructeurs - destructeur

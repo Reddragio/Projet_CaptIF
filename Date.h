@@ -4,6 +4,7 @@
 
 //--------------------------------------------------- Interfaces utilisées
 #include <ctime>
+#include <iostream>
 using namespace std;
 
 //------------------------------------------------------------- Constantes
@@ -33,6 +34,10 @@ public:
 
     Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
 
+    int toMinutes();
+
+    int toSeconds();
+
 /*struct tm {
     int tm_sec;         seconds,  range 0 to 59
     int tm_min;          minutes, range 0 to 59
@@ -44,6 +49,9 @@ public:
     int tm_yday;         day in the year, range 0 to 365
     int tm_isdst;        daylight saving time
 };*/
+
+//------------------------------------------------- Surcharge d'opérateurs
+
     bool operator<=(const Date & d2);
 
     bool operator<(const Date & d2);
@@ -56,10 +64,7 @@ public:
 
     Date operator-(const Date & d2);
 
-    int toMinutes();
-
-    int toSeconds();
-
+    friend ostream & operator << (ostream & out, const Date & p);
 
     //------------------------------------------------------------------ PRIVE
 
