@@ -35,8 +35,7 @@ void Output::afficherMenu() {
 
 void Output::afficherCapteurs(const vector<Sensor> & sensors) {
     for (vector<Sensor>::const_iterator i = sensors.cbegin(); i != sensors.cend(); i++) {
-        //cout << *i << endl;
-        //Pierre, fait un surcharge qui marche :)
+        cout << *i << endl;
     }
 }
 
@@ -44,8 +43,7 @@ void Output::afficherResultatATMO(int methode, const vector<tuple<Attribute, int
     cout << "--- Résultat ATMO ---" << endl;
     for (vector<tuple<Attribute, int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        //cout << "Type de gaz : " << get<0>(*i) << ", ATMO : " << get<1>(*i) << ", Concentration : " << get<2>(*i) << ", Nombre de capteurs utilisés : " << get<3>(*i) << endl;
-        //Faites ca une fois que vous aurez surchargé << pour les Attribute !!!
+        cout << "Type de gaz : " << get<0>(*i) << ", ATMO : " << get<1>(*i) << ", Concentration : " << get<2>(*i) << (get<0>(*i)).getUnit() <<", Nombre de capteurs utilisés : " << get<3>(*i) << endl;
     }
 }
 
@@ -53,9 +51,6 @@ void afficherEvolution(const tuple<double, double, double, Date> & resultat) {
     cout << "--- Résultat d'évolution ---" << endl;
 
 }
-
-
-
 
 //-------------------------------------------- Constructeurs - destructeur
 

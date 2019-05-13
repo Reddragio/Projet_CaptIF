@@ -21,6 +21,17 @@ Copyright            :
 
 //----------------------------------------------------- Méthodes publiques
 
+string Attribute::getUnit() const{
+    return unit;
+}
+
+//------------------------------- Surcharge des opérateurs d'Entrée/Sortie
+
+ostream & operator << (ostream & out,const Attribute & att){
+    out << att.id;
+    return out;
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 
 Attribute::Attribute(const string &id, const string &unit, const string &description) : id(id), unit(unit),description(description)

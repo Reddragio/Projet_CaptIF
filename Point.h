@@ -27,7 +27,8 @@ public:
     double distance(Point p);
 
     //------------------------------------------------- Surcharge d'opérateurs
-    //ostream & operator << (ostream & out, const Point & p);
+
+    friend ostream & operator << (ostream & out, const Point & p);
 
     //-------------------------------------------- Constructeurs - destructeur
 

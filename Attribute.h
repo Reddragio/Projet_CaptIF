@@ -25,7 +25,9 @@ class Attribute {
 
 public:
     //----------------------------------------------------- Méthodes publiques
+    friend ostream & operator << (ostream & out,const Attribute & att);
 
+    string getUnit() const;
 
     //------------------------------------------------- Surcharge d'opérateurs
 

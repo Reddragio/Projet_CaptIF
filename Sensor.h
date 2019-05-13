@@ -29,7 +29,8 @@ public:
     //----------------------------------------------------- Méthodes publiques
 
     //------------------------------------------------- Surcharge d'opérateurs
-    //ostream & operator << (ostream & out, const Sensor & sensor);
+    friend ostream & operator << (ostream & out, const Sensor & sensor);
+
     //-------------------------------------------- Constructeurs - destructeur
 
     Sensor(string id, Point location, string description);

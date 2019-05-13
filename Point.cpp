@@ -29,14 +29,12 @@ double Point::distance(Point p) {
     return d;
 }
 
-/*
+//------------------------------- Surcharge des opérateurs d'Entrée/Sortie
+
 ostream & operator << (ostream & out, const Point & p) {
-    out << "( " << p.longitude << "," << p.latitude " ) ";
+    out << "( " << p.longitude << "," << p.latitude <<" ) ";
     return out;
-}*/
-
-
-
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 

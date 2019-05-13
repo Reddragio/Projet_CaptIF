@@ -45,7 +45,9 @@ bool RequestView::goToNext()
     while(indexFile < files.size()){
         while(actualFile){
             getline(actualFile,line);
-            if(regex_match(line,patternMeasure)){
+            if(line.length() >= 17 && line[16] == ':'){
+                //regex_match(line,patternMeasure)
+                //Les regex sont plus elegants mais bien plus couteux malheuresement :/
                 //On parse la mesure:
                 begin = 0;
                 end = line.find('-',begin);

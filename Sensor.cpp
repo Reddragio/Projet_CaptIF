@@ -20,10 +20,13 @@ Copyright            :
 //----------------------------------------------------------------- PUBLIC
 
 //----------------------------------------------------- Méthodes publiques
-/*ostream & operator << (ostream & out, const Sensor & sensor) {
+
+//------------------------------- Surcharge des opérateurs d'Entrée/Sortie
+
+ostream & operator << (ostream & out, const Sensor & sensor) {
     out << "ID : " << sensor.id << ", Desc : " << sensor.description << ", Status : " << sensor.status << ", Location : " << sensor.location;
     return out;
-}*/
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 

@@ -47,36 +47,39 @@ void Parser::getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribut
         while(file){
             getline(file,line);
             //cout << line << endl;
-            if(regex_match(line,patternSensor))
-            {
-                debut = 0;
-                fin = line.find(';',debut);
-                idSensor = line.substr(debut,fin-debut);
-                debut = fin+1;
-                fin = line.find(';',debut);
-                latitude = stod(line.substr(debut,fin-debut));
-                debut = fin+1;
-                fin = line.find(';',debut);
-                longitude = stod(line.substr(debut,fin-debut));
-                debut = fin+1;
-                fin = line.find(';',debut);
-                descSensor = line.substr(debut,fin-debut);
-                //Ajout du nouveau Sensor:
-                resSensors.push_back(Sensor(idSensor,Point(latitude,longitude),descSensor));
-            }
-            else if(regex_match(line,patternAttribute))
-            {
-                debut = 0;
-                fin = line.find(';',debut);
-                idAttribute = line.substr(debut,fin-debut);
-                debut = fin+1;
-                fin = line.find(';',debut);
-                unit = line.substr(debut,fin-debut);
-                debut = fin+1;
-                fin = line.find(';',debut);
-                descAttribute = line.substr(debut,fin-debut);
-                //Ajout du nouvel Attribute:
-                resAttributes.push_back(Attribute(idAttribute,unit,descAttribute));
+            if(!(line.length() >= 17 && line[16] == ':')){
+                //Si ce n'est pas une ligne qui contient une mesure
+                if(regex_match(line,patternSensor))
+                {
+                    debut = 0;
+                    fin = line.find(';',debut);
+                    idSensor = line.substr(debut,fin-debut);
+                    debut = fin+1;
+                    fin = line.find(';',debut);
+                    latitude = stod(line.substr(debut,fin-debut));
+                    debut = fin+1;
+                    fin = line.find(';',debut);
+                    longitude = stod(line.substr(debut,fin-debut));
+                    debut = fin+1;
+                    fin = line.find(';',debut);
+                    descSensor = line.substr(debut,fin-debut);
+                    //Ajout du nouveau Sensor:
+                    resSensors.push_back(Sensor(idSensor,Point(latitude,longitude),descSensor));
+                }
+                else if(regex_match(line,patternAttribute))
+                {
+                    debut = 0;
+                    fin = line.find(';',debut);
+                    idAttribute = line.substr(debut,fin-debut);
+                    debut = fin+1;
+                    fin = line.find(';',debut);
+                    unit = line.substr(debut,fin-debut);
+                    debut = fin+1;
+                    fin = line.find(';',debut);
+                    descAttribute = line.substr(debut,fin-debut);
+                    //Ajout du nouvel Attribute:
+                    resAttributes.push_back(Attribute(idAttribute,unit,descAttribute));
+                }
             }
         }
         //fermeture du fichier
