@@ -96,7 +96,7 @@ double Input::rentrerRayon()
     return res;
 }
 
-void Input::parseDate(string texte,int & annee,int & mois,int & jour,int & heure,int & minute,int & seconde){
+void Input::parseDate(const string & texte,int & annee,int & mois,int & jour,int & heure,int & minute,int & seconde){
     int begin=0;
     int end=0;
     begin = 0;

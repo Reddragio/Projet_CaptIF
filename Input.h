@@ -57,7 +57,7 @@ public:
 protected:
     //----------------------------------------------------- Méthodes protégées
 
-    void parseDate(string texte,int & annee,int & mois,int & jour,int & heure,int & minute,int & seconde);
+    void parseDate(const string & texte,int & annee,int & mois,int & jour,int & heure,int & minute,int & seconde);
 
     //----------------------------------------------------- Attributs protégés
 
