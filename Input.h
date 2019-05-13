@@ -56,8 +56,12 @@ public:
 
 protected:
     //----------------------------------------------------- Méthodes protégées
-    //istream inputStream;
+
+    void parseDate(string texte,int & annee,int & mois,int & jour,int & heure,int & minute,int & seconde);
+
     //----------------------------------------------------- Attributs protégés
+
+    //istream inputStream;
 
 };
 

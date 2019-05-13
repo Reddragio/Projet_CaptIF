@@ -14,8 +14,10 @@ Copyright            :
 
 //------------------------------------------------------ Include personnel
 #include "Input.h"
+#include <regex>
 
 //------------------------------------------------------------- Constantes
+static const regex patternDate(R"(\d{4}/\d{2}/\d{2}-\d{2}:\d{2}:\d{2})");
 
 //----------------------------------------------------------------- PUBLIC
 
@@ -94,8 +96,32 @@ double Input::rentrerRayon()
     return res;
 }
 
+void Input::parseDate(string texte,int & annee,int & mois,int & jour,int & heure,int & minute,int & seconde){
+    int begin=0;
+    int end=0;
+    begin = 0;
+    end = texte.find('/',begin);
+    annee = stoi(texte.substr(begin,end-begin));
+    begin = end+1;
+    end = texte.find('/',begin);
+    mois = stoi(texte.substr(begin,end-begin));
+    begin = end+1;
+    end = texte.find('-',begin);
+    jour = stoi(texte.substr(begin,end-begin));
+    begin = end+1;
+    end = texte.find(':',begin);
+    heure = stoi(texte.substr(begin,end-begin));
+    begin = end+1;
+    end = texte.find(':',begin);
+    minute = stoi(texte.substr(begin,end-begin));
+    begin = end+1;
+    end = 19;
+    seconde = stoi(texte.substr(begin,end-begin));
+}
+
 tuple<Date, Date> Input::rentrerDebutFin()
 {
+    string texte;
     Date debut;
     Date fin;
     int annee1;
@@ -104,35 +130,29 @@ tuple<Date, Date> Input::rentrerDebutFin()
     int heure1;
     int minute1;
     int seconde1;
-    int annee2;
-    int mois2;
-    int jour2;
-    int heure2;
-    int minute2;
-    int seconde2;
     int milliseconde = 0;
-    bool conversionReussie = true;
 
+    bool conversionReussie = false;
     do {
-        cout << "Veuillez rentrez la date début de la recherche: (format: YYYY MM DD HH MM SS)" << endl;
-        cin >> annee1 >> mois1 >> jour1 >> heure1 >> minute1 >> seconde1;
-        cout << "Veuillez rentrez la date fin de la recherche: (format: YYYY MM DD HH MM SS)" << endl;
-        cin >> annee2>> mois2 >> jour2 >> heure2 >> minute2 >> seconde2;
-        try {
+        cout << "Veuillez rentrez la date début de la recherche: (format: YYYY/MM/DD-HH:MM:SS)" << endl;
+        cin >> texte;
+        if(regex_match(texte,patternDate)){
+            parseDate(texte,annee1,mois1,jour1,heure1,minute1,seconde1);
             debut = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
-            fin = Date(annee2,mois2,jour2,heure2,minute2,seconde2,milliseconde);
             conversionReussie = true;
         }
-        catch (...) {
-            conversionReussie = false;
+        else{
+            cout << "Date incorrecte. Réessayez." << endl;
         }
-
-        if(conversionReussie){
-            //Si on a réussi à parser les dates
-            if(debut>fin){
-                cout << "Date début et date de fin incohérentes" << endl;
-                conversionReussie = false;
-            }
+    } while (!conversionReussie);
+    conversionReussie = false;
+    do {
+        cout << "Veuillez rentrez la date fin de la recherche: (format: YYYY/MM/DD-HH:MM:SS)" << endl;
+        cin >> texte;
+        if(regex_match(texte,patternDate)){
+            parseDate(texte,annee1,mois1,jour1,heure1,minute1,seconde1);
+            fin = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
+            conversionReussie = true;
         }
         else{
             cout << "Date incorrecte. Réessayez." << endl;
@@ -144,6 +164,7 @@ tuple<Date, Date> Input::rentrerDebutFin()
 
 Date Input::rentrerMoment()
 {
+    string texte;
     Date moment;
     int annee;
     int mois;
@@ -152,18 +173,16 @@ Date Input::rentrerMoment()
     int minute;
     int seconde;
     int milliseconde = 0;
-    bool conversionReussie = true;
+    bool conversionReussie = false;
     do {
-        cout << "Veuillez rentrez le moment rechercher: (format: YYYY MM DD HH MM SS)" << endl;
-        cin >> annee >> mois >> jour >> heure >> minute >> seconde;
-        try {
+        cout << "Veuillez rentrez le moment rechercher: (format: YYYY/MM/DD-HH:MM:SS)" << endl;
+        cin >> texte;
+        if(regex_match(texte,patternDate)){
+            parseDate(texte,annee,mois,jour,heure,minute,seconde);
             moment = Date(annee,mois,jour,heure,minute,seconde,milliseconde);
             conversionReussie = true;
         }
-        catch (...) {
-            conversionReussie = false;
-        }
-        if(!conversionReussie){
+        else{
             cout << "Moment incorrecte. Réessayez." << endl;
         }
     } while (!conversionReussie);
