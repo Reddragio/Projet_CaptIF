@@ -43,6 +43,10 @@ bool RequestView::goToNext()
     double valeur;
 
     while(indexFile < files.size()){
+        /*if(first){
+            actualFile = ifstream(files[indexFile]);
+            first=false;
+        }*/
         while(actualFile){
             getline(actualFile,line);
             if(line.length() >= 17 && line[16] == ':'){
@@ -109,14 +113,15 @@ Measure RequestView::getMeasure()
 
 //-------------------------------------------- Constructeurs - destructeur
 
-RequestView::RequestView(vector<string> filesInit, set<string> sensorsIdsInit, Date debutInit, Date finInit) {
+RequestView::RequestView(vector<string> filesInit, unordered_set<string> sensorsIdsInit, Date debutInit, Date finInit) {
     files = filesInit;
     sensorsIds = sensorsIdsInit;
     debut = debutInit;
     fin = finInit;
+    first = true;
 
+    indexFile = 0;
     if(filesInit.size() > 0){
-        indexFile = 0;
         actualFile = ifstream(filesInit[indexFile]);
     }
 

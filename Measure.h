@@ -25,6 +25,10 @@ class Measure {
 public:
     //----------------------------------------------------- Méthodes publiques
 
+    string getAttributeId() const;
+
+    double getValue() const;
+
     //------------------------------------------------- Surcharge d'opérateurs
 
     //-------------------------------------------- Constructeurs - destructeur

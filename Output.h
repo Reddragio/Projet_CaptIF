@@ -12,6 +12,8 @@ Copyright            :
 //--------------------------------------------------- Interfaces utilisées
 #include <tuple>
 #include <vector>
+#include <map>
+#include <unordered_map>
 using namespace std;
 
 #include "Date.h"
@@ -33,7 +35,7 @@ public:
     void afficherMenu();
     void afficherCapteurs(const vector<Sensor> & sensors);
 
-    void afficherResultatATMO(int methode, const vector<tuple<Attribute, int, double, int>> & resultat);
+    void afficherResultatATMO(int methode, const map<string,tuple<int, double, int>> & resultat);
     void afficherEvolution(const tuple<double, double, double, Date> & resultat);
 
     void afficherCapteursEtBugs(const vector<tuple<Sensor, int>> & resultat);
@@ -42,6 +44,8 @@ public:
     //------------------------------------------------- Surcharge d'opérateurs
 
     //-------------------------------------------- Constructeurs - Destructeur
+
+    Output(const unordered_map<string, Sensor> &sensors, const unordered_map<string, Attribute> &attributes);
 
     Output();
 
@@ -54,7 +58,8 @@ protected:
     //----------------------------------------------------- Méthodes protégées
 
     //----------------------------------------------------- Attributs protégés
-    //ostream outputStream;
+    unordered_map<string,Sensor> sensors;
+    unordered_map<string,Attribute> attributes;
 
 
 };

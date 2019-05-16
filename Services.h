@@ -6,6 +6,7 @@
 #include <vector>
 #include <unordered_set>
 #include <unordered_map>
+#include <map>
 #include <string>
 using namespace std;
 
@@ -37,9 +38,9 @@ public:
     //
     // Contrat :
     //
-    unordered_set<string> getSensorsTerritoryIds(Point p, double rayon, Date debut, Date fin);
+    unordered_set<string> getSensorsTerritoryIds(Point p, double rayon) const;
 
-    vector<tuple<Attribute, int, double, int>> qualiteAirTerritoirePeriode(Point p, double rayon, Date debut, Date fin);
+    map<string,tuple<int, double, int>> qualiteAirTerritoirePeriode(Point p, double rayon, Date debut, Date fin);
 
     vector<tuple<Attribute, int, double, int>> qualiteAirTerritoireMoment(Point p, double rayon, Date moment);
 
@@ -57,6 +58,10 @@ public:
 
     vector<Sensor> listerCapteurs(Point p, double rayon);
 
+    unordered_map<string,Sensor> getSensors() const;
+
+    unordered_map<string,Attribute> getAttributes() const;
+
     //-------------------------------------------- Constructeurs - Destructeur
 
     Services();
@@ -67,11 +72,12 @@ public:
 
 protected:
     //----------------------------------------------------- Méthodes protégées
-    vector<Sensor> sensors;
-    vector<Attribute> attributes;
-    Parser parser;
-    //----------------------------------------------------- Attributs protégés
+    int calculIndiceATMO(string gaz,double concentration) const;
 
+    //----------------------------------------------------- Attributs protégés
+    unordered_map<string,Sensor> sensors;
+    unordered_map<string,Attribute> attributes;
+    Parser parser;
 };
 
 //-------------------------------- Autres définitions dépendantes de <Services>

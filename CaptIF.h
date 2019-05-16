@@ -6,6 +6,7 @@
 #include "Services.h"
 #include "Input.h"
 #include "Output.h"
+#include <ctime>
 using namespace std;
 
 //------------------------------------------------------------- Constantes

@@ -19,6 +19,7 @@ int main() {
     cout << "Initialisation des Sensors et Attributes en "<< duree << "s" << endl;
     cout << endl;
 
+    /*
     //Test de la RequestView
     set<string> sensorIds;
     sensorIds.insert("Sensor7");
@@ -35,7 +36,7 @@ int main() {
     //fin chrono
     duree = (clock() - start) / (double)CLOCKS_PER_SEC;
     cout << "Nombre de mesures retenues: "<<res.size() << endl;
-    cout << "En: "<<duree << "s"<<endl;
+    cout << "En: "<<duree << "s"<<endl;*/
 
     application.run();
     return 0;

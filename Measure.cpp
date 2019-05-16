@@ -23,6 +23,16 @@ Copyright            :
 
 //----------------------------------------------------- Méthodes publiques
 
+string Measure::getAttributeId() const
+{
+    return attributeId;
+}
+
+double Measure::getValue() const
+{
+    return value;
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 
 Measure::Measure() {

@@ -21,6 +21,10 @@ Copyright            :
 
 //----------------------------------------------------- Méthodes publiques
 
+Point Sensor::getLocation() const{
+    return location;
+}
+
 //------------------------------- Surcharge des opérateurs d'Entrée/Sortie
 
 ostream & operator << (ostream & out, const Sensor & sensor) {

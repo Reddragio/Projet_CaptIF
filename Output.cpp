@@ -39,11 +39,11 @@ void Output::afficherCapteurs(const vector<Sensor> & sensors) {
     }
 }
 
-void Output::afficherResultatATMO(int methode, const vector<tuple<Attribute, int, double, int>> & resultat) {
+void Output::afficherResultatATMO(int methode, const map<string,tuple<int, double, int>> & resultat) {
     cout << "--- Résultat ATMO ---" << endl;
-    for (vector<tuple<Attribute, int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
+    for (map<string,tuple<int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        cout << "Type de gaz : " << get<0>(*i) << ", ATMO : " << get<1>(*i) << ", Concentration : " << get<2>(*i) << (get<0>(*i)).getUnit() <<", Nombre de capteurs utilisés : " << get<3>(*i) << endl;
+        cout << "Type de gaz : " << i->first << ", ATMO : " << get<0>(i->second) << ", Concentration : " << get<1>(i->second) << attributes[i->first].getUnit() <<", Nombre de capteurs utilises : " << get<2>(i->second) << endl;
     }
 }
 
@@ -60,6 +60,9 @@ Output::Output() {
 #endif
 
 }
+
+Output::Output(const unordered_map<string, Sensor> &sensors, const unordered_map<string, Attribute> &attributes)
+        : sensors(sensors), attributes(attributes) {}
 
 /*Output::~Output() {
 #ifdef MAP

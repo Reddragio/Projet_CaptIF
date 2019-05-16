@@ -25,7 +25,7 @@ static const regex patternAttribute(R"([[:print:]]+;[^[:print:]]{0,2}[[:print:]]
 
 //----------------------------------------------------- Méthodes publiques
 
-void Parser::getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribute> & resAttributes) const
+void Parser::getSensorsAndAttributes(unordered_map<string,Sensor> & resSensors,unordered_map<string,Attribute> & resAttributes) const
 {
     string line;
     int debut=0;
@@ -64,7 +64,7 @@ void Parser::getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribut
                     fin = line.find(';',debut);
                     descSensor = line.substr(debut,fin-debut);
                     //Ajout du nouveau Sensor:
-                    resSensors.push_back(Sensor(idSensor,Point(latitude,longitude),descSensor));
+                    resSensors.insert(make_pair(idSensor,Sensor(idSensor,Point(latitude,longitude),descSensor)));
                 }
                 else if(regex_match(line,patternAttribute))
                 {
@@ -78,7 +78,7 @@ void Parser::getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribut
                     fin = line.find(';',debut);
                     descAttribute = line.substr(debut,fin-debut);
                     //Ajout du nouvel Attribute:
-                    resAttributes.push_back(Attribute(idAttribute,unit,descAttribute));
+                    resAttributes.insert(make_pair(idAttribute,Attribute(idAttribute,unit,descAttribute)));
                 }
             }
         }
@@ -105,9 +105,9 @@ set<Measure> Parser::getMeasures(const set<string> & sensorIds,Date debut, Date 
     return set<Measure>();
 }
 
-RequestView Parser::getRequestView(const set<string> & sensorIds,Date debut, Date fin)
+RequestView Parser::getRequestView(const unordered_set<string> & sensorIds,Date debut, Date fin)
 {
-    return RequestView();
+    return RequestView(files,sensorIds,debut,fin);
 }
 
 

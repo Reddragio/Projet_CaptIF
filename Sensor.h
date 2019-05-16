@@ -31,6 +31,8 @@ public:
     //------------------------------------------------- Surcharge d'opérateurs
     friend ostream & operator << (ostream & out, const Sensor & sensor);
 
+    Point getLocation() const;
+
     //-------------------------------------------- Constructeurs - destructeur
 
     Sensor(string id, Point location, string description);
@@ -48,8 +50,6 @@ protected:
     string status;
     string description;
     Point location;
-    vector<Measure> measures;
-    vector<Attribute> attributes;
 
 };
 

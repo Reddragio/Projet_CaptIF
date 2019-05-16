@@ -15,7 +15,7 @@ interactions entre les différents noeuds */
 //--------------------------------------------------- Interfaces utilisées
 #include <vector>
 #include <fstream>
-#include <set>
+#include <unordered_set>
 #include <string>
 using namespace std;
 
@@ -42,7 +42,7 @@ public:
 
     //-------------------------------------------- Constructeurs - destructeur
 
-    RequestView(vector<string> filesInit, set<string> sensorsIdsInit, Date debutInit, Date finInit);
+    RequestView(vector<string> filesInit, unordered_set<string> sensorsIdsInit, Date debutInit, Date finInit);
 
     RequestView();
 
@@ -57,10 +57,11 @@ protected:
     vector<string> files;
     ifstream actualFile;
     int indexFile;
+    bool first;
 
     Measure actualMeasure;
 
-    set<string> sensorsIds;
+    unordered_set<string> sensorsIds;
     Date debut;
     Date fin;
 

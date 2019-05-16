@@ -17,6 +17,9 @@ Copyright            :
 #include <vector>
 #include <tuple>
 #include <string>
+#include <unordered_map>
+#include <unordered_set>
+#include <set>
 using namespace std;
 
 #include "Sensor.h"
@@ -34,11 +37,11 @@ class Parser {
 public:
     //----------------------------------------------------- Méthodes publiques
 
-    void getSensorsAndAttributes(vector<Sensor> & resSensors,vector<Attribute> & resAttributes) const;
+    void getSensorsAndAttributes(unordered_map<string,Sensor> & resSensors,unordered_map<string,Attribute> & resAttributes) const;
 
     set<Measure> getMeasures(const set<string> & sensorIds,Date debut, Date fin);
 
-    RequestView getRequestView(const set<string> & sensorIds,Date debut, Date fin);
+    RequestView getRequestView(const unordered_set<string> & sensorIds,Date debut, Date fin);
 
     //------------------------------------------------- Surcharge d'opérateurs
 
