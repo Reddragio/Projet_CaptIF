@@ -80,9 +80,9 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoirePeriode(Point 
     return resultat;
 }
 
-vector<tuple<Attribute, int, double, int>> Services::qualiteAirTerritoireMoment(Point p, double rayon, Date moment)
+map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p, double rayon, Date moment)
 {
-    return vector<tuple<Attribute, int, double, int>>();
+    return map<string,tuple<int, double, int>>();
 }
 
 vector<tuple<Attribute, int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)

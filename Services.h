@@ -42,7 +42,7 @@ public:
 
     map<string,tuple<int, double, int>> qualiteAirTerritoirePeriode(Point p, double rayon, Date debut, Date fin);
 
-    vector<tuple<Attribute, int, double, int>> qualiteAirTerritoireMoment(Point p, double rayon, Date moment);
+    map<string,tuple<int, double, int>> qualiteAirTerritoireMoment(Point p, double rayon, Date moment);
 
     vector<tuple<Attribute, int, double, int>> qualiteAirPointPeriode(Point p, Date debut, Date fin);
 
