@@ -82,12 +82,94 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoirePeriode(Point 
 
 map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p, double rayon, Date moment)
 {
-    return map<string,tuple<int, double, int>>();
+    /*unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
+    //cout << "Nb capteurs: "<<sensorsId.size() << endl;
+    time_t temps = moment.getTemps();
+    int msec = moment.getMsec();
+    Date debut =Date(temps+2*60*60,msec);
+    Date fin =Date(temps-2*60*60,msec);
+    RequestView request = parser.getRequestView(sensorsId,fin,debut);
+
+    return resultat;*/
 }
 
-vector<tuple<Attribute, int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)
+map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)
 {
-    return vector<tuple<Attribute, int, double, int>>();
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 0.01);
+    map<string,tuple<int, double, int>> resultat;
+    //cout << "Nb capteurs: "<<sensorsId.size() << endl;
+    if(sensorsId.size() ==0){
+        unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 10);
+        RequestView request = parser.getRequestView(sensorsId,debut,fin);
+
+        unordered_map<string,long double> somme;
+        unordered_map<string,long double> diviseur;
+        for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+        {
+            somme.insert(make_pair(gaz->first,0.0));
+            diviseur.insert(make_pair(gaz->first,0.0));
+        }
+
+        Measure meas;
+        while(request.goToNext()){
+            meas = request.getMeasure();
+            somme[meas.getAttributeId()] += (1/p.distance(request.getSensor().getLocation()))*meas.getValue();
+            diviseur[meas.getAttributeId()] += 1;
+        }
+
+
+        double concentration;
+        int indice;
+        for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+        {
+            if(diviseur[gaz->first] > 0)
+            {
+                concentration = (double)(somme[gaz->first]/diviseur[gaz->first]);
+                indice = calculIndiceATMO(gaz->first,concentration);
+                resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,(int)diviseur[gaz->first])));
+            }
+            else
+            {
+                resultat.insert(make_pair(gaz->first,make_tuple(-1,-1.0,0)));
+            }
+        }
+    }else{
+        RequestView request = parser.getRequestView(sensorsId,debut,fin);
+
+        unordered_map<string,long double> somme;
+        unordered_map<string,long double> diviseur;
+        for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+        {
+            somme.insert(make_pair(gaz->first,0.0));
+            diviseur.insert(make_pair(gaz->first,0.0));
+        }
+
+        Measure meas;
+        while(request.goToNext()){
+            meas = request.getMeasure();
+            somme[meas.getAttributeId()] += meas.getValue();
+            diviseur[meas.getAttributeId()] += 1;
+        }
+
+
+        double concentration;
+        int indice;
+        for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+        {
+            if(diviseur[gaz->first] > 0)
+            {
+                concentration = (double)(somme[gaz->first]/diviseur[gaz->first]);
+                indice = calculIndiceATMO(gaz->first,concentration);
+                resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,(int)diviseur[gaz->first])));
+            }
+            else
+            {
+                resultat.insert(make_pair(gaz->first,make_tuple(-1,-1.0,0)));
+            }
+        }
+
+    }
+        return resultat;
 }
 
 vector<tuple<Attribute, int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)

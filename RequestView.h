@@ -21,6 +21,7 @@ using namespace std;
 
 #include "Measure.h"
 #include "Date.h"
+#include "Sensor.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -37,6 +38,8 @@ public:
     bool goToNext();
 
     Measure getMeasure();
+
+    Sensor getSensor();
 
     //------------------------------------------------- Surcharge d'opérateurs
 

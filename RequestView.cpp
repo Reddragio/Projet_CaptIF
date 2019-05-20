@@ -109,6 +109,10 @@ Measure RequestView::getMeasure()
     return actualMeasure;
 }
 
+Sensor RequestView::getSensor(){
+    Sensor sensor= ;//Retrouver sensor a partir de sensorID
+    return sensor;
+}
 
 
 //-------------------------------------------- Constructeurs - destructeur
