@@ -27,6 +27,7 @@ double indicesPM10[9] = {6.0,13.0,20.0,27.0,34.0,41.0,49.0,64.0,79.0};
 
 //----------------------------------------------------- Méthodes publiques
 
+// Méthode semble fonctionner
 unordered_set<string> Services::getSensorsTerritoryIds(Point p, double rayon) const
 {
     unordered_set<string> res;
@@ -40,10 +41,10 @@ unordered_set<string> Services::getSensorsTerritoryIds(Point p, double rayon) co
     return res;
 }
 
+// Méthode semble fonctionner
 map<string,tuple<int, double, int>> Services::qualiteAirTerritoirePeriode(Point p, double rayon, Date debut, Date fin)
 {
     unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
-    //cout << "Nb capteurs: "<<sensorsId.size() << endl;
     RequestView request = parser.getRequestView(sensorsId,debut,fin);
 
     unordered_map<string,long double> somme;
@@ -81,6 +82,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoirePeriode(Point 
     return resultat;
 }
 
+// Méthode semble fonctionner
 map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p, double rayon, Date moment)
 {
     unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
@@ -146,6 +148,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p
     return resultat;
 }
 
+// Problème sur cette méthode (voir commentaire)
 map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)
 {
     double epsilon = 0.01;
@@ -213,6 +216,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
     return resultat;
 }
 
+// Méthode semble fonctionner
 map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)
 {
     // Récupération des capteurs sur un rayon de 10 kms par défaut.
@@ -414,8 +418,8 @@ Services::Services(){
 Services::Services(vector<string> fichiers){
     parser = Parser(fichiers);
     parser.getSensorsAndAttributes(sensors,attributes);
-    cout << "Nombre de capteurs: " << sensors.size() << endl;
-    cout << "Nombre d'attributs: " << attributes.size() << endl;
+    cout << "Nombre de capteurs : " << sensors.size() << endl;
+    cout << "Nombre d'attributs : " << attributes.size() << endl;
 }
 
 //------------------------------------------------------------------ PRIVE

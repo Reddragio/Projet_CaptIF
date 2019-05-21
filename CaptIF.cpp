@@ -43,14 +43,14 @@ void CaptIF::run()
                 break;
             }
 
-            case 2:{
-                Point p2=input.rentrerPoint();
-                double rayon2=input.rentrerRayon();
-                Date moment2= input.rentrerMoment();
-                map<string,tuple<int, double, int>> res2 = services.qualiteAirTerritoireMoment(p2,rayon2,moment2);
-                output.afficherResultatATMO(choix,res2);
-                break;
-            }
+        case 2:{
+            Point p2=input.rentrerPoint();
+            double rayon2=input.rentrerRayon();
+            Date moment2= input.rentrerMoment();
+            map<string,tuple<int, double, int>> res2 = services.qualiteAirTerritoireMoment(p2,rayon2,moment2);
+            output.afficherResultatATMO(choix,res2);
+            break;
+        }
 
             case 3:{
                 Point p3=input.rentrerPoint();
@@ -110,8 +110,7 @@ void CaptIF::run()
             }
         }
     }
-
-/*
+/* Test de services
     //Date testDate = input.rentrerMoment();
     //cout << testDate << endl;
     //Debut chrono

@@ -28,7 +28,15 @@ void Output::afficherMessageAccueil() {
 }
 
 void Output::afficherMenu() {
-    cout << " --- " << endl;
+    cout << " Methode 1--- qualiteAirTerritoirePeriode" << endl;
+    cout << " Methode 2--- qualiteAirTerritoireMoment" << endl;
+    cout << " Methode 3--- qualiteAirPointPeriode" << endl;
+    cout << " Methode 4--- qualiteAirPointMoment" << endl;
+    cout << " Methode 5--- evolutionGlobale" << endl;
+    cout << " Methode 6--- detecterCapteursDysfonctionnels" << endl;
+    cout << " Methode 7--- listerCapteurs" << endl;
+    cout << " Methode 8--- verifierCapteurs" << endl;
+    cout << " Methode 9--- detecterComportementSimilaires" << endl;
 }
 
 void Output::afficherCapteurs(const vector<Sensor> & sensors) {
@@ -41,7 +49,7 @@ void Output::afficherResultatATMO(int methode, const map<string,tuple<int, doubl
     cout << "--- ATMO ---" << endl;
     for (map<string,tuple<int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        cout << "Type de gaz : " << i->first << ", ATMO : " << get<0>(i->second) << ", Concentration : " << get<1>(i->second) << attributes[i->first].getUnit() <<", Nombre de capteurs utilises : " << get<2>(i->second) << endl;
+        cout << "Type de gaz : " << i->first << ", ATMO : " << get<0>(i->second) << ", Concentration : " << get<1>(i->second) << attributes[i->first].getUnit() <<", Nombre de valeurs utiles: " << get<2>(i->second) << endl;
     }
 }
 
