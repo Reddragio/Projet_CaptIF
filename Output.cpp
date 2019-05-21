@@ -28,7 +28,15 @@ void Output::afficherMessageAccueil() {
 }
 
 void Output::afficherMenu() {
-    cout << " --- " << endl;
+    cout << " Methode 1--- qualiteAirTerritoirePeriode" << endl;
+    cout << " Methode 2--- qualiteAirTerritoireMoment" << endl;
+    cout << " Methode 3--- qualiteAirPointPeriode" << endl;
+    cout << " Methode 4--- qualiteAirPointMoment" << endl;
+    cout << " Methode 5--- evolutionGlobale" << endl;
+    cout << " Methode 6--- detecterCapteursDysfonctionnels" << endl;
+    cout << " Methode 7--- listerCapteurs" << endl;
+    cout << " Methode 8--- verifierCapteurs" << endl;
+    cout << " Methode 9--- detecterComportementSimilaires" << endl;
 }
 
 void Output::afficherCapteurs(const vector<Sensor> & sensors) {
