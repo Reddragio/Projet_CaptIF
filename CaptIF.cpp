@@ -75,36 +75,6 @@ void CaptIF::run()
             output.afficherEvolution(choix, res5);
             break;
         }
-        case 6:{
-            Point p6=input.rentrerPoint();
-            double rayon6=input.rentrerRayon();
-            vector<tuple<Sensor, int>> res6;
-            services.detecterCapteursDysfonctionnels(p6,rayon6,res6);
-            output.afficherCapteursEtBugs(res6);
-            break;
-        }
-        case 7:{
-            Point p7=input.rentrerPoint();
-            double rayon7=input.rentrerRayon();
-            vector<Sensor> sensors = services.listerCapteurs(p7,rayon7);
-            output.afficherCapteurs(sensors);
-            break;
-        }
-        case 8:{
-            string idCapteur=input.rentrerIdCapteur();
-            bool res=services.verifierCapteurs(idCapteur);
-            output.afficherResultatCapteur(res);
-            break;
-        }
-        case 9:{
-            Point p9=input.rentrerPoint();
-            double rayon9=input.rentrerRayon();
-            unordered_map<string,unordered_map<string,bool>> res;
-            services.detecterComportementSimilaires(p9,rayon9,res);
-            output.afficherSimilarites(res);
-            break;
-
-        }
     }
 /*
     //Date testDate = input.rentrerMoment();
