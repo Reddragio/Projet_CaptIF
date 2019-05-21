@@ -40,7 +40,7 @@ public:
 
     Date rentrerMoment();
 
-    int rentrerIdCapteur();
+    string rentrerIdCapteur();
 
     int choisirMethode();
 

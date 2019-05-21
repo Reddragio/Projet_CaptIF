@@ -71,7 +71,7 @@ void CaptIF::run()
             tuple<Date,Date> periode5=input.rentrerDebutFin();
             Date debut5= get<0>(periode5);
             Date fin5= get<1>(periode5);
-            vector<tuple<Attribute,double, double, double, Date>> res5=services.evolutionGlobale(p5,rayon5,debut5,fin5);
+            map<string,tuple<double, double, double, Date>> res5=services.evolutionGlobale(p5,rayon5,debut5,fin5);
             output.afficherEvolution(res5);
             break;
         }
@@ -91,12 +91,22 @@ void CaptIF::run()
             break;
         }
         case 8:{
+            string idCapteur=input.rentrerIdCapteur();
+            bool res=services.verifierCapteurs(idCapteur);
+            output.afficherResultatCapteur(res);
+            break;
+        }
+        case 9:{
+            Point p9=input.rentrerPoint();
+            double rayon9=input.rentrerRayon();
+            unordered_map<Sensor,unordered_map<Sensor,bool>> res;
+            services.detecterComportementSimilaires(p9,rayon9,res);
+            output.afficherSimilarites(res);
+            break;
 
         }
-        case 9:
-        default:
     }
-
+/*
     //Date testDate = input.rentrerMoment();
     //cout << testDate << endl;
     //Debut chrono
@@ -105,7 +115,7 @@ void CaptIF::run()
     double duree = (clock() - start) / (double)CLOCKS_PER_SEC;
     cout << "Temps de calcul: "<<duree << "s"<<endl;
     cout << endl;
-    output.afficherResultatATMO(1,res);
+    output.afficherResultatATMO(1,res);*/
 }
 
 //-------------------------------------------- Constructeurs - destructeur
