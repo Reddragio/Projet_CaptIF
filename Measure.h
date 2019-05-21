@@ -31,6 +31,8 @@ public:
 
     double getValue() const;
 
+    Date getDate() const;
+
     //------------------------------------------------- Surcharge d'opérateurs
 
     //-------------------------------------------- Constructeurs - destructeur

@@ -109,13 +109,6 @@ Measure RequestView::getMeasure()
     return actualMeasure;
 }
 
-/*Sensor RequestView::getSensor(){
-    Sensor sensor= ;//Retrouver sensor a partir de sensorID
-    return sensor;
-}*/
-//Cette fonction n'a pas lieu d'être, une map permet de retrouver
-//un sensor à partir de son ID
-
 
 //-------------------------------------------- Constructeurs - destructeur
 

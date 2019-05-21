@@ -38,6 +38,10 @@ public:
 
     int toSeconds();
 
+    time_t getTemps();
+
+    int getMsec();
+
 /*struct tm {
     int tm_sec;         seconds,  range 0 to 59
     int tm_min;          minutes, range 0 to 59
