@@ -11,6 +11,7 @@ Copyright            :
 
 //-------------------------------------------------------- Include système
 #include <iostream>
+#include <cmath>
 
 //------------------------------------------------------ Include personnel
 #include "Services.h"
@@ -155,12 +156,14 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
     unordered_map<string,long double> diviseur;
     unordered_map<string,bool> tresProcheTrouve;
     unordered_map<string,double> valeurTresProche;
+    unordered_map<string,int> compteur;
     for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
     {
         somme.insert(make_pair(gaz->first,0.0));
         diviseur.insert(make_pair(gaz->first,0.0));
         tresProcheTrouve.insert(make_pair(gaz->first,false));
         valeurTresProche.insert(make_pair(gaz->first,0.0));
+        compteur.insert(make_pair(gaz->first,0));
     }
 
     Measure meas;
@@ -174,11 +177,13 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
         {
             tresProcheTrouve[attrIdMeas] = true;
             valeurTresProche[attrIdMeas] = meas.getValue();
+            compteur[attrIdMeas] = 1;
         }
         else if(!tresProcheTrouve[attrIdMeas])
         {
             somme[attrIdMeas] += meas.getValue() * (1.0/distanceCentre);
             diviseur[attrIdMeas] += (1.0/distanceCentre);
+            ++compteur[attrIdMeas];
         }
     }
 
@@ -197,7 +202,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
                 concentration = (double)(somme[gaz->first]/diviseur[gaz->first]);
             }
             indice = calculIndiceATMO(gaz->first,concentration);
-            resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,(int)diviseur[gaz->first])));
+            resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,compteur[gaz->first])));
         }
         else
         {
@@ -318,7 +323,7 @@ map<string,tuple<double, double, double, Date>> Services::evolutionGlobale(Point
     return resultat;
 }
 
-void Services::detecterCapteursDysfonctionnels(Point p, double rayon, vector<tuple<Sensor, int>>& resultat)
+void Services::detecterCapteursDysfonctionnels(Point p, double rayon, unordered_map<string,bool> & fonctionnel)
 {
     int occurenceMax = 5;
     double deltaMax = 100.0;
@@ -328,13 +333,49 @@ void Services::detecterCapteursDysfonctionnels(Point p, double rayon, vector<tup
 
     unordered_map<string,unordered_map<string,double>> evolution;
     unordered_map<string,unordered_map<string,int>> nbIdentique;
+    //unordered_map<string,bool> fonctionnel;
 
     for(unordered_set<string>::const_iterator sensor = sensorsId.cbegin();sensor != sensorsId.cend();++sensor)
     {
+        evolution.insert(make_pair(*sensor,unordered_map<string,double>()));
+        nbIdentique.insert(make_pair(*sensor,unordered_map<string,int>()));
         for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
         {
-            //evolution.insert(make_pair(*sensor,))
+            evolution[*sensor].insert(make_pair(gaz->first,-1.0));
+            nbIdentique[*sensor].insert(make_pair(gaz->first,0));
         }
+        fonctionnel.insert(make_pair(*sensor,true));
+    }
+
+    Measure meas;
+    string attrIdMeas;
+    string sensorIdMeas;
+    while(request.goToNext())
+    {
+        meas = request.getMeasure();
+        attrIdMeas = meas.getAttributeId();
+        sensorIdMeas = meas.getSensorId();
+
+        if(evolution[sensorIdMeas][attrIdMeas] != -1)
+        {
+            if(evolution[sensorIdMeas][attrIdMeas] == meas.getValue())
+            {
+                ++nbIdentique[sensorIdMeas][attrIdMeas];
+                if(nbIdentique[sensorIdMeas][attrIdMeas] >= occurenceMax)
+                {
+                    fonctionnel[sensorIdMeas] = false;
+                }
+            }
+            else
+            {
+                nbIdentique[sensorIdMeas][attrIdMeas] = 0;
+                if(abs(evolution[sensorIdMeas][attrIdMeas] - meas.getValue()) > deltaMax)
+                {
+                    fonctionnel[sensorIdMeas] = false;
+                }
+            }
+        }
+        evolution[sensorIdMeas][attrIdMeas] = meas.getValue();
     }
 
     //Retour par réference

@@ -50,7 +50,7 @@ public:
 
     map<string,tuple<double, double, double, Date>> evolutionGlobale(Point p, double rayon, Date debut, Date fin);
 
-    void detecterCapteursDysfonctionnels(Point p, double rayon, vector<tuple<Sensor, int>> & resultat);
+    void detecterCapteursDysfonctionnels(Point p, double rayon, unordered_map<string,bool> & fonctionnel);
 
     bool verifierCapteurs(string idCap);
 

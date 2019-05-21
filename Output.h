@@ -38,7 +38,7 @@ public:
     void afficherResultatATMO(int methode, const map<string,tuple<int, double, int>> & resultat);
     void afficherEvolution(int methode, const map<string,tuple<double, double, double, Date>> & resultat);
 
-    void afficherCapteursEtBugs(const vector<tuple<Sensor, int>> & resultat);
+    void afficherCapteursEtBugs(const unordered_map<string,bool> & fonctionnel);
     void afficherSimilarites(const unordered_map<string,unordered_map<string,bool>> & resultat);
     void afficherResultatCapteur(bool resultat);
 

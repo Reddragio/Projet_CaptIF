@@ -53,7 +53,7 @@ void Output::afficherEvolution(int methode, const map<string,tuple<double, doubl
     }
 }
 
-void Output::afficherCapteursEtBugs(const vector<tuple<Sensor, int>> & resultat)
+void Output::afficherCapteursEtBugs(const unordered_map<string,bool> & fonctionnel)
 {
 
 }

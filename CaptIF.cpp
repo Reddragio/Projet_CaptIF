@@ -81,7 +81,7 @@ void CaptIF::run()
             case 6:{
                 Point p6=input.rentrerPoint();
                 double rayon6=input.rentrerRayon();
-                vector<tuple<Sensor, int>> res6;
+                unordered_map<string,bool> res6;
                 services.detecterCapteursDysfonctionnels(p6,rayon6,res6);
                 output.afficherCapteursEtBugs(res6);
                 break;
