@@ -76,6 +76,11 @@ bool Date::operator==(const Date & d2)
     return temps == d2.temps && msec == d2.msec;
 }
 
+bool Date::operator!=(const Date & d2)
+{
+    return !(*this == d2);
+}
+
 Date Date::operator-(const Date & d2){
     //Calcul la différence entre 2 dates et le ramène arbitrairement à 0 si le résultat est négatif
     double diff = difftime(temps, d2.temps);
@@ -129,12 +134,24 @@ ostream & operator << (ostream & out, const Date & d){
     }
     return out;
 }
-time_t Date:: getTemps(){
+time_t Date::getTemps(){
     return temps;
 }
 
-int Date:: getMsec(){
+int Date::getMsec(){
     return msec;
+}
+
+Date Date::getPlusInfini()
+{
+    return Date(2030,1,1,1,1,1,0);
+    //Infini local
+}
+
+Date Date::getMoinsInfini()
+{
+    return Date(1980,1,1,1,1,1,0);
+    //Infini local
 }
 
 //-------------------------------------------- Constructeurs - destructeur

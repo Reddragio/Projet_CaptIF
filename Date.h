@@ -42,6 +42,10 @@ public:
 
     int getMsec();
 
+    static Date getPlusInfini();
+
+    static Date getMoinsInfini();
+
 /*struct tm {
     int tm_sec;         seconds,  range 0 to 59
     int tm_min;          minutes, range 0 to 59
@@ -65,6 +69,8 @@ public:
     bool operator>(const Date & d2);
 
     bool operator==(const Date & d2);
+
+    bool operator!=(const Date & d2);
 
     Date operator-(const Date & d2);
 
