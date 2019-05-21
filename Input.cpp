@@ -154,6 +154,8 @@ tuple<Date, Date> Input::rentrerDebutFin()
             fin = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
             if(debut<=fin){
                 conversionReussie = true;
+            }else{
+                cout << "Date incohérente. La date fin doit être plus grande que la date début" << endl;
             }
         }
         else{
