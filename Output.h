@@ -36,7 +36,7 @@ public:
     void afficherCapteurs(const vector<Sensor> & sensors);
 
     void afficherResultatATMO(int methode, const map<string,tuple<int, double, int>> & resultat);
-    void afficherEvolution(const map<string,tuple<double, double, double, Date>> & resultat);
+    void afficherEvolution(int methode, const map<string,tuple<double, double, double, Date>> & resultat);
 
     void afficherCapteursEtBugs(const vector<tuple<Sensor, int>> & resultat);
     void afficherSimilarites(const unordered_map<Sensor,unordered_map<Sensor,bool>> & resultat);

@@ -71,8 +71,8 @@ void CaptIF::run()
             tuple<Date,Date> periode5=input.rentrerDebutFin();
             Date debut5= get<0>(periode5);
             Date fin5= get<1>(periode5);
-            map<string,tuple<double, double, double, Date>> res5=services.evolutionGlobale(p5,rayon5,debut5,fin5);
-            output.afficherEvolution(res5);
+            map<string,tuple<double, double, double, Date>> res5 = services.evolutionGlobale(p5,rayon5,debut5,fin5);
+            output.afficherEvolution(choix, res5);
             break;
         }
         case 6:{

@@ -212,7 +212,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Dat
 {
     // Récupération des capteurs sur un rayon de 10 kms par défaut.
     unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 10);
-    cout << "Nombre de capteurs identifiés : " + sensorsId.size() << endl;
+    cout << "Nombre de capteurs : " + sensorsId.size() << endl;
     // Récupération de la requestView pour le parcours des fichiers : récupération à 10 km et pour Temps = [moment - 2h; moment + 2h]
     time_t mom = moment.getTemps();
     int mSec = moment.getMsec();

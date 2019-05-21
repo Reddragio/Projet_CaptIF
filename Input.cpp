@@ -209,7 +209,7 @@ int Input::choisirMethode()
     string texte;
     int res;
     bool conversionReussie = true;
-    cout << "Quel méthode souhaitez vous executer ?" << endl;
+    cout << "Quelle methode souhaitez vous executer ?" << endl;
     do {
         conversionReussie = true;
         cin >> texte;
@@ -223,7 +223,7 @@ int Input::choisirMethode()
             conversionReussie = false;
         }
         if (!conversionReussie || !(1<=res && res<=8)) {
-            cout << "Numero incorrecte. Réessayez." << endl;
+            cout << "Numéro incorrect, veuillez rééssayer." << endl;
         }
     } while (!conversionReussie && res>=1 && res<=9);
     return res;
