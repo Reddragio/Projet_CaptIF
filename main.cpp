@@ -16,7 +16,7 @@ int main() {
     start = clock();
     CaptIF application(fichiers);
     duree = (clock() - start) / (double)CLOCKS_PER_SEC;
-    cout << "Initialisation des Sensors et Attributes en "<< duree << "s" << endl;
+    cout << "Initialisation des Sensors et Attributs en "<< duree << "s" << endl;
     cout << endl;
 
     /*
