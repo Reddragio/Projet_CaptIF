@@ -48,7 +48,7 @@ public:
 
     map<string,tuple<int, double, int>> qualiteAirPointMoment(Point p, Date moment);
 
-    vector<tuple<Attribute,double, double, double, Date>> evolutionGlobale(Point p, double rayon, Date debut, Date fin);
+    map<string,tuple<double, double, double, Date>> evolutionGlobale(Point p, double rayon, Date debut, Date fin);
 
     void detecterCapteursDysfonctionnels(Point p, double rayon, vector<tuple<Sensor, int>> & resultat);
 
