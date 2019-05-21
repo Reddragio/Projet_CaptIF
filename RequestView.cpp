@@ -85,7 +85,7 @@ bool RequestView::goToNext()
                 valeur = stod(line.substr(begin,end-begin));
 
                 dateMeasure = Date(annee,mois,jour,heure,minute,seconde,msec);
-                if(sensorsIds.find(sensorId) != sensorsIds.end() && debut <= dateMeasure && fin < dateMeasure){
+                if(sensorsIds.find(sensorId) != sensorsIds.end() && debut <= dateMeasure && dateMeasure < fin){
                     //Si la mesure est dans la zone et la période qui nous interesse
 
                     //Construction de la measure:
