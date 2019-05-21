@@ -44,9 +44,9 @@ public:
 
     map<string,tuple<int, double, int>> qualiteAirTerritoireMoment(Point p, double rayon, Date moment);
 
-    vector<tuple<Attribute, int, double, int>> qualiteAirPointPeriode(Point p, Date debut, Date fin);
+    map<string,tuple<int, double, int>> qualiteAirPointPeriode(Point p, Date debut, Date fin);
 
-    vector<tuple<Attribute, int, double, int>> qualiteAirPointMoment(Point p, Date moment);
+    map<string,tuple<int, double, int>> qualiteAirPointMoment(Point p, Date moment);
 
     vector<tuple<Attribute,double, double, double, Date>> evolutionGlobale(Point p, double rayon, Date debut, Date fin);
 

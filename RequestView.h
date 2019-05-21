@@ -39,7 +39,7 @@ public:
 
     Measure getMeasure();
 
-    Sensor getSensor();
+    //Sensor getSensor();
 
     //------------------------------------------------- Surcharge d'opérateurs
 

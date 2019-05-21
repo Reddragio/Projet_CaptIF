@@ -91,6 +91,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p
     RequestView request = parser.getRequestView(sensorsId,fin,debut);
 
     return resultat;*/
+    return map<string,tuple<int, double, int>>();
 }
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)
@@ -172,9 +173,9 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
         return resultat;
 }
 
-vector<tuple<Attribute, int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)
+map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)
 {
-    return vector<tuple<Attribute, int, double, int>>();
+    return map<string,tuple<int, double, int>>();
 }
 
 vector<tuple<Attribute,double, double, double, Date>> Services::evolutionGlobale(Point p, double rayon, Date debut, Date fin)
