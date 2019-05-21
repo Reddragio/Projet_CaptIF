@@ -82,7 +82,8 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoirePeriode(Point 
 
 map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p, double rayon, Date moment)
 {
-    /*unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
+    map<string,tuple<int, double, int>> resultat;
     //cout << "Nb capteurs: "<<sensorsId.size() << endl;
     time_t temps = moment.getTemps();
     int msec = moment.getMsec();
@@ -90,8 +91,77 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p
     Date fin =Date(temps-2*60*60,msec);
     RequestView request = parser.getRequestView(sensorsId,fin,debut);
 
-    return resultat;*/
-    return map<string,tuple<int, double, int>>();
+    unordered_map<string,long double> mesureJustAvant;
+    unordered_map<string,long double> mesureJustApres;
+    unordered_map<string,long double> diviseur;
+
+    Date actuel;
+    Date dateJustAvant;
+    Date dateJustApres;
+    time_t DiffAvant = 2*60*60;
+    time_t DiffApres = 2*60*60;
+
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        mesureJustAvant.insert(make_pair(gaz->first,0.0));
+        mesureJustApres.insert(make_pair(gaz->first,0.0));
+        diviseur.insert(make_pair(gaz->first,0.0));
+    }
+    Measure meas;
+    while(request.goToNext())
+    {
+        meas = request.getMeasure();
+        actuel = meas.getDate();
+        if(actuel.getTemps()==temps)
+        {
+            mesureJustAvant[meas.getAttributeId()] = meas.getValue();
+            mesureJustApres[meas.getAttributeId()] = meas.getValue();
+            diviseur[meas.getAttributeId()] = 2;
+            DiffAvant =0;
+            DiffApres =0;
+        }
+        if((actuel.getTemps()<temps) && (temps - actuel.getTemps()< DiffAvant))
+        {
+            mesureJustAvant[meas.getAttributeId()] = meas.getValue();
+            DiffAvant = temps - actuel.getTemps();
+            if(mesureJustApres[meas.getAttributeId()]){
+                diviseur[meas.getAttributeId()] = 2;
+            }else {
+                diviseur[meas.getAttributeId()] = 1;
+            }
+        }
+        if((actuel.getTemps()>temps) &&(actuel.getTemps() - temps < DiffApres))
+        {
+            mesureJustApres[meas.getAttributeId()] = meas.getValue();
+            DiffApres = actuel.getTemps() - temps;
+            if(mesureJustAvant[meas.getAttributeId()]){
+                diviseur[meas.getAttributeId()] = 2;
+            }else{
+                diviseur[meas.getAttributeId()] = 1;
+            }
+        }
+    }
+
+
+    double concentration;
+    int indice;
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        if(diviseur[gaz->first] > 0)
+        {
+            concentration = (double)((mesureJustAvant[gaz->first]+mesureJustApres[gaz->first])/diviseur[gaz->first]);
+            indice = calculIndiceATMO(gaz->first,concentration);
+            resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,(int)diviseur[gaz->first])));
+        }
+        else
+        {
+            resultat.insert(make_pair(gaz->first,make_tuple(-1,-1.0,0)));
+        }
+    }
+
+
+
+    return resultat;
 }
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)

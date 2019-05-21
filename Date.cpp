@@ -129,6 +129,13 @@ ostream & operator << (ostream & out, const Date & d){
     }
     return out;
 }
+time_t Date:: getTemps(){
+    return temps;
+}
+
+int Date:: getMsec(){
+    return msec;
+}
 
 //-------------------------------------------- Constructeurs - destructeur
 

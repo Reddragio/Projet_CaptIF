@@ -33,6 +33,10 @@ double Measure::getValue() const
     return value;
 }
 
+Date Measure::getDate() const
+{
+    return dateMeasure;
+}
 //-------------------------------------------- Constructeurs - destructeur
 
 Measure::Measure() {
