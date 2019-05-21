@@ -235,7 +235,7 @@ int Input::choisirMethode()
         if (!conversionReussie || !(1<=res && res<=8)) {
             cout << "Numero incorrecte. Réessayez." << endl;
         }
-    } while (!conversionReussie);
+    } while (!conversionReussie && res>=1 && res<=9);
     return res;
 }
 
