@@ -49,7 +49,6 @@ void Output::afficherResultatATMO(int methode, const map<string,tuple<int, doubl
 
 void afficherEvolution(const tuple<double, double, double, Date> & resultat) {
     cout << "--- Résultat d'évolution ---" << endl;
-
 }
 
 //-------------------------------------------- Constructeurs - destructeur
