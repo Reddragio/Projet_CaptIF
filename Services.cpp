@@ -96,7 +96,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)
 {
-    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 0.01);
+    /*unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 0.01);
     map<string,tuple<int, double, int>> resultat;
     //cout << "Nb capteurs: "<<sensorsId.size() << endl;
     if(sensorsId.size() ==0){
@@ -169,8 +169,67 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
             }
         }
 
+    }*/
+
+    double epsilon = 0.01;
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 10);//Rayon de 10km par défaut
+    RequestView request = parser.getRequestView(sensorsId,debut,fin);
+
+    unordered_map<string,long double> somme;
+    unordered_map<string,long double> diviseur;
+    unordered_map<string,bool> tresProcheTrouve;
+    unordered_map<string,double> valeurTresProche;
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        somme.insert(make_pair(gaz->first,0.0));
+        diviseur.insert(make_pair(gaz->first,0.0));
+        tresProcheTrouve.insert(make_pair(gaz->first,false));
+        valeurTresProche.insert(make_pair(gaz->first,0.0));
     }
-        return resultat;
+
+    Measure meas;
+    string attrIdMeas;
+    while(request.goToNext()){
+        meas = request.getMeasure();
+        attrIdMeas = meas.getAttributeId();
+        double distanceCentre = p.distance(sensors[meas.getSensorId()].getLocation());
+
+        if(distanceCentre <= epsilon)
+        {
+            tresProcheTrouve[attrIdMeas] = true;
+            valeurTresProche[attrIdMeas] = meas.getValue();
+        }
+        else if(!tresProcheTrouve[attrIdMeas])
+        {
+            somme[attrIdMeas] += meas.getValue() * (1.0/distanceCentre);
+            diviseur[attrIdMeas] += (1.0/distanceCentre);
+        }
+    }
+
+    map<string,tuple<int, double, int>> resultat;
+    double concentration;
+    int indice;
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        if(tresProcheTrouve[gaz->first] || diviseur[gaz->first] > 0){
+            if(tresProcheTrouve[gaz->first])
+            {
+                concentration = valeurTresProche[gaz->first];
+            }
+            else
+            {
+                concentration = (double)(somme[gaz->first]/diviseur[gaz->first]);
+            }
+            indice = calculIndiceATMO(gaz->first,concentration);
+            resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,(int)diviseur[gaz->first])));
+        }
+        else
+        {
+            resultat.insert(make_pair(gaz->first,make_tuple(-1,-1.0,0)));
+        }
+    }
+
+    return resultat;
 }
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)

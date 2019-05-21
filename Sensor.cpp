@@ -45,6 +45,17 @@ Sensor::Sensor(string id, Point location, string description) {
 
 }
 
+Sensor::Sensor() {
+    this->id = "";
+    this->status = true;
+    this->location = Point();
+    this->description = "";
+#ifdef MAP
+    cout << "Appel au constructeur de <Point>" << "\r\n";
+#endif
+
+}
+
 Sensor::~Sensor() {
 #ifdef MAP
     cout << "Appel au destructeur de <Top10>" << "\r\n";

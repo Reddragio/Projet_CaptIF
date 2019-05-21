@@ -27,6 +27,8 @@ public:
 
     string getAttributeId() const;
 
+    string getSensorId() const;
+
     double getValue() const;
 
     //------------------------------------------------- Surcharge d'opérateurs

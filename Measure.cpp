@@ -28,6 +28,11 @@ string Measure::getAttributeId() const
     return attributeId;
 }
 
+string Measure::getSensorId() const
+{
+    return sensorId;
+}
+
 double Measure::getValue() const
 {
     return value;

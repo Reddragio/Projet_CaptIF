@@ -37,6 +37,8 @@ public:
 
     Sensor(string id, Point location, string description);
 
+    Sensor();
+
     virtual ~Sensor();
 
 
