@@ -152,7 +152,9 @@ tuple<Date, Date> Input::rentrerDebutFin()
         if(regex_match(texte,patternDate)){
             parseDate(texte,annee1,mois1,jour1,heure1,minute1,seconde1);
             fin = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
-            conversionReussie = true;
+            if(debut<=fin){
+                conversionReussie = true;
+            }
         }
         else{
             cout << "Date incorrecte. Réessayez." << endl;
