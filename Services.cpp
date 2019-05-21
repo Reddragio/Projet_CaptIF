@@ -148,7 +148,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p
     return resultat;
 }
 
-// Problème sur cette méthode (voir commentaire)
+// Méthode semble fonctionner
 map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)
 {
     double epsilon = 0.01;
