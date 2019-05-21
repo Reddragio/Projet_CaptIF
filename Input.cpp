@@ -152,7 +152,11 @@ tuple<Date, Date> Input::rentrerDebutFin()
         if(regex_match(texte,patternDate)){
             parseDate(texte,annee1,mois1,jour1,heure1,minute1,seconde1);
             fin = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
-            conversionReussie = true;
+            if(debut<=fin){
+                conversionReussie = true;
+            }else{
+                cout << "Date incohérente. La date fin doit être plus grande que la date début" << endl;
+            }
         }
         else{
             cout << "Date incorrecte. Réessayez." << endl;
@@ -205,7 +209,7 @@ int Input::choisirMethode()
     string texte;
     int res;
     bool conversionReussie = true;
-    cout << "Quel méthode souhaitez vous executer ?" << endl;
+    cout << "Quelle methode souhaitez vous executer ?" << endl;
     do {
         conversionReussie = true;
         cin >> texte;
@@ -219,7 +223,7 @@ int Input::choisirMethode()
             conversionReussie = false;
         }
         if (!conversionReussie || !(1<=res && res<=8)) {
-            cout << "Numero incorrecte. Réessayez." << endl;
+            cout << "Numéro incorrect, veuillez rééssayer." << endl;
         }
     } while (!conversionReussie && res>=1 && res<=9);
     return res;

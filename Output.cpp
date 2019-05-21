@@ -25,12 +25,10 @@ Copyright            :
 
 void Output::afficherMessageAccueil() {
     cout << "Bienvenue sur l'application Capt'IF" << endl;
-    //commentaire Sofiane
 }
 
 void Output::afficherMenu() {
-    cout << "Menu" << endl;
-    //COmmentaire Jacques
+    cout << " --- " << endl;
 }
 
 void Output::afficherCapteurs(const vector<Sensor> & sensors) {
@@ -40,14 +38,14 @@ void Output::afficherCapteurs(const vector<Sensor> & sensors) {
 }
 
 void Output::afficherResultatATMO(int methode, const map<string,tuple<int, double, int>> & resultat) {
-    cout << "--- Résultat ATMO ---" << endl;
+    cout << "--- ATMO ---" << endl;
     for (map<string,tuple<int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
         cout << "Type de gaz : " << i->first << ", ATMO : " << get<0>(i->second) << ", Concentration : " << get<1>(i->second) << attributes[i->first].getUnit() <<", Nombre de capteurs utilises : " << get<2>(i->second) << endl;
     }
 }
 
-void afficherEvolution(const map<string,tuple<double, double, double, Date>> & resultat) {
+void Output::afficherEvolution(int methode, const map<string,tuple<double, double, double, Date>> & resultat) {
     cout << "--- Résultat d'évolution ---" << endl;
     for (map<string,tuple<double, double, double, Date>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
