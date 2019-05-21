@@ -320,6 +320,24 @@ map<string,tuple<double, double, double, Date>> Services::evolutionGlobale(Point
 
 void Services::detecterCapteursDysfonctionnels(Point p, double rayon, vector<tuple<Sensor, int>>& resultat)
 {
+    int occurenceMax = 5;
+    double deltaMax = 100.0;
+
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
+    RequestView request = parser.getRequestView(sensorsId,Date::getMoinsInfini(),Date::getPlusInfini());
+
+    unordered_map<string,unordered_map<string,double>> evolution;
+    unordered_map<string,unordered_map<string,int>> nbIdentique;
+
+    for(unordered_set<string>::const_iterator sensor = sensorsId.cbegin();sensor != sensorsId.cend();++sensor)
+    {
+        for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+        {
+            //evolution.insert(make_pair(*sensor,))
+        }
+    }
+
+    //Retour par réference
 }
 
 bool Services::verifierCapteurs(string idCap)
