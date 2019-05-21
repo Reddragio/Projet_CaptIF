@@ -27,11 +27,11 @@ void CaptIF::run()
     //cout << testDate << endl;
     //Debut chrono
     clock_t start = clock();
-    map<string,tuple<int, double, int>> res = services.qualiteAirTerritoirePeriode(Point(-30.0647387677174,-76.3439147576429),10.0,Date(1980,0,0,0,0,0,0),Date(2050,0,0,0,0,0,0));
+    map<string,tuple<int, double, int>> res = services.qualiteAirPointMoment(Point(-30.0647387677174,-76.3439147576429),Date(1980,0,0,0,0,0,0));
     double duree = (clock() - start) / (double)CLOCKS_PER_SEC;
     cout << "Temps de calcul: "<<duree << "s"<<endl;
     cout << endl;
-    output.afficherResultatATMO(1,res);
+    output.afficherResultatATMO(4,res);
 }
 
 //-------------------------------------------- Constructeurs - destructeur
