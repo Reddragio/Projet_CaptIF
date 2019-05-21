@@ -49,7 +49,7 @@ void Output::afficherResultatATMO(int methode, const map<string,tuple<int, doubl
     cout << "--- ATMO ---" << endl;
     for (map<string,tuple<int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        cout << "Type de gaz : " << i->first << ", ATMO : " << get<0>(i->second) << ", Concentration : " << get<1>(i->second) << attributes[i->first].getUnit() <<", Nombre de capteurs utilises : " << get<2>(i->second) << endl;
+        cout << "Type de gaz : " << i->first << ", ATMO : " << get<0>(i->second) << ", Concentration : " << get<1>(i->second) << attributes[i->first].getUnit() <<", Nombre de valeurs utiles: " << get<2>(i->second) << endl;
     }
 }
 

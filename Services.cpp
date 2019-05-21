@@ -42,7 +42,6 @@ unordered_set<string> Services::getSensorsTerritoryIds(Point p, double rayon) co
 map<string,tuple<int, double, int>> Services::qualiteAirTerritoirePeriode(Point p, double rayon, Date debut, Date fin)
 {
     unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
-    cout << "Nombres de capteurs utilises : " << sensorsId.size() << endl;
     RequestView request = parser.getRequestView(sensorsId,debut,fin);
 
     unordered_map<string,long double> somme;
