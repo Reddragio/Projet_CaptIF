@@ -85,8 +85,8 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p
 
     time_t temps = moment.getTemps();
     int msec = moment.getMsec();
-    Date debut =Date(temps-2*3600,msec);//2 heures avant le moment
-    Date fin =Date(temps+2*3600,msec);//2 heures après le moment
+    Date debut =Date(temps-2*3600,msec);
+    Date fin =Date(temps+2*3600,msec);
     RequestView request = parser.getRequestView(sensorsId,debut,fin);
 
     unordered_map<string,double> justeAvant;
@@ -196,6 +196,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
                 concentration = (double)(somme[gaz->first]/diviseur[gaz->first]);
             }
             indice = calculIndiceATMO(gaz->first,concentration);
+            // Erreur ici : On obtient toujours un nombre de mesures utilisées égal à 0
             resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,(int)diviseur[gaz->first])));
         }
         else
@@ -372,8 +373,8 @@ Services::Services(){
 Services::Services(vector<string> fichiers){
     parser = Parser(fichiers);
     parser.getSensorsAndAttributes(sensors,attributes);
-    cout << "Nombre de capteurs: " << sensors.size() << endl;
-    cout << "Nombre d'attributs: " << attributes.size() << endl;
+    cout << "Nombre de capteurs : " << sensors.size() << endl;
+    cout << "Nombre d'attributs : " << attributes.size() << endl;
 }
 
 //------------------------------------------------------------------ PRIVE
