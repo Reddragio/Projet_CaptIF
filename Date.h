@@ -30,7 +30,7 @@ public:
     //
     Date();
 
-    Date(time_t tempsInit,int msecInit);
+    Date(time_t tempsInit, int msecInit);
 
     Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
 

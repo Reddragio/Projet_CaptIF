@@ -189,28 +189,14 @@ Date Input::rentrerMoment()
     return moment;
 }
 
-int Input::rentrerIdCapteur()
+string Input::rentrerIdCapteur()
 {
-    string texte;
-    int res;
-    bool conversionReussie = true;
+    string res;
     cout << "Id du capteur:" << endl;
     do {
-        conversionReussie = true;
-        cin >> texte;
-        try {
-            res = stoi(texte);
-        }
-        catch (const std::invalid_argument&) {
-            conversionReussie = false;
-        }
-        catch (const std::out_of_range&) {
-            conversionReussie = false;
-        }
-        if (!conversionReussie) {
-            cout << "Id incorrecte. Réessayez." << endl;
-        }
-    } while (!conversionReussie);
+        cin >> res;
+
+    } while (res!="");
     return res;
 }
 

@@ -210,8 +210,42 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)
 {
-    // Je le fais #Pierre
-    return map<string,tuple<int, double, int>>();
+    // Récupération des capteurs sur un rayon de 10 kms par défaut.
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 10);
+    cout << "Nombre de capteurs identifiés : " + sensorsId.size() << endl;
+    // Récupération de la requestView pour le parcours des fichiers : récupération à 10 km et pour Temps = [moment - 2h; moment + 2h]
+    time_t mom = moment.getTemps();
+    int mSec = moment.getMsec();
+    Date debut = Date(mom - 2*3600, mSec);
+    Date fin = Date(mom + 2*3600, mSec);
+    RequestView request = parser.getRequestView(sensorsId, debut, fin);
+
+    unordered_map<string, double> valeurs;
+    for(unordered_map<string,Attribute>::const_iterator gazs = attributes.cbegin(); gazs != attributes.cend(); ++gazs) {
+        valeurs.insert(make_pair(gazs->first, -1.0));
+    }
+
+    Measure m;
+    while(request.goToNext()) {
+        m = request.getMeasure();
+        if (valeurs[m.getAttributeId()] == -1.0) {
+            valeurs[m.getAttributeId()] = m.getValue();
+        }
+    }
+
+    map<string, tuple<int, double, int>> resultat;
+    int indice;
+    int concentration;
+    for(unordered_map<string,Attribute>::const_iterator gazs = attributes.cbegin(); gazs != attributes.cend(); ++gazs) {
+        if (valeurs[gazs->first] != -1.0) {
+            concentration = valeurs[gazs->first];
+            indice = calculIndiceATMO(gazs->first, concentration);
+            resultat.insert(make_pair(gazs->first, make_tuple(indice, concentration, 1)));
+        } else {
+            resultat.insert(make_pair(gazs->first, make_tuple(0, -1.0, 0)));
+        }
+    }
+    return resultat;
 }
 
 map<string,tuple<double, double, double, Date>> Services::evolutionGlobale(Point p, double rayon, Date debut, Date fin)
