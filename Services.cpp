@@ -210,12 +210,66 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)
 {
+    // Je le fais #Pierre
     return map<string,tuple<int, double, int>>();
 }
 
-vector<tuple<Attribute,double, double, double, Date>> Services::evolutionGlobale(Point p, double rayon, Date debut, Date fin)
+map<string,tuple<double, double, double, Date>> Services::evolutionGlobale(Point p, double rayon, Date debut, Date fin)
 {
-    return vector<tuple<Attribute,double, double, double, Date>>();
+    unordered_set<string> sensors = getSensorsTerritoryIds(p, rayon);
+    map<string,tuple< double, double, double,Date>> resultat;
+    RequestView requestPres = parser.getRequestView(sensors,debut,fin);
+
+    unordered_map<string,long double> PremierMesure;
+    unordered_map<string,long double> DernierMesure;
+    unordered_map<string,Date> DateMesure;
+
+    time_t dateValeurDebut = LONG_MAX;
+    time_t dateValeurFin = LONG_MIN;
+
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        PremierMesure.insert(make_pair(gaz->first,0.0));
+        DernierMesure.insert(make_pair(gaz->first,0.0));
+    }
+
+    Measure meas;
+    meas = requestPres.getMeasure();
+    while(requestPres.goToNext()){
+        meas = requestPres.getMeasure();
+        if((debut.getTemps()<meas.getDate().getTemps())&&(meas.getDate().getTemps()<=dateValeurDebut)){
+            dateValeurDebut = meas.getDate().getTemps();
+            PremierMesure[meas.getAttributeId()] = meas.getValue();
+        }
+        if((dateValeurFin<meas.getDate().getTemps())&&(meas.getDate().getTemps()<=fin.getTemps())){
+            dateValeurFin = meas.getDate().getTemps();
+            DateMesure[meas.getAttributeId()] = meas.getDate();
+            DernierMesure[meas.getAttributeId()] = meas.getValue();
+
+        }
+    }
+
+    double concentrationA;
+    double concentrationD;
+    double TauxAugmenter;
+    Date dateM;
+
+
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        if(PremierMesure[gaz->first])
+        {
+            concentrationA = (double) (PremierMesure[gaz->first]);
+            concentrationD = (double) (DernierMesure[gaz->first]);
+            dateM = (Date) DateMesure[gaz->first];
+            TauxAugmenter = (concentrationD - concentrationA) / concentrationA;
+            resultat.insert(make_pair(gaz->first, make_tuple(concentrationA, concentrationD, TauxAugmenter, dateM)));
+        }else{
+            resultat.insert(make_pair(gaz->first,make_tuple(-1.0,-1.0,0,debut)));
+        }
+
+    }
+    return resultat;
 }
 
 void Services::detecterCapteursDysfonctionnels(Point p, double rayon, vector<tuple<Sensor, int>>& resultat)
