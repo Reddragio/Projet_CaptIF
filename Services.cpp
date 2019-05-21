@@ -115,7 +115,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
         while(request.goToNext()){
             meas = request.getMeasure();
             somme[meas.getAttributeId()] += (1/p.distance(request.getSensor().getLocation()))*meas.getValue();
-            diviseur[meas.getAttributeId()] += 1;
+            diviseur[meas.getAttributeId()] += 1/p.distance(request.getSensor().getLocation());
         }
 
 
