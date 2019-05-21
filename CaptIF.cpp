@@ -99,7 +99,7 @@ void CaptIF::run()
         case 9:{
             Point p9=input.rentrerPoint();
             double rayon9=input.rentrerRayon();
-            unordered_map<Sensor,unordered_map<Sensor,bool>> res;
+            unordered_map<string,unordered_map<string,bool>> res;
             services.detecterComportementSimilaires(p9,rayon9,res);
             output.afficherSimilarites(res);
             break;

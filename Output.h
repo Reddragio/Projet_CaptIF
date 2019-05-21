@@ -39,7 +39,7 @@ public:
     void afficherEvolution(int methode, const map<string,tuple<double, double, double, Date>> & resultat);
 
     void afficherCapteursEtBugs(const vector<tuple<Sensor, int>> & resultat);
-    void afficherSimilarites(const unordered_map<Sensor,unordered_map<Sensor,bool>> & resultat);
+    void afficherSimilarites(const unordered_map<string,unordered_map<string,bool>> & resultat);
     void afficherResultatCapteur(bool resultat);
 
     //------------------------------------------------- Surcharge d'opérateurs

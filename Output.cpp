@@ -53,6 +53,21 @@ void Output::afficherEvolution(int methode, const map<string,tuple<double, doubl
     }
 }
 
+void Output::afficherCapteursEtBugs(const vector<tuple<Sensor, int>> & resultat)
+{
+
+}
+
+void Output::afficherSimilarites(const unordered_map<string,unordered_map<string,bool>> & resultat)
+{
+
+}
+
+void Output::afficherResultatCapteur(bool resultat)
+{
+
+}
+
 //-------------------------------------------- Constructeurs - destructeur
 
 Output::Output() {

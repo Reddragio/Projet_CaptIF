@@ -54,7 +54,7 @@ public:
 
     bool verifierCapteurs(string idCap);
 
-    void detecterComportementSimilaires(Point p, double rayon,unordered_map<Sensor,unordered_map<Sensor,bool>> & resultat);
+    void detecterComportementSimilaires(Point p, double rayon,unordered_map<string,unordered_map<string,bool>> & resultat);
 
     vector<Sensor> listerCapteurs(Point p, double rayon);
 
