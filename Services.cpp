@@ -166,77 +166,129 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoireMoment(Point p
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Date debut, Date fin)
 {
-    unordered_set<string> sensorsPres = getSensorsTerritoryIds(p, 0.01);
-    map<string,tuple<int, double, int>> resultat;
-    //cout << "Nb capteurs: "<<sensorsId.size() << endl;
-    RequestView requestPres = parser.getRequestView(sensorsPres,debut,fin);
-
-    unordered_map<string,long double> sommePres;
-    unordered_map<string,long double> diviseurPres;
-
-    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
-    {
-        sommePres.insert(make_pair(gaz->first,0.0));
-        diviseurPres.insert(make_pair(gaz->first,0.0));
-    }
-
-    Measure meas;
-    while(requestPres.goToNext()){
-        meas = requestPres.getMeasure();
-        sommePres[meas.getAttributeId()] += meas.getValue();
-        diviseurPres[meas.getAttributeId()] += 1;
-    }
-
-
-    double concentration;
-    int indice;
-
-    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 10);
+    double epsilon = 0.01;
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 10);//Rayon de 10km par défaut
     RequestView request = parser.getRequestView(sensorsId,debut,fin);
 
     unordered_map<string,long double> somme;
     unordered_map<string,long double> diviseur;
+    unordered_map<string,bool> tresProcheTrouve;
+    unordered_map<string,double> valeurTresProche;
     for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
     {
-        if(diviseur[gaz->first] > 0)
+        somme.insert(make_pair(gaz->first,0.0));
+        diviseur.insert(make_pair(gaz->first,0.0));
+        tresProcheTrouve.insert(make_pair(gaz->first,false));
+        valeurTresProche.insert(make_pair(gaz->first,0.0));
+    }
+
+    Measure meas;
+    string attrIdMeas;
+    while(request.goToNext()){
+        meas = request.getMeasure();
+        attrIdMeas = meas.getAttributeId();
+        double distanceCentre = p.distance(sensors[meas.getSensorId()].getLocation());
+
+        if(distanceCentre <= epsilon)
         {
-            concentration = (double)(somme[gaz->first]/diviseur[gaz->first]);
+            tresProcheTrouve[attrIdMeas] = true;
+            valeurTresProche[attrIdMeas] = meas.getValue();
+        }
+        else if(!tresProcheTrouve[attrIdMeas])
+        {
+            somme[attrIdMeas] += meas.getValue() * (1.0/distanceCentre);
+            diviseur[attrIdMeas] += (1.0/distanceCentre);
+        }
+    }
+
+    map<string,tuple<int, double, int>> resultat;
+    double concentration;
+    int indice;
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        if(tresProcheTrouve[gaz->first] || diviseur[gaz->first] > 0){
+            if(tresProcheTrouve[gaz->first])
+            {
+                concentration = valeurTresProche[gaz->first];
+            }
+            else
+            {
+                concentration = (double)(somme[gaz->first]/diviseur[gaz->first]);
+            }
             indice = calculIndiceATMO(gaz->first,concentration);
             resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,(int)diviseur[gaz->first])));
         }
         else
         {
-            while(request.goToNext()) {
-                meas = request.getMeasure();
-                if (meas.getAttributeId() == (gaz->first)) {
-                    somme[meas.getAttributeId()] +=
-                            (1 / p.distance(request.getSensor().getLocation())) * meas.getValue();
-                    diviseur[meas.getAttributeId()] += 1 / p.distance(request.getSensor().getLocation());
-                }
-            }
-            if(diviseur[gaz->first] > 0)
-            {
-                concentration = (double)(somme[gaz->first]/diviseur[gaz->first]);
-                indice = calculIndiceATMO(gaz->first,concentration);
-                resultat.insert(make_pair(gaz->first,make_tuple(indice,concentration,(int)diviseur[gaz->first])));
-
-            }else
-            {
-                resultat.insert(make_pair(gaz->first,make_tuple(-1,-1.0,0)));
-            }
+            resultat.insert(make_pair(gaz->first,make_tuple(-1,-1.0,0)));
         }
     }
+
     return resultat;
 }
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)
 {
+    // Je le fais #Pierre
     return map<string,tuple<int, double, int>>();
 }
 
-vector<tuple<Attribute,double, double, double, Date>> Services::evolutionGlobale(Point p, double rayon, Date debut, Date fin)
+map<string,tuple<double, double, double, Date>> Services::evolutionGlobale(Point p, double rayon, Date debut, Date fin)
 {
-    return vector<tuple<Attribute,double, double, double, Date>>();
+    unordered_set<string> sensors = getSensorsTerritoryIds(p, rayon);
+    map<string,tuple< double, double, double,Date>> resultat;
+    RequestView requestPres = parser.getRequestView(sensors,debut,fin);
+
+    unordered_map<string,long double> PremierMesure;
+    unordered_map<string,long double> DernierMesure;
+    unordered_map<string,Date> DateMesure;
+
+    time_t dateValeurDebut = LONG_MAX;
+    time_t dateValeurFin = LONG_MIN;
+
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        PremierMesure.insert(make_pair(gaz->first,0.0));
+        DernierMesure.insert(make_pair(gaz->first,0.0));
+    }
+
+    Measure meas;
+    meas = requestPres.getMeasure();
+    while(requestPres.goToNext()){
+        meas = requestPres.getMeasure();
+        if((debut.getTemps()<meas.getDate().getTemps())&&(meas.getDate().getTemps()<=dateValeurDebut)){
+            dateValeurDebut = meas.getDate().getTemps();
+            PremierMesure[meas.getAttributeId()] = meas.getValue();
+        }
+        if((dateValeurFin<meas.getDate().getTemps())&&(meas.getDate().getTemps()<=fin.getTemps())){
+            dateValeurFin = meas.getDate().getTemps();
+            DateMesure[meas.getAttributeId()] = meas.getDate();
+            DernierMesure[meas.getAttributeId()] = meas.getValue();
+
+        }
+    }
+
+    double concentrationA;
+    double concentrationD;
+    double TauxAugmenter;
+    Date dateM;
+
+
+    for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+    {
+        if(PremierMesure[gaz->first])
+        {
+            concentrationA = (double) (PremierMesure[gaz->first]);
+            concentrationD = (double) (DernierMesure[gaz->first]);
+            dateM = (Date) DateMesure[gaz->first];
+            TauxAugmenter = (concentrationD - concentrationA) / concentrationA;
+            resultat.insert(make_pair(gaz->first, make_tuple(concentrationA, concentrationD, TauxAugmenter, dateM)));
+        }else{
+            resultat.insert(make_pair(gaz->first,make_tuple(-1.0,-1.0,0,debut)));
+        }
+
+    }
+    return resultat;
 }
 
 void Services::detecterCapteursDysfonctionnels(Point p, double rayon, vector<tuple<Sensor, int>>& resultat)
