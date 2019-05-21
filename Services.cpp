@@ -250,59 +250,71 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Dat
 
 map<string,tuple<double, double, double, Date>> Services::evolutionGlobale(Point p, double rayon, Date debut, Date fin)
 {
-    unordered_set<string> sensors = getSensorsTerritoryIds(p, rayon);
-    map<string,tuple< double, double, double,Date>> resultat;
-    RequestView requestPres = parser.getRequestView(sensors,debut,fin);
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
+    RequestView request = parser.getRequestView(sensorsId,debut,fin);
 
-    unordered_map<string,long double> PremierMesure;
-    unordered_map<string,long double> DernierMesure;
-    unordered_map<string,Date> DateMesure;
-
-    time_t dateValeurDebut = LONG_MAX;
-    time_t dateValeurFin = LONG_MIN;
+    unordered_map<string,double> valeurDebut;
+    unordered_map<string,Date> dateValeurDebut;
+    unordered_map<string,double> valeurFin;
+    unordered_map<string,Date> dateValeurFin;
 
     for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
     {
-        PremierMesure.insert(make_pair(gaz->first,0.0));
-        DernierMesure.insert(make_pair(gaz->first,0.0));
+        valeurDebut.insert(make_pair(gaz->first,-1.0));
+        dateValeurDebut.insert(make_pair(gaz->first,Date::getPlusInfini()));
+        valeurFin.insert(make_pair(gaz->first,-1.0));
+        dateValeurFin.insert(make_pair(gaz->first,Date::getMoinsInfini()));
     }
 
     Measure meas;
-    meas = requestPres.getMeasure();
-    while(requestPres.goToNext()){
-        meas = requestPres.getMeasure();
-        if((debut.getTemps()<meas.getDate().getTemps())&&(meas.getDate().getTemps()<=dateValeurDebut)){
-            dateValeurDebut = meas.getDate().getTemps();
-            PremierMesure[meas.getAttributeId()] = meas.getValue();
-        }
-        if((dateValeurFin<meas.getDate().getTemps())&&(meas.getDate().getTemps()<=fin.getTemps())){
-            dateValeurFin = meas.getDate().getTemps();
-            DateMesure[meas.getAttributeId()] = meas.getDate();
-            DernierMesure[meas.getAttributeId()] = meas.getValue();
+    string attrIdMeas;
+    Date dateMeas;
+    while(request.goToNext())
+    {
+        meas = request.getMeasure();
+        attrIdMeas = meas.getAttributeId();
+        dateMeas = meas.getDate();
 
+        if(debut <= dateMeas && dateMeas < dateValeurDebut[attrIdMeas])
+        {
+            valeurDebut[attrIdMeas] = meas.getValue();
+            dateValeurDebut[attrIdMeas] = dateMeas;
+        }
+        else if(dateMeas <= fin && dateMeas > dateValeurFin[attrIdMeas])
+        {
+            valeurFin[attrIdMeas] = meas.getValue();
+            dateValeurFin[attrIdMeas] = dateMeas;
         }
     }
 
-    double concentrationA;
-    double concentrationD;
-    double TauxAugmenter;
-    Date dateM;
-
-
+    map<string,tuple<double, double, double, Date>> resultat;
+    double concentration;
+    int indice;
+    double pourcentageEvo;
+    double vDeb;
+    double vFin;
     for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
     {
-        if(PremierMesure[gaz->first])
+        vDeb = valeurDebut[gaz->first];
+        vFin = valeurFin[gaz->first];
+        if(vDeb != -1.0 && vFin != -1)
         {
-            concentrationA = (double) (PremierMesure[gaz->first]);
-            concentrationD = (double) (DernierMesure[gaz->first]);
-            dateM = (Date) DateMesure[gaz->first];
-            TauxAugmenter = (concentrationD - concentrationA) / concentrationA;
-            resultat.insert(make_pair(gaz->first, make_tuple(concentrationA, concentrationD, TauxAugmenter, dateM)));
-        }else{
-            resultat.insert(make_pair(gaz->first,make_tuple(-1.0,-1.0,0,debut)));
+            if(vDeb != 0.0)
+            {
+                pourcentageEvo = ((vFin-vDeb)/vDeb)*100.0;
+            }
+            else
+            {
+                pourcentageEvo = 0.0;
+            }
+            resultat.insert(make_pair(gaz->first,make_tuple(vDeb,vFin,pourcentageEvo,dateValeurFin[gaz->first])));
         }
-
+        else
+        {
+            resultat.insert(make_pair(gaz->first,make_tuple(-1.0,-1.0,0.0,Date())));
+        }
     }
+
     return resultat;
 }
 
