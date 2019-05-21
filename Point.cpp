@@ -25,7 +25,12 @@ Copyright            :
 
 double Point::distance(Point p) {
     double d;
-    d = sqrt((latitude - p.latitude)*(latitude - p.latitude) + (longitude - p.longitude)*(latitude - p.longitude));
+    double fConv = 3.14159265358979323846/180.0;
+    double lat1 = latitude*fConv;
+    double lon1 = longitude*fConv;
+    double lat2 = p.latitude*fConv;
+    double lon2 = p.longitude*fConv;
+    d= acos(sin(lat1)*sin(lat2)+cos(lat1)*cos(lat2)*cos(lon2-lon1))*6371;
     return d;
 }
 

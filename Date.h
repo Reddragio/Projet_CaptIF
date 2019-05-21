@@ -30,7 +30,7 @@ public:
     //
     Date();
 
-    Date(time_t tempsInit,int msecInit);
+    Date(time_t tempsInit, int msecInit);
 
     Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
 
@@ -41,6 +41,10 @@ public:
     time_t getTemps();
 
     int getMsec();
+
+    static Date getPlusInfini();
+
+    static Date getMoinsInfini();
 
 /*struct tm {
     int tm_sec;         seconds,  range 0 to 59
@@ -65,6 +69,8 @@ public:
     bool operator>(const Date & d2);
 
     bool operator==(const Date & d2);
+
+    bool operator!=(const Date & d2);
 
     Date operator-(const Date & d2);
 
