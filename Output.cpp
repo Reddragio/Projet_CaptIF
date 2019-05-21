@@ -47,8 +47,12 @@ void Output::afficherResultatATMO(int methode, const map<string,tuple<int, doubl
     }
 }
 
-void afficherEvolution(const tuple<double, double, double, Date> & resultat) {
+void afficherEvolution(const map<string,tuple<double, double, double, Date>> & resultat) {
     cout << "--- Résultat d'évolution ---" << endl;
+    for (map<string,tuple<double, double, double, Date>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
+    {
+        cout << "Type de gaz : " << i->first << ", Concentration initiale : " << get<0>(i->second) << ", Concentration finale: " << get<1>(i->second)  <<", Taux d'augmentation : " << get<2>(i->second) <<", Date de mesure : " << get<3>(i->second)<< endl;
+    }
 }
 
 //-------------------------------------------- Constructeurs - destructeur
