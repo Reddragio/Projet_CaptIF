@@ -231,6 +231,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
 
 map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Date moment)
 {
+    // Je le fais #Pierre
     return map<string,tuple<int, double, int>>();
 }
 
