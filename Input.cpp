@@ -43,12 +43,12 @@ Point Input::rentrerPoint()
             conversionReussie = false;
         }
         if (!conversionReussie) {
-            cout << "Latitude incorrecte. Réessayez." << endl;
+            cout << "Latitude incorrecte." << endl;
         }
     } while (!conversionReussie);
 
 
-    cout << "Longitude du point:" << endl;
+    cout << "Longitude du point : " << endl;
     do {
         conversionReussie = true;
         cin >> texte;
@@ -62,7 +62,7 @@ Point Input::rentrerPoint()
             conversionReussie = false;
         }
         if (!conversionReussie) {
-            cout << "Longitude incorrecte. Réessayez." << endl;
+            cout << "Longitude incorrecte." << endl;
         }
     } while (!conversionReussie);
 
@@ -76,7 +76,7 @@ double Input::rentrerRayon()
     string texte;
     double res;
     bool conversionReussie = true;
-    cout << "Rayon souhaitée:" << endl;
+    cout << "Rayon : " << endl;
     do {
         conversionReussie = true;
         cin >> texte;
@@ -90,7 +90,7 @@ double Input::rentrerRayon()
             conversionReussie = false;
         }
         if (!conversionReussie) {
-            cout << "Rayon incorrecte. Réessayez." << endl;
+            cout << "Rayon incorrect." << endl;
         }
     } while (!conversionReussie);
     return res;
@@ -134,7 +134,7 @@ tuple<Date, Date> Input::rentrerDebutFin()
 
     bool conversionReussie = false;
     do {
-        cout << "Veuillez rentrez la date début de la recherche: (format: YYYY/MM/DD-HH:MM:SS)" << endl;
+        cout << "Veuillez entrer la date de debut de la recherche: (Format: YYYY/MM/DD-HH:MM:SS)" << endl;
         cin >> texte;
         if(regex_match(texte,patternDate)){
             parseDate(texte,annee1,mois1,jour1,heure1,minute1,seconde1);
@@ -142,12 +142,12 @@ tuple<Date, Date> Input::rentrerDebutFin()
             conversionReussie = true;
         }
         else{
-            cout << "Date incorrecte. Réessayez." << endl;
+            cout << "Date incorrecte." << endl;
         }
     } while (!conversionReussie);
     conversionReussie = false;
     do {
-        cout << "Veuillez rentrez la date fin de la recherche: (format: YYYY/MM/DD-HH:MM:SS)" << endl;
+        cout << "Veuillez entrer la date de fin de la recherche: (Format: YYYY/MM/DD-HH:MM:SS)" << endl;
         cin >> texte;
         if(regex_match(texte,patternDate)){
             parseDate(texte,annee1,mois1,jour1,heure1,minute1,seconde1);
@@ -155,11 +155,11 @@ tuple<Date, Date> Input::rentrerDebutFin()
             if(debut<=fin){
                 conversionReussie = true;
             }else{
-                cout << "Date incohérente. La date fin doit être plus grande que la date début" << endl;
+                cout << "Date incorrecte. La date fin doit etre plus grande que la date debut" << endl;
             }
         }
         else{
-            cout << "Date incorrecte. Réessayez." << endl;
+            cout << "Date incorrecte." << endl;
         }
     } while (!conversionReussie);
 
@@ -179,7 +179,7 @@ Date Input::rentrerMoment()
     int milliseconde = 0;
     bool conversionReussie = false;
     do {
-        cout << "Veuillez rentrez le moment rechercher: (format: YYYY/MM/DD-HH:MM:SS)" << endl;
+        cout << "Veuillez entrer le moment de la recherche : (Format: YYYY/MM/DD-HH:MM:SS)" << endl;
         cin >> texte;
         if(regex_match(texte,patternDate)){
             parseDate(texte,annee,mois,jour,heure,minute,seconde);
@@ -187,7 +187,7 @@ Date Input::rentrerMoment()
             conversionReussie = true;
         }
         else{
-            cout << "Moment incorrecte. Réessayez." << endl;
+            cout << "Moment incorrect." << endl;
         }
     } while (!conversionReussie);
     return moment;
@@ -196,7 +196,7 @@ Date Input::rentrerMoment()
 string Input::rentrerIdCapteur()
 {
     string res;
-    cout << "Id du capteur:" << endl;
+    cout << "Id du capteur : " << endl;
     do {
         cin >> res;
 
@@ -223,7 +223,7 @@ int Input::choisirMethode()
             conversionReussie = false;
         }
         if (!conversionReussie || !(1<=res && res<=8)) {
-            cout << "Numéro incorrect, veuillez rééssayer." << endl;
+            cout << "Numero incorrect." << endl;
         }
     } while (!conversionReussie && res>=1 && res<=9);
     return res;
