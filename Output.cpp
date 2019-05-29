@@ -39,9 +39,9 @@ void Output::afficherMenu() {
     cout << " Methode 9--- detecterComportementSimilaires" << endl;
 }
 
-void Output::afficherCapteurs(const vector<Sensor> & sensors) {
-    for (vector<Sensor>::const_iterator i = sensors.cbegin(); i != sensors.cend(); i++) {
-        cout << *i << endl;
+void Output::afficherCapteurs(const unordered_map<string,Sensor> & sensors) {
+    for (unordered_map<string,Sensor>::const_iterator i = sensors.cbegin(); i != sensors.cend(); i++) {
+        cout << i->second << endl;
     }
 }
 

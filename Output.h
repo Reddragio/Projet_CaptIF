@@ -33,7 +33,7 @@ public:
     //----------------------------------------------------- Méthodes publiques
     void afficherMessageAccueil();
     void afficherMenu();
-    void afficherCapteurs(const vector<Sensor> & sensors);
+    void afficherCapteurs(const unordered_map<string,Sensor> & sensors);
 
     void afficherResultatATMO(int methode, const map<string,tuple<int, double, int>> & resultat);
     void afficherEvolution(int methode, const map<string,tuple<double, double, double, Date>> & resultat);

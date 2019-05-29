@@ -390,13 +390,106 @@ bool Services::verifierCapteurs(string idCap)
     return false;
 }
 
-void Services::detecterComportementSimilaires(Point p, double rayon, unordered_map<string, unordered_map<string, bool>>& resultat)
+void Services::detecterComportementSimilaires(Point p, double rayon, unordered_map<string, unordered_map<string, bool>>& similitude)
 {
+    int serieSuffisante = 5;
+    Date time = Date::getMoinsInfini();
+    double epsilon = 7.0;
+
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
+    RequestView request = parser.getRequestView(sensorsId,Date::getMoinsInfini(),Date::getPlusInfini());
+
+    unordered_map<string,unordered_map<string,unordered_map<string,int>>> serie;
+
+    for(unordered_set<string>::const_iterator sensor1 = sensorsId.cbegin();sensor1 != sensorsId.cend();++sensor1)
+    {
+        similitude.insert(make_pair(*sensor1,unordered_map<string,bool>()));
+        serie.insert(make_pair(*sensor1,unordered_map<string,unordered_map<string,int>>()));
+        for(unordered_set<string>::const_iterator sensor2 = sensorsId.cbegin();sensor2 != sensorsId.cend();++sensor2)
+        {
+            if(*sensor1 != *sensor2)
+            {
+                similitude[*sensor1].insert(make_pair(*sensor2,false));
+                serie[*sensor1].insert(make_pair(*sensor2,unordered_map<string,int>()));
+                for(unordered_map<string,Attribute>::const_iterator gaz = attributes.cbegin();gaz != attributes.cend();++gaz)
+                {
+                    serie[*sensor1][*sensor2].insert(make_pair(gaz->first,0));
+                }
+            }
+        }
+    }
+
+    Measure meas;
+    string attrIdMeas;
+    string sensorIdMeas;
+    Date dateMeas;
+    double valueMeas;
+    unordered_map<string,unordered_map<string,double>> valeursPrec;
+    while(request.goToNext())
+    {
+        meas = request.getMeasure();
+        attrIdMeas = meas.getAttributeId();
+        sensorIdMeas = meas.getSensorId();
+        dateMeas = meas.getDate();
+        valueMeas = meas.getValue();
+
+        if ((dateMeas - time).toSeconds() >= 30*60){
+            time = dateMeas;
+            valeursPrec.clear();
+        }
+
+        for(unordered_map<string,unordered_map<string,double>>::const_iterator vPrec = valeursPrec.cbegin();vPrec != valeursPrec.cend();++vPrec)
+        {
+            if(sensorIdMeas != vPrec->first)
+            {
+                for(unordered_map<string,double>::const_iterator gazPrec = vPrec->second.cbegin();gazPrec != vPrec->second.cend();++gazPrec)
+                {
+                    if(gazPrec->first == attrIdMeas)
+                    {
+                        if(abs(gazPrec->second - valueMeas) < epsilon)
+                        {
+                            serie[sensorIdMeas][vPrec->first][gazPrec->first] += 1;
+                            serie[vPrec->first][sensorIdMeas][gazPrec->first] += 1;
+                            if(serie[sensorIdMeas][vPrec->first][gazPrec->first] >= serieSuffisante)
+                            {
+                                similitude[sensorIdMeas][vPrec->first] = true;
+                                similitude[vPrec->first][sensorIdMeas] = true;
+                            }
+                        }
+                        else
+                        {
+                            serie[sensorIdMeas][vPrec->first][gazPrec->first] = 0;
+                            serie[vPrec->first][sensorIdMeas][gazPrec->first] = 0;
+                        }
+                    }
+                }
+            }
+        }
+
+        if(valeursPrec.find(sensorIdMeas) == valeursPrec.end())
+        {
+            valeursPrec.insert(make_pair(sensorIdMeas,unordered_map<string,double>()));
+            valeursPrec[sensorIdMeas].insert(make_pair(attrIdMeas,valueMeas));
+        }
+        else
+        {
+            if(valeursPrec[sensorIdMeas].find(attrIdMeas) == valeursPrec[sensorIdMeas].end())
+            {
+                valeursPrec[sensorIdMeas].insert(make_pair(attrIdMeas,valueMeas));
+            }
+            else
+            {
+                valeursPrec[sensorIdMeas][attrIdMeas] = valueMeas;
+            }
+        }
+    }
+
+    //Retour par réference
 }
 
-vector<Sensor> Services::listerCapteurs(Point p, double rayon)
+unordered_map<string,Sensor> Services::listerCapteurs(Point p, double rayon)
 {
-    return vector<Sensor>();
+    return sensors;
 }
 
 unordered_map<string,Sensor> Services::getSensors() const

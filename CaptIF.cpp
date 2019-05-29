@@ -89,7 +89,7 @@ void CaptIF::run()
             case 7:{
                 Point p7=input.rentrerPoint();
                 double rayon7=input.rentrerRayon();
-                vector<Sensor> sensors = services.listerCapteurs(p7,rayon7);
+                unordered_map<string,Sensor> sensors = services.listerCapteurs(p7,rayon7);
                 output.afficherCapteurs(sensors);
                 break;
             }
