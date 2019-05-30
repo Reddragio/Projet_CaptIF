@@ -16,9 +16,9 @@ Copyright            :
 #include <unordered_map>
 using namespace std;
 
-#include "Date.h"
-#include "Point.h"
-#include "Sensor.h"
+#include "../Modele/Date.h"
+#include "../Modele/Point.h"
+#include "../Modele/Sensor.h"
 
 //------------------------------------------------------------- Constantes
 

@@ -1,25 +1,27 @@
-//---------- Interface de la classe <CaptIF> (fichier CaptIF.h) ----------------
-#ifndef PROJET_CAPTIF_CAPTIF_H
-#define PROJET_CAPTIF_CAPTIF_H
+//---------- Interface de la classe <Input> (fichier Input.h) ----------------
+#ifndef PROJET_CAPTIF_INPUT_H
+#define PROJET_CAPTIF_INPUT_H
 
 //--------------------------------------------------- Interfaces utilisées
-#include "Services.h"
-#include "Input.h"
-#include "Output.h"
-#include <ctime>
 using namespace std;
+#include <iostream>
+#include <string>
+#include <tuple>
+
+#include "../Modele/Date.h"
+#include "../Modele/Point.h"
 
 //------------------------------------------------------------- Constantes
 
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <CaptIF>
+// Rôle de la classe <Input>
 //
 //
 //------------------------------------------------------------------------
 
-class CaptIF
+class Input
 {
     //----------------------------------------------------------------- PUBLIC
 
@@ -30,25 +32,39 @@ public:
     //
     // Contrat :
     //
-    void run();
+    Point rentrerPoint();
+
+    double rentrerRayon();
+
+    tuple<Date, Date> rentrerDebutFin();
+
+    Date rentrerMoment();
+
+    string rentrerIdCapteur();
+
+    int choisirMethode();
+
+    //------------------------------------------------- Surcharge d'opérateurs
 
     //-------------------------------------------- Constructeurs - Destructeur
 
-    CaptIF();
+    Input();
 
-    CaptIF(vector<string> fichiers);
+    virtual ~Input();
 
     //------------------------------------------------------------------ PRIVE
 
 protected:
     //----------------------------------------------------- Méthodes protégées
-    Services services;
-    Input input;
-    Output output;
+
+    void parseDate(const string & texte,int & annee,int & mois,int & jour,int & heure,int & minute,int & seconde);
+
     //----------------------------------------------------- Attributs protégés
+
+    //istream inputStream;
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <CaptIF>
+//-------------------------------- Autres définitions dépendantes de <Input>
 
-#endif // CAPTIF_H
+#endif // INPUT_H

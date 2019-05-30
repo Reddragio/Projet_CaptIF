@@ -10,12 +10,12 @@
 #include <string>
 using namespace std;
 
-#include "Attribute.h"
-#include "Point.h"
-#include "Date.h"
-#include "Sensor.h"
-#include "Parser.h"
-#include "RequestView.h"
+#include "../Modele/Attribute.h"
+#include "../Modele/Point.h"
+#include "../Modele/Date.h"
+#include "../Modele/Sensor.h"
+#include "../Modele/Parser.h"
+#include "../Modele/RequestView.h"
 
 //------------------------------------------------------------- Constantes
 
