@@ -68,7 +68,30 @@ void Output::afficherCapteursEtBugs(const unordered_map<string,bool> & fonctionn
 
 void Output::afficherSimilarites(const unordered_map<string,unordered_map<string,bool>> & resultat)
 {
-
+    bool firstSimilarity;
+    for(unordered_map<string,unordered_map<string,bool>>::const_iterator sensor1 = resultat.cbegin();sensor1 != resultat.cend();++sensor1)
+    {
+        firstSimilarity = true;
+        for(unordered_map<string,bool>::const_iterator sensor2 = sensor1->second.cbegin();sensor2 != sensor1->second.cend();++sensor2)
+        {
+            if(sensor2->second)
+            {
+                if(firstSimilarity)
+                {
+                    firstSimilarity = false;
+                    cout << "Capteurs similaires au capteur " << sensor1->first << ": " << sensor2->first;
+                }
+                else
+                {
+                    cout << ", " << sensor2->first;
+                }
+            }
+        }
+        if(!firstSimilarity)
+        {
+            cout << endl;
+        }
+    }
 }
 
 void Output::afficherResultatCapteur(bool resultat)
