@@ -1,4 +1,4 @@
-//---------- Interface de la classe <CaptIF> (fichier CaptIF.h) ----------------
+//---------- Interface de la classe <src> (fichier src.h) ----------------
 #ifndef PROJET_CAPTIF_CAPTIF_H
 #define PROJET_CAPTIF_CAPTIF_H
 
@@ -14,7 +14,7 @@ using namespace std;
 //------------------------------------------------------------------ Types
 
 //------------------------------------------------------------------------
-// Rôle de la classe <CaptIF>
+// Rôle de la classe <src>
 //
 //
 //------------------------------------------------------------------------
@@ -49,6 +49,6 @@ protected:
 
 };
 
-//-------------------------------- Autres définitions dépendantes de <CaptIF>
+//-------------------------------- Autres définitions dépendantes de <src>
 
 #endif // CAPTIF_H
