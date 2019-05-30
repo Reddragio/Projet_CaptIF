@@ -3,4 +3,17 @@ project(Projet_CaptIF)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Projet_CaptIF main.cpp src/Modele/Point.h src/Modele/Point.cpp src/Modele/RequestView.h src/Modele/RequestView.cpp src/Modele/Sensor.h src/Modele/Sensor.cpp src/Controleur/Services.h src/Controleur/Services.cpp src/Modele/Attribute.h src/Controleur/CaptIF.h src/Controleur/CaptIF.cpp src/Modele/Date.h src/Vue/Input.h src/Vue/Input.cpp src/Modele/Measure.h src/Vue/Output.h src/Vue/Output.cpp src/Modele/Parser.h src/Modele/Parser.cpp src/Modele/Date.cpp src/Modele/Attribute.cpp src/Modele/Measure.cpp)
+#Executable final
+add_subdirectory(src)
+add_executable(Projet_CaptIF main.cpp)
+target_link_libraries(Projet_CaptIF core)
+
+#Executable Google Test
+add_subdirectory(Tests/lib/googletest-master)
+include_directories(Tests/lib/googletest-master/googletest/include)
+include_directories(Tests/lib/googletest-master/googlemock/include)
+add_executable(CaptIF_Tests Tests/main_test.cpp Tests/Test_Modele/Date_test.cpp Tests/Test_Modele/Point_test.cpp)
+target_link_libraries(CaptIF_Tests core)
+target_link_libraries(CaptIF_Tests gtest gtest_main)
+target_link_libraries(CaptIF_Tests gmock gmock_main)
+

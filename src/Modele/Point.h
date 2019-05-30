@@ -26,6 +26,10 @@ public:
     //----------------------------------------------------- Méthodes publiques
     double distance(Point p);
 
+    double getLat();
+
+    double getLng();
+
     //------------------------------------------------- Surcharge d'opérateurs
 
     friend ostream & operator << (ostream & out, const Point & p);

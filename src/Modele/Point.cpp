@@ -34,10 +34,18 @@ double Point::distance(Point p) {
     return d;
 }
 
+double Point::getLat(){
+    return latitude;
+}
+
+double Point::getLng(){
+    return longitude;
+}
+
 //------------------------------- Surcharge des opérateurs d'Entrée/Sortie
 
 ostream & operator << (ostream & out, const Point & p) {
-    out << "( " << p.longitude << "," << p.latitude <<" ) ";
+    out << "( " << p.latitude << "," << p.longitude <<" ) ";
     return out;
 }
 
