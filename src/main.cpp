@@ -1,6 +1,6 @@
 #include <iostream>
-#include "src/Controleur/CaptIF.h"
-#include "src/Modele/RequestView.h"
+#include "Controleur/CaptIF.h"
+#include "Modele/RequestView.h"
 #include <ctime>
 
 int main() {

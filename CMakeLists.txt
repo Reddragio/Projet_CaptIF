@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 #Executable final
 add_subdirectory(src)
-add_executable(Projet_CaptIF main.cpp)
+add_executable(Projet_CaptIF src/main.cpp)
 target_link_libraries(Projet_CaptIF core)
 
 #Executable Google Test
