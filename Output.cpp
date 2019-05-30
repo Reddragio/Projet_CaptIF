@@ -24,10 +24,16 @@ Copyright            :
 //----------------------------------------------------- Méthodes publiques
 
 void Output::afficherMessageAccueil() {
+    cout << endl;
     cout << "Bienvenue sur l'application Capt'IF" << endl;
+    cout << endl;
+    cout << "Un projet realise par:"<<endl;
+    cout << "Jacques Charnay, Pierre Scheer, Sofiane Benslimane & Luoxiaofan Xiong"<< endl;
+    cout << endl;
 }
 
 void Output::afficherMenu() {
+    cout << "### MENU ###" << endl;
     cout << " Methode 1--- qualiteAirTerritoirePeriode" << endl;
     cout << " Methode 2--- qualiteAirTerritoireMoment" << endl;
     cout << " Methode 3--- qualiteAirPointPeriode" << endl;
@@ -54,16 +60,23 @@ void Output::afficherResultatATMO(int methode, const map<string,tuple<int, doubl
 }
 
 void Output::afficherEvolution(int methode, const map<string,tuple<double, double, double, Date>> & resultat) {
-    cout << "--- Résultat d'évolution ---" << endl;
+    cout << "--- Resultat d'evolution ---" << endl;
     for (map<string,tuple<double, double, double, Date>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        cout << "Type de gaz : " << i->first << ", Concentration initiale : " << get<0>(i->second) << ", Concentration finale: " << get<1>(i->second)  <<", Taux d'augmentation : " << get<2>(i->second) <<", Date de mesure : " << get<3>(i->second)<< endl;
+        cout << "Type de gaz : " << i->first << ", Concentration initiale : " << get<0>(i->second) << ", Concentration finale: " << get<1>(i->second)  <<", Taux d'augmentation : " << get<2>(i->second) <<"%, Date de mesure : " << get<3>(i->second)<< endl;
     }
 }
 
 void Output::afficherCapteursEtBugs(const unordered_map<string,bool> & fonctionnel)
 {
-
+    cout << "Les capteurs d'id suivants presentent un dysfonctionnement:"<<endl;
+    for(unordered_map<string,bool>::const_iterator sensor1 = fonctionnel.cbegin();sensor1 != fonctionnel.cend();++sensor1)
+    {
+        if(!sensor1->second)
+        {
+            cout << sensor1->first << endl;
+        }
+    }
 }
 
 void Output::afficherSimilarites(const unordered_map<string,unordered_map<string,bool>> & resultat)
@@ -96,7 +109,14 @@ void Output::afficherSimilarites(const unordered_map<string,unordered_map<string
 
 void Output::afficherResultatCapteur(bool resultat)
 {
-
+    if(resultat)
+    {
+        cout << "Le capteur fonctionne correctemment" << endl;
+    }
+    else
+    {
+        cout << "Des anomalies ont ete detectes sur les mesures du capteur" << endl;
+    }
 }
 
 //-------------------------------------------- Constructeurs - destructeur

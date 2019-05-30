@@ -28,7 +28,7 @@ Point Sensor::getLocation() const{
 //------------------------------- Surcharge des opérateurs d'Entrée/Sortie
 
 ostream & operator << (ostream & out, const Sensor & sensor) {
-    out << "ID : " << sensor.id << ", Desc : " << sensor.description << ", Status : " << sensor.status << ", Location : " << sensor.location;
+    out << "ID : " << sensor.id << ", Desc : " << sensor.description << ", Status : " << boolalpha << sensor.status << ", Location : " << sensor.location;
     return out;
 }
 

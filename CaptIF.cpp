@@ -39,7 +39,9 @@ void CaptIF::run()
                 Date debut= get<0>(periode);
                 Date fin= get<1>(periode);
                 map<string,tuple<int, double, int>> res = services.qualiteAirTerritoirePeriode(p,rayon,debut,fin);
+                cout << endl;
                 output.afficherResultatATMO(choix,res);
+                cout << endl;
                 break;
             }
 
@@ -48,7 +50,9 @@ void CaptIF::run()
             double rayon2=input.rentrerRayon();
             Date moment2= input.rentrerMoment();
             map<string,tuple<int, double, int>> res2 = services.qualiteAirTerritoireMoment(p2,rayon2,moment2);
+            cout << endl;
             output.afficherResultatATMO(choix,res2);
+            cout << endl;
             break;
         }
 
@@ -58,14 +62,18 @@ void CaptIF::run()
                 Date debut3= get<0>(periode3);
                 Date fin3= get<1>(periode3);
                 map<string,tuple<int, double, int>> res3 = services.qualiteAirPointPeriode(p3,debut3,fin3);
+                cout << endl;
                 output.afficherResultatATMO(choix,res3);
+                cout << endl;
                 break;
             }
             case 4:{
                 Point p4=input.rentrerPoint();
                 Date moment4= input.rentrerMoment();
                 map<string,tuple<int, double, int>> res4 = services.qualiteAirPointMoment(p4,moment4);
+                cout << endl;
                 output.afficherResultatATMO(choix,res4);
+                cout << endl;
                 break;
             }
             case 5:{
@@ -75,7 +83,9 @@ void CaptIF::run()
                 Date debut5= get<0>(periode5);
                 Date fin5= get<1>(periode5);
                 map<string,tuple<double, double, double, Date>> res5 = services.evolutionGlobale(p5,rayon5,debut5,fin5);
+                cout << endl;
                 output.afficherEvolution(choix, res5);
+                cout << endl;
                 break;
             }
             case 6:{
@@ -83,20 +93,26 @@ void CaptIF::run()
                 double rayon6=input.rentrerRayon();
                 unordered_map<string,bool> res6;
                 services.detecterCapteursDysfonctionnels(p6,rayon6,res6);
+                cout << endl;
                 output.afficherCapteursEtBugs(res6);
+                cout << endl;
                 break;
             }
             case 7:{
                 Point p7=input.rentrerPoint();
                 double rayon7=input.rentrerRayon();
                 unordered_map<string,Sensor> sensors = services.listerCapteurs(p7,rayon7);
+                cout << endl;
                 output.afficherCapteurs(sensors);
+                cout << endl;
                 break;
             }
             case 8:{
                 string idCapteur=input.rentrerIdCapteur();
                 bool res=services.verifierCapteurs(idCapteur);
+                cout << endl;
                 output.afficherResultatCapteur(res);
+                cout << endl;
                 break;
             }
             case 9:{
@@ -104,7 +120,9 @@ void CaptIF::run()
                 double rayon9=input.rentrerRayon();
                 unordered_map<string,unordered_map<string,bool>> res;
                 services.detecterComportementSimilaires(p9,rayon9,res);
+                cout << endl;
                 output.afficherSimilarites(res);
+                cout << endl;
                 break;
 
             }

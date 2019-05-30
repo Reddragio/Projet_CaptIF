@@ -200,7 +200,7 @@ string Input::rentrerIdCapteur()
     do {
         cin >> res;
 
-    } while (res!="");
+    } while (res=="");
     return res;
 }
 
@@ -222,7 +222,7 @@ int Input::choisirMethode()
         catch (const std::out_of_range&) {
             conversionReussie = false;
         }
-        if (!conversionReussie || !(1<=res && res<=8)) {
+        if (!conversionReussie || !(1<=res && res<=9)) {
             cout << "Numero incorrect." << endl;
         }
     } while (!conversionReussie && res>=1 && res<=9);

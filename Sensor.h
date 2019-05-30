@@ -49,7 +49,7 @@ protected:
 
     //----------------------------------------------------- Attributs protégés
     string id;
-    string status;
+    bool status;
     string description;
     Point location;
 

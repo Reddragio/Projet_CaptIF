@@ -387,14 +387,21 @@ void Services::detecterCapteursDysfonctionnels(Point p, double rayon, unordered_
 
 bool Services::verifierCapteurs(string idCap)
 {
+    unordered_map<string,bool> fonctionnel;
+    if(sensors.find(idCap) != sensors.end())
+    {
+        detecterCapteursDysfonctionnels(sensors[idCap].getLocation(),0,fonctionnel);
+        return fonctionnel[idCap];
+    }
     return false;
 }
 
 void Services::detecterComportementSimilaires(Point p, double rayon, unordered_map<string, unordered_map<string, bool>>& similitude)
 {
     int serieSuffisante = 5;
+    //Nombre de valeurs successives nécessaires pour juger qu'il existe un très probable similitude entre les 2 capteurs
     Date time = Date::getMoinsInfini();
-    double epsilon = 7.0;
+    double epsilon = 0.5;
 
     unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
     RequestView request = parser.getRequestView(sensorsId,Date::getMoinsInfini(),Date::getPlusInfini());
@@ -489,7 +496,13 @@ void Services::detecterComportementSimilaires(Point p, double rayon, unordered_m
 
 unordered_map<string,Sensor> Services::listerCapteurs(Point p, double rayon)
 {
-    return sensors;
+    unordered_set<string> sensorsId = getSensorsTerritoryIds(p, rayon);
+    unordered_map<string,Sensor> res;
+    for(unordered_set<string>::const_iterator idS = sensorsId.cbegin();idS != sensorsId.cend();++idS)
+    {
+        res.insert(make_pair(*idS,sensors[*idS]));
+    }
+    return res;
 }
 
 unordered_map<string,Sensor> Services::getSensors() const
