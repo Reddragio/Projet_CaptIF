@@ -5,7 +5,7 @@ Date                 : 05/05/2019
 Copyright            :
 *************************************************************************/
 
-//---------- Réalisation de la classe <src> (fichier src.cpp) ------------
+//---------- Réalisation de la classe <CaptIF> (fichier CaptIF.cpp) ------------
 
 //---------------------------------------------------------------- INCLUDE
 
