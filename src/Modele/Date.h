@@ -81,12 +81,6 @@ public:
 protected:
     //----------------------------------------------------- Méthodes protégées
     time_t temps;
-    int annee;
-    int mois;
-    int jour;
-    int heure;
-    int min;
-    int sec;
     int msec;
     //----------------------------------------------------- Attributs protégés
 
