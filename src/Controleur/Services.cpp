@@ -56,7 +56,11 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoirePeriode(Point 
     }
 
     Measure meas;
+    cout << "Date init: "<< request.getMeasure().getDate() << endl;
+    //test bidouille
+    //request.goToNext();
     while(request.goToNext()){
+        cout << meas.getDate() << " # " << meas.getAttributeId() << " # " << meas.getValue() << endl;
         meas = request.getMeasure();
         somme[meas.getAttributeId()] += meas.getValue();
         diviseur[meas.getAttributeId()] += 1;

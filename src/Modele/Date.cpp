@@ -176,6 +176,9 @@ Date::Date(int year, int month,int day,int hour, int min, int sec,int msecInit){
     date.tm_sec = sec;
     temps = mktime(&date);
     msec = msecInit;
+
+    //Correctif fuseau horaire
+    temps += 3600;
 }
 
 //------------------------------------------------------------------ PRIVE

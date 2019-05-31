@@ -50,6 +50,7 @@ bool RequestView::goToNext()
         while(actualFile){
             getline(actualFile,line);
             if(line.length() >= 17 && line[16] == ':'){
+
                 //regex_match(line,patternMeasure)
                 //Les regex sont plus elegants mais bien plus couteux malheuresement :/
                 //On parse la mesure:
@@ -85,8 +86,12 @@ bool RequestView::goToNext()
                 valeur = stod(line.substr(begin,end-begin));
 
                 dateMeasure = Date(annee,mois,jour,heure,minute,seconde,msec);
+
                 if(sensorsIds.find(sensorId) != sensorsIds.end() && debut <= dateMeasure && dateMeasure < fin){
                     //Si la mesure est dans la zone et la période qui nous interesse
+                    cout << line << endl;
+                    cout << annee<<" "<<mois<<" "<<jour<<" "<<heure<<" "<<minute<<" "<<seconde<<" "<<msec << endl;
+                    cout << dateMeasure << endl;
 
                     //Construction de la measure:
                     actualMeasure = Measure(sensorId,attributeId,dateMeasure,valeur);

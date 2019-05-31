@@ -10,9 +10,12 @@ int main() {
     double duree;
 
     vector<string> fichiers;
-    fichiers.push_back("Sensors.csv");
+    /*fichiers.push_back("Sensors.csv");
     fichiers.push_back("AttributeType.csv");
-    fichiers.push_back("data.csv");
+    fichiers.push_back("data.csv");*/
+    //Tests files
+    fichiers.push_back("dataTest.csv");
+    fichiers.push_back("AttributeType.csv");
     start = clock();
     CaptIF application(fichiers);
     duree = (clock() - start) / (double)CLOCKS_PER_SEC;
