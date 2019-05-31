@@ -4,8 +4,8 @@
 #include <ctime>
 
 int main() {
-    cout << "Lancement du programme..." << endl;
-    cout << endl;
+    //cout << "Lancement du programme..." << endl;
+    //cout << endl;
     clock_t start;
     double duree;
 
@@ -19,8 +19,8 @@ int main() {
     start = clock();
     CaptIF application(fichiers);
     duree = (clock() - start) / (double)CLOCKS_PER_SEC;
-    cout << "Initialisation des Sensors et Attributs en "<< duree << "s" << endl;
-    cout << endl;
+    //cout << "Initialisation des Sensors et Attributs en "<< duree << "s" << endl;
+    //cout << endl;
 
     application.run();
     return 0;

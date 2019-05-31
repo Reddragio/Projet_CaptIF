@@ -73,16 +73,12 @@ TEST_F(Services_test,testQualiteAirTerritoirePeriode)
     2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
     2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
     2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;*/
+
     Point p1(0.0,0.0);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
-    Date debut(2017,1,1,0,1,20,0);
-    Date fin(2017,1,1,0,32,20,0);
+    Date debut(2017,1,8,0,1,20,0);
+    Date fin(2017,1,8,0,32,0,0);
     map<string,tuple<int, double, int>> res = services.qualiteAirTerritoirePeriode(p1,5,debut,fin);
-    unordered_map<string,Sensor> res2 = services.listerCapteurs(p1,5);
-    unordered_set<string> res3 = services.getSensorsTerritoryIds(p1,5);
-    ASSERT_EQ(res3.size(),1);
-    cout << *res3.begin() << endl;
-    ASSERT_EQ(res2.size(),1);
     ASSERT_EQ(get<1>(res["O3"]),(17.8902017543936+36.7797600526823)/2.0);
     ASSERT_EQ(get<1>(res["PM10"]),(1.55796479844986+1.99603267330184)/2.0);
 }

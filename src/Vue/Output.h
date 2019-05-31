@@ -19,6 +19,7 @@ using namespace std;
 #include "../Modele/Date.h"
 #include "../Modele/Point.h"
 #include "../Modele/Sensor.h"
+#include "../Controleur/Services.h"
 
 //------------------------------------------------------------- Constantes
 
@@ -31,7 +32,7 @@ class Output {
 
 public:
     //----------------------------------------------------- Méthodes publiques
-    void afficherMessageAccueil();
+    void afficherMessageAccueil(const Services & services);
     void afficherMessageFinProg();
     void afficherMenu();
     void afficherCapteurs(const unordered_map<string,Sensor> & sensors);

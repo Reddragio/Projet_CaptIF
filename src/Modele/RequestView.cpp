@@ -89,9 +89,9 @@ bool RequestView::goToNext()
 
                 if(sensorsIds.find(sensorId) != sensorsIds.end() && debut <= dateMeasure && dateMeasure < fin){
                     //Si la mesure est dans la zone et la période qui nous interesse
-                    cout << line << endl;
-                    cout << annee<<" "<<mois<<" "<<jour<<" "<<heure<<" "<<minute<<" "<<seconde<<" "<<msec << endl;
-                    cout << dateMeasure << endl;
+                    //cout << line << endl;
+                    //cout << annee<<" "<<mois<<" "<<jour<<" "<<heure<<" "<<minute<<" "<<seconde<<" "<<msec << endl;
+                    //cout << dateMeasure << endl;
 
                     //Construction de la measure:
                     actualMeasure = Measure(sensorId,attributeId,dateMeasure,valeur);

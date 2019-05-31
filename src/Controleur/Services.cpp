@@ -56,12 +56,12 @@ map<string,tuple<int, double, int>> Services::qualiteAirTerritoirePeriode(Point 
     }
 
     Measure meas;
-    cout << "Date init: "<< request.getMeasure().getDate() << endl;
+    //cout << "Date init: "<< request.getMeasure().getDate() << endl;
     //test bidouille
     //request.goToNext();
     while(request.goToNext()){
-        cout << meas.getDate() << " # " << meas.getAttributeId() << " # " << meas.getValue() << endl;
         meas = request.getMeasure();
+        //cout << meas.getDate() << " # " << meas.getAttributeId() << " # " << meas.getValue() << endl;
         somme[meas.getAttributeId()] += meas.getValue();
         diviseur[meas.getAttributeId()] += 1;
     }
@@ -528,8 +528,8 @@ Services::Services(){
 Services::Services(vector<string> fichiers){
     parser = Parser(fichiers);
     parser.getSensorsAndAttributes(sensors,attributes);
-    cout << "Nombre de capteurs : " << sensors.size() << endl;
-    cout << "Nombre d'attributs : " << attributes.size() << endl;
+    //cout << "Nombre de capteurs : " << sensors.size() << endl;
+    //cout << "Nombre d'attributs : " << attributes.size() << endl;
 }
 
 //------------------------------------------------------------------ PRIVE

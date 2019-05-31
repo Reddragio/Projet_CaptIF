@@ -23,12 +23,16 @@ Copyright            :
 
 //----------------------------------------------------- Méthodes publiques
 
-void Output::afficherMessageAccueil() {
+void Output::afficherMessageAccueil(const Services & services) {
     cout << endl;
     cout << "Bienvenue sur l'application Capt'IF" << endl;
     cout << endl;
     cout << "Un projet realise par:"<<endl;
     cout << "Jacques Charnay, Pierre Scheer, Sofiane Benslimane & Luoxiaofan Xiong"<< endl;
+    cout << endl;
+    cout << "Initialisation terminee" << endl;
+    cout << "Nombre de capteurs : " << services.getSensors().size() << endl;
+    cout << "Nombre d'attributs : " << services.getAttributes().size() << endl;
     cout << endl;
 }
 

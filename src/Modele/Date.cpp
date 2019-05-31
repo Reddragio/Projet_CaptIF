@@ -174,6 +174,7 @@ Date::Date(int year, int month,int day,int hour, int min, int sec,int msecInit){
     date.tm_hour = hour;
     date.tm_min = min;
     date.tm_sec = sec;
+    date.tm_isdst = -1;
     temps = mktime(&date);
     msec = msecInit;
 

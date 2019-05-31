@@ -23,7 +23,7 @@ Copyright            :
 
 void CaptIF::run()
 {
-    output.afficherMessageAccueil();
+    output.afficherMessageAccueil(services);
     int choix = -1;
 
     while (choix!=0)
@@ -38,6 +38,9 @@ void CaptIF::run()
                 tuple<Date,Date> periode=input.rentrerDebutFin();
                 Date debut= get<0>(periode);
                 Date fin= get<1>(periode);
+                //cout << "debut <= fin =" << boolalpha << (debut <= fin) << endl;
+                //cout << debut << endl;
+                //cout << fin << endl;
                 map<string,tuple<int, double, int>> res = services.qualiteAirTerritoirePeriode(p,rayon,debut,fin);
                 cout << endl;
                 output.afficherResultatATMO(choix,res);
