@@ -32,6 +32,12 @@ void Output::afficherMessageAccueil() {
     cout << endl;
 }
 
+void Output::afficherMessageFinProg() {
+    cout << endl;
+    cout << "A bientot :) !" << endl;
+    cout << endl;
+}
+
 void Output::afficherMenu() {
     cout << "### MENU ###" << endl;
     cout << " Methode 1--- qualiteAirTerritoirePeriode" << endl;

@@ -17,7 +17,7 @@ Copyright            :
 #include "Measure.h"
 
 //------------------------------------------------------------- Constantes
-static const regex patternMeasure(R"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+;\w+;\w+;(-?\d+\.\d+);)");
+static const regex patternMeasure(R"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+;\w+;\w+;(-?\d+\.\d+);\r?)");
 
 //----------------------------------------------------------------- PUBLIC
 

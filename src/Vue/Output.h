@@ -32,6 +32,7 @@ class Output {
 public:
     //----------------------------------------------------- Méthodes publiques
     void afficherMessageAccueil();
+    void afficherMessageFinProg();
     void afficherMenu();
     void afficherCapteurs(const unordered_map<string,Sensor> & sensors);
 

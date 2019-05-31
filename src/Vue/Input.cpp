@@ -210,6 +210,7 @@ int Input::choisirMethode()
     int res;
     bool conversionReussie = true;
     cout << "Quelle methode souhaitez vous executer ?" << endl;
+    cout << "(Tapez 0 pour quitter)" << endl;
     do {
         conversionReussie = true;
         cin >> texte;
@@ -222,10 +223,10 @@ int Input::choisirMethode()
         catch (const std::out_of_range&) {
             conversionReussie = false;
         }
-        if (!conversionReussie || !(1<=res && res<=9)) {
+        if (!conversionReussie || !(0<=res && res<=9)) {
             cout << "Numero incorrect." << endl;
         }
-    } while (!conversionReussie && res>=1 && res<=9);
+    } while (!conversionReussie && res>=0 && res<=9);
     return res;
 }
 

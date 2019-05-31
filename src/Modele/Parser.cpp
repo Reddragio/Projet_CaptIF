@@ -18,8 +18,8 @@ Copyright            :
 #include "Parser.h"
 
 //------------------------------------------------------------- Constantes
-static const regex patternSensor(R"([[:print:]]+;(-?\d+\.\d+);(-?\d+\.\d+);[[:print:]]*;)");
-static const regex patternAttribute(R"([[:print:]]+;[^[:print:]]{0,2}[[:print:]]+/[[:print:]]+;[[:print:]]*;)");
+static const regex patternSensor(R"([[:print:]]+;(-?\d+\.\d+);(-?\d+\.\d+);[[:print:]]*;\r?)");
+static const regex patternAttribute(R"([[:print:]]+;[^[:print:]]{0,2}[[:print:]]+/[[:print:]]+;[[:print:]]*;\r?)");
 
 //----------------------------------------------------------------- PUBLIC
 
