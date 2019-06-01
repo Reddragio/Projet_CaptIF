@@ -1,5 +1,6 @@
 #include "../../src/Vue/Output.h"
 #include "gtest/gtest.h"
+#include <iostream>
 
 class Output_test : public ::testing::Test
 {
@@ -8,7 +9,13 @@ protected:
     // is empty.
     Output_test()
     {
+
         // You can do set-up work for each test here.
+        vector<string> fichiers;
+        fichiers.push_back("dataTest.csv");
+        fichiers.push_back("AttributeType.csv");
+        services = Services(fichiers);
+        output = Output(services.getSensors(),services.getAttributes());
     }
     virtual ~Output_test()
     {
@@ -30,9 +37,12 @@ protected:
         // before the destructor).
     }
     // Objects declared here can be used by all tests in the test case for Foo.
+    Output output;
+    Services services;
 };
 
 TEST_F(Output_test,testBidon)
 {
     ASSERT_TRUE(true);
 }
+
