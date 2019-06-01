@@ -45,7 +45,7 @@ TEST_F(Date_test,testComparaison)
     Date d4(2020,1,1,1,1,1,700);
     ASSERT_TRUE(d3 < d4);
     ASSERT_TRUE(d4 > d3);
-};
+}
 
 TEST_F(Date_test,testBidon)
 {

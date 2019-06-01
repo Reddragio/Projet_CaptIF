@@ -180,18 +180,22 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
         attrIdMeas = meas.getAttributeId();
         double distanceCentre = p.distance(sensors[meas.getSensorId()].getLocation());
 
-        if(distanceCentre <= epsilon)
+        if(!tresProcheTrouve[attrIdMeas])
         {
-            tresProcheTrouve[attrIdMeas] = true;
-            valeurTresProche[attrIdMeas] = meas.getValue();
-            compteur[attrIdMeas] = 1;
+            if(distanceCentre <= epsilon)
+            {
+                tresProcheTrouve[attrIdMeas] = true;
+                valeurTresProche[attrIdMeas] = meas.getValue();
+                compteur[attrIdMeas] = 1;
+            }
+            else
+            {
+                somme[attrIdMeas] += meas.getValue() * (1.0/distanceCentre);
+                diviseur[attrIdMeas] += (1.0/distanceCentre);
+                ++compteur[attrIdMeas];
+            }
         }
-        else if(!tresProcheTrouve[attrIdMeas])
-        {
-            somme[attrIdMeas] += meas.getValue() * (1.0/distanceCentre);
-            diviseur[attrIdMeas] += (1.0/distanceCentre);
-            ++compteur[attrIdMeas];
-        }
+
     }
 
     map<string,tuple<int, double, int>> resultat;
@@ -248,7 +252,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Dat
 
     map<string, tuple<int, double, int>> resultat;
     int indice;
-    int concentration;
+    double concentration;
     for(unordered_map<string,Attribute>::const_iterator gazs = attributes.cbegin(); gazs != attributes.cend(); ++gazs) {
         if (valeurs[gazs->first] != -1.0) {
             concentration = valeurs[gazs->first];
