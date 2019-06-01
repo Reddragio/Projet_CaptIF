@@ -45,4 +45,3 @@ TEST_F(Output_test,testBidon)
 {
     ASSERT_TRUE(true);
 }
-
