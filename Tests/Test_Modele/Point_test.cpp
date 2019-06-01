@@ -46,3 +46,18 @@ TEST_F(Point_test,testBidon)
 {
     ASSERT_TRUE(true);
 }
+
+TEST_F(Point_test,testDistanceMemePoint){
+
+    Point p1(0.0,0.0);
+    Point p2(0.0,0.0);
+    ASSERT_TRUE(p1.distance(p2)==0.0);
+}
+
+TEST_F(Point_test,testDistanceDifferentPoint){
+
+    Point p1(0.0,0.0);
+    Point p2(1.0,0.0);
+    ASSERT_TRUE(p1.distance(p2)==111.1949266);
+}
+
