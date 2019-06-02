@@ -65,11 +65,7 @@ TEST_F(Point_test,testAffichage){
     cout<<p1;
     string output = testing::internal::GetCapturedStdout();
     string objectif;
-    objectif.append("( ");
-    objectif.append(to_string(p1.getLat()));
-    objectif.append(",");
-    objectif.append(to_string(p1.getLng()));
-    objectif.append(" ) ");
+    objectif.append("(0,0)");
 
     ASSERT_EQ(output,objectif);
 }
