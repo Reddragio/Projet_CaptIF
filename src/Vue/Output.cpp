@@ -62,11 +62,38 @@ void Output::afficherCapteurs(const unordered_map<string,Sensor> & sensors) {
 }
 
 void Output::afficherResultatATMO(int methode, const map<string,tuple<int, double, int>> & resultat) {
+    ios init(NULL);
+    init.copyfmt(cout);
+
+    cout.width(20);
+    cout.fill(' ');
+    cout << left;
+    ios param(NULL);
+    param.copyfmt(cout);
+
     cout << "--- ATMO ---" << endl;
     for (map<string,tuple<int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        cout << "Type de gaz : " << i->first << ", ATMO : " << get<0>(i->second) << ", Concentration : " << get<1>(i->second) << attributes[i->first].getUnit() <<", Nombre de valeurs utiles: " << get<2>(i->second) << endl;
+        cout << "Type de gaz : ";
+        cout.copyfmt(param);
+        cout.width(5);
+        cout << i->first;
+        cout << ", ATMO : ";
+        cout.copyfmt(param);
+        cout.width(3);
+        cout << get<0>(i->second);
+        cout << ", Concentration : ";
+        cout.copyfmt(param);
+        cout.width(9);
+        cout << get<1>(i->second);
+        cout.copyfmt(param);
+        cout.width(5);
+        cout << attributes[i->first].getUnit();
+        cout <<", Nombre de valeurs utiles: ";
+        cout << get<2>(i->second) << endl;
     }
+
+    cout.copyfmt(init);
 }
 
 void Output::afficherEvolution(int methode, const map<string,tuple<double, double, double, Date>> & resultat) {
