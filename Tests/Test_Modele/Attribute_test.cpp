@@ -32,10 +32,22 @@ protected:
     // Objects declared here can be used by all tests in the test case for Foo.
 };
 
-TEST_F(Attribute_test,testBidon)
+TEST_F(Attribute_test,testGetUnit)
 {
-    vector<string> fichiers;
-    fichiers.push_back("AttributeType.csv");
+    Attribute a1;
+    ASSERT_EQ(a1.getUnit(),"");
+    Attribute a2("a2","km","Un attribut parmi tant d'autres");
+    ASSERT_EQ(a2.getUnit(),"km");
+}
 
+TEST_F(Attribute_test,testSurchargeCout)
+{
+    Attribute a2("a2","km","Un attribut parmi tant d'autres");
 
+    testing::internal::CaptureStdout();
+    cout << a2;
+    string output = testing::internal::GetCapturedStdout();
+    string objectif("a2");
+
+    ASSERT_EQ(output,objectif);
 }

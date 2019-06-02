@@ -32,7 +32,12 @@ protected:
     // Objects declared here can be used by all tests in the test case for Foo.
 };
 
-TEST_F(Measure_test,testBidon)
+TEST_F(Measure_test,testGetters)
 {
-    ASSERT_TRUE(true);
+    Measure m1("m1","CO2",Date(50,3),42);
+    //(const string &sensorId, const string &attributeId, const Date &dateMeasure, double value);
+    ASSERT_EQ(m1.getSensorId(),"m1");
+    ASSERT_EQ(m1.getAttributeId(),"CO2");
+    ASSERT_TRUE(m1.getDate() == Date(50,3));
+    ASSERT_EQ(m1.getValue(),42);
 }

@@ -47,11 +47,6 @@ TEST_F(Date_test,testComparaison)
     ASSERT_TRUE(d4 > d3);
 }
 
-TEST_F(Date_test,testBidon)
-{
-    ASSERT_TRUE(true);
-}
-
 TEST_F(Date_test,testAffichage){
     Date d1(2020,1,1,1,1,1,300);
 

@@ -40,19 +40,6 @@ protected:
     Services services;
 };
 
-/*SensorID;Latitude;Longitude;Description;
-Sensor0;0.0;0.0;Le centre du monde;
-Sensor1;1.0;1.0;;
-Sensor2;-1.0;-1.0;;
-Sensor3;5.0;5.0;;
-Sensor4;-6.0;-6.0;;
-Sensor5;60.0;60.0;Un capteur isole;
-Sensor6;64.0;64.0;Un capteur isole;
-Sensor7;-20.0;20.0;;
-Sensor8;-50.0;0.0;Loin, tres loin;
-Sensor9;-60.0;0.0;Encore un peu plus loin;*/
-//2017-01-01T00:01:20.6090000
-
 TEST_F(Services_test, verifierRecuperationCapteursProches){
     unordered_set<string> sensorsId = services.getSensorsTerritoryIds(Point(0,0), 100);
     ASSERT_EQ(sensorsId.size(), 1);
@@ -114,15 +101,6 @@ TEST_F(Services_test,testQualiteAirTerritoirePeriode)
 
 TEST_F(Services_test,testQualiteAirTerritoireMoment)
 {
-    /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
-    2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
-    2017-01-01T00:01:20.6090000;Sensor0;SO2;13.6449094925285;
-    2017-01-01T00:01:20.6090000;Sensor0;PM10;1.55796479844986;
-    2017-01-01T00:30:39.0040000;Sensor0;O3;36.7797600526823;
-    2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
-    2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
-    2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;*/
-
     Point p1(0.0,0.0);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
     Date moment(2017,1,8,1,20,0,0);
@@ -132,15 +110,6 @@ TEST_F(Services_test,testQualiteAirTerritoireMoment)
 }
 
 TEST_F(Services_test,testQualiteAirPointPeriode){
-    /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
-    2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
-    2017-01-01T00:01:20.6090000;Sensor0;SO2;13.6449094925285;
-    2017-01-01T00:01:20.6090000;Sensor0;PM10;1.55796479844986;
-    2017-01-01T00:30:39.0040000;Sensor0;O3;36.7797600526823;
-    2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
-    2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
-    2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;*/
-
     Point p1(0.0,0.0);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
     Date debut(2017,1,8,0,7,20,0);
@@ -151,15 +120,6 @@ TEST_F(Services_test,testQualiteAirPointPeriode){
 }
 
 TEST_F(Services_test,testQualiteAirPointMoment){
-    /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
-    2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
-    2017-01-01T00:01:20.6090000;Sensor0;SO2;13.6449094925285;
-    2017-01-01T00:01:20.6090000;Sensor0;PM10;1.55796479844986;
-    2017-01-01T00:30:39.0040000;Sensor0;O3;36.7797600526823;
-    2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
-    2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
-    2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;*/
-
     Point p1(0.0,0.0);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
     Date moment(2017,1,8,1,20,0,0);

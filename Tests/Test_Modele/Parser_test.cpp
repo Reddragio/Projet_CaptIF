@@ -32,7 +32,16 @@ protected:
     // Objects declared here can be used by all tests in the test case for Foo.
 };
 
-TEST_F(Parser_test,testBidon)
+TEST_F(Parser_test,testConstructeurEtMethode)
 {
-    ASSERT_TRUE(true);
+    vector<string> fichiers;
+    fichiers.push_back("dataTest.csv");
+    fichiers.push_back("AttributeType.csv");
+    Parser p(fichiers);
+
+    unordered_map<string,Sensor> sensors;
+    unordered_map<string,Attribute> attributes;
+    p.getSensorsAndAttributes(sensors,attributes);
+    ASSERT_EQ(sensors.size(),10);
+    ASSERT_EQ(attributes.size(),4);
 }
