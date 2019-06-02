@@ -138,8 +138,14 @@ tuple<Date, Date> Input::rentrerDebutFin()
         cin >> texte;
         if(regex_match(texte,patternDate)){
             parseDate(texte,annee1,mois1,jour1,heure1,minute1,seconde1);
-            debut = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
-            conversionReussie = true;
+            if(1971<= annee1 && annee1 <= 2030 && 1 <= mois1 && mois1 <= 12 && 1 <= jour1 && jour1 <= 31 && 0 <= heure1 && heure1 <= 23 && 0 <= minute1 && minute1 <= 59 && 0 <= seconde1 && seconde1 <= 59){
+                debut = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
+                conversionReussie = true;
+            }
+            else
+            {
+                cout << "Date incorrecte. certaines valeurs sont trop petites ou trop grandes pour une date" << endl;
+            }
         }
         else{
             cout << "Date incorrecte." << endl;
@@ -151,11 +157,17 @@ tuple<Date, Date> Input::rentrerDebutFin()
         cin >> texte;
         if(regex_match(texte,patternDate)){
             parseDate(texte,annee1,mois1,jour1,heure1,minute1,seconde1);
-            fin = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
-            if(debut<=fin){
-                conversionReussie = true;
-            }else{
-                cout << "Date incorrecte. La date fin doit etre plus grande que la date debut" << endl;
+            if(1971<= annee1 && annee1 <= 2030 && 1 <= mois1 && mois1 <= 12 && 1 <= jour1 && jour1 <= 31 && 0 <= heure1 && heure1 <= 23 && 0 <= minute1 && minute1 <= 59 && 0 <= seconde1 && seconde1 <= 59){
+                fin = Date(annee1,mois1,jour1,heure1,minute1,seconde1,milliseconde);
+                if(debut<=fin){
+                    conversionReussie = true;
+                }else{
+                    cout << "Date incorrecte. La date fin doit etre plus grande que la date debut" << endl;
+                }
+            }
+            else
+            {
+                cout << "Date incorrecte. certaines valeurs sont trop petites ou trop grandes pour une date" << endl;
             }
         }
         else{
@@ -183,8 +195,14 @@ Date Input::rentrerMoment()
         cin >> texte;
         if(regex_match(texte,patternDate)){
             parseDate(texte,annee,mois,jour,heure,minute,seconde);
-            moment = Date(annee,mois,jour,heure,minute,seconde,milliseconde);
-            conversionReussie = true;
+            if(1971<= annee && annee <= 2030 && 1 <= mois && mois <= 12 && 1 <= jour && jour <= 31 && 0 <= heure && heure <= 23 && 0 <= minute && minute <= 59 && 0 <= seconde && seconde <= 59){
+                moment = Date(annee,mois,jour,heure,minute,seconde,milliseconde);
+                conversionReussie = true;
+            }
+            else
+            {
+                cout << "Date incorrecte. certaines valeurs sont trop petites ou trop grandes pour une date" << endl;
+            }
         }
         else{
             cout << "Moment incorrect." << endl;
