@@ -56,17 +56,16 @@ TEST_F(Point_test,testDistanceMemePoint){
 TEST_F(Point_test,testDistanceDifferentPoint){
     Point p1(0.0,0.0);
     Point p2(1.0,0.0);
-    ASSERT_TRUE(p1.distance(p2)==111.1949266);
+    ASSERT_TRUE(p1.distance(p2)==111.19492664454764);
 }
 
-TEST_F(Point_test,testAffichage){
+TEST_F(Point_test, testAffichage){
     Point p1(0.0,0.0);
     testing::internal::CaptureStdout();
     cout<<p1;
     string output = testing::internal::GetCapturedStdout();
     string objectif;
     objectif.append("(0,0)");
-
     ASSERT_EQ(output,objectif);
 }
 

@@ -32,6 +32,7 @@ public:
     friend ostream & operator << (ostream & out, const Sensor & sensor);
 
     Point getLocation() const;
+    string getDescription() const;
 
     //-------------------------------------------- Constructeurs - destructeur
 

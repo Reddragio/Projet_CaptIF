@@ -1,4 +1,5 @@
 #include "../../src/Modele/Sensor.h"
+#include "../../src/Controleur/Services.h"
 #include "gtest/gtest.h"
 
 class Sensor_test : public ::testing::Test
@@ -9,6 +10,10 @@ protected:
     Sensor_test()
     {
         // You can do set-up work for each test here.
+        vector<string> fichiers;
+        fichiers.push_back("dataTest.csv");
+        fichiers.push_back("AttributeType.csv");
+        services = Services(fichiers);
     }
     virtual ~Sensor_test()
     {
@@ -30,9 +35,17 @@ protected:
         // before the destructor).
     }
     // Objects declared here can be used by all tests in the test case for Foo.
+
+    Services services;
 };
 
-TEST_F(Sensor_test,testBidon)
+TEST_F(Sensor_test, testAffichage)
 {
+    Sensor s("Sensor", Point(10,10), "Un point quelconque");
+    testing::internal::CaptureStdout();
+    cout << s;
+    string output = testing::internal::GetCapturedStdout();
+    string objectif;
+    objectif.append("ID : Sensor, Desc : Un point quelconque, Status : true, Location : (0,0)");
     ASSERT_TRUE(true);
 }

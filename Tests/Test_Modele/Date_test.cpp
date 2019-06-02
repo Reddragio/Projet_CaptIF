@@ -56,7 +56,7 @@ TEST_F(Date_test,testAffichage){
     Date d1(2020,1,1,1,1,1,300);
 
     testing::internal::CaptureStdout();
-    cout<<d1;
+    cout << d1;
     string output = testing::internal::GetCapturedStdout();
     string objectif;
     objectif.append("2020-01-01T01:01:01.300");

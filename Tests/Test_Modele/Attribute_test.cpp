@@ -34,5 +34,8 @@ protected:
 
 TEST_F(Attribute_test,testBidon)
 {
-    ASSERT_TRUE(true);
+    vector<string> fichiers;
+    fichiers.push_back("AttributeType.csv");
+
+
 }

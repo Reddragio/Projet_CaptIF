@@ -41,11 +41,6 @@ protected:
     Services services;
 };
 
-TEST_F(Output_test,testBidon)
-{
-    ASSERT_TRUE(true);
-}
-
 TEST_F(Output_test,testMessage)
 {
     testing::internal::CaptureStdout();

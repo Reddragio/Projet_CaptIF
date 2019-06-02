@@ -1,4 +1,4 @@
-/*************************************************************************
+ /*************************************************************************
 Sensor
 -------------------
 Date                 : 05/05/2019
@@ -23,6 +23,10 @@ Copyright            :
 
 Point Sensor::getLocation() const{
     return location;
+}
+
+string Sensor::getDescription() const {
+    return description;
 }
 
 //------------------------------- Surcharge des opérateurs d'Entrée/Sortie

@@ -53,6 +53,35 @@ Sensor8;-50.0;0.0;Loin, tres loin;
 Sensor9;-60.0;0.0;Encore un peu plus loin;*/
 //2017-01-01T00:01:20.6090000
 
+TEST_F(Services_test, verifierRecuperationCapteursProches){
+    unordered_set<string> sensorsId = services.getSensorsTerritoryIds(Point(0,0), 100);
+    ASSERT_EQ(sensorsId.size(), 1);
+}
+
+TEST_F(Services_test, verifierRecuperationCapteursLoins){
+    unordered_set<string> sensorsId = services.getSensorsTerritoryIds(Point(0,0), 1000);
+    ASSERT_EQ(sensorsId.size(), 5);
+}
+
+TEST_F(Services_test, verifierRecuperationCapteursTresLoins){
+    unordered_set<string> sensorsId = services.getSensorsTerritoryIds(Point(0,0), 10000);
+    ASSERT_EQ(sensorsId.size(), 10);
+}
+
+TEST_F(Services_test, verifierListageCapteurs) {
+    unordered_map<string,Sensor> sensors = services.listerCapteurs(Point(0,0), 500);
+    ASSERT_EQ(sensors.at("Sensor0").getLocation().getLat(), 0);
+    ASSERT_EQ(sensors.at("Sensor0").getLocation().getLng(), 0);
+    ASSERT_EQ(sensors.at("Sensor0").getDescription(), "Le centre du monde");
+    ASSERT_EQ(sensors.at("Sensor1").getLocation().getLat(), 1);
+    ASSERT_EQ(sensors.at("Sensor1").getLocation().getLng(), 1);
+    ASSERT_EQ(sensors.at("Sensor1").getDescription(), "");
+    ASSERT_EQ(sensors.at("Sensor2").getLocation().getLat(), -1);
+    ASSERT_EQ(sensors.at("Sensor2").getLocation().getLng(), -1);
+    ASSERT_EQ(sensors.at("Sensor2").getDescription(), "");
+    ASSERT_EQ(sensors.size(), 3);
+}
+
 TEST_F(Services_test,verifierInitialisationCapteurs)
 {
     ASSERT_EQ(services.getSensors().size(),10);
