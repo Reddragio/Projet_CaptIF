@@ -51,3 +51,34 @@ TEST_F(Date_test,testBidon)
 {
     ASSERT_TRUE(true);
 }
+
+TEST_F(Date_test,testAffichage){
+    Date d1(2020,1,1,1,1,1,300);
+    testing::internal::CaptureStdout();
+    cout<<d1;
+    string output = testing::internal::GetCapturedStdout();
+    tm * date = gmtime(d1.getTemps());
+    string objectif;
+    objectif.append(to_string((1900+date->tm_year)));
+    objectif.append("-");
+    ((date->tm_mon+1) > 9) ? objectif.append(to_string(date->tm_mon+1)) : objectif.append("0"+to_string (date->tm_mon+1));
+    objectif.append("-");
+    (date->tm_mday > 9) ? objectif.append(to_string(date->tm_mday)) : objectif.append("0"+to_string (date->tm_mday));
+    objectif.append("T");
+    (date->tm_hour > 9) ? objectif.append(to_string(date->tm_hour)) : objectif.append("0"+to_string (date->tm_hour));
+    objectif.append(":");
+    (date->tm_min > 9) ? objectif.append(to_string(date->tm_min)) : objectif.append("0"+to_string (date->tm_min));
+    objectif.append(":");
+    (date->tm_sec > 9) ? objectif.append(to_string(date->tm_sec)) : objectif.append("0"+to_string (date->tm_sec));
+    objectif.append(".");
+    if(d1.getMsec() <= 9){
+        objectif.append("00"+to_string (d1.getMsec()));
+    }
+    else if(d1.getMsec() <= 99){
+        objectif.append("0"+to_string (d1.getMsec()));
+    }
+    else {
+        objectif.append(to_string(d1.getMsec()));
+    }
+    ASSERT_EQ(output,objectif);
+}

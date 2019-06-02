@@ -48,16 +48,29 @@ TEST_F(Point_test,testBidon)
 }
 
 TEST_F(Point_test,testDistanceMemePoint){
-
     Point p1(0.0,0.0);
     Point p2(0.0,0.0);
     ASSERT_TRUE(p1.distance(p2)==0.0);
 }
 
 TEST_F(Point_test,testDistanceDifferentPoint){
-
     Point p1(0.0,0.0);
     Point p2(1.0,0.0);
     ASSERT_TRUE(p1.distance(p2)==111.1949266);
+}
+
+TEST_F(Point_test,testAffichage){
+    Point p1(0.0,0.0);
+    testing::internal::CaptureStdout();
+    cout<<p1;
+    string output = testing::internal::GetCapturedStdout();
+    string objectif;
+    objectif.append("( ");
+    objectif.append(to_string(p1.getLat()));
+    objectif.append(",");
+    objectif.append(to_string(p1.getLng()));
+    objectif.append(" ) ");
+
+    ASSERT_EQ(output,objectif);
 }
 
