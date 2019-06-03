@@ -81,14 +81,14 @@ TEST_F(Services_test,verifierInitialisationAttributs)
 
 TEST_F(Services_test,testQualiteAirTerritoirePeriode)
 {
-    /*    2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
-          2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
-          2017-01-01T00:01:20.6090000;Sensor0;SO2;13.6449094925285;
-          2017-01-01T00:01:20.6090000;Sensor0;PM10;1.55796479844986;
-          2017-01-01T00:30:39.0040000;Sensor0;O3;36.7797600526823;
-          2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
-          2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
-          2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;   */
+    /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
+    2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
+    2017-01-01T00:01:20.6090000;Sensor0;SO2;13.6449094925285;
+    2017-01-01T00:01:20.6090000;Sensor0;PM10;1.55796479844986;
+    2017-01-01T00:30:39.0040000;Sensor0;O3;36.7797600526823;
+    2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
+    2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
+    2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;*/
 
     Point p1(0.0,0.0);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
@@ -134,6 +134,8 @@ TEST_F(Services_test, testEvolutionGlobale) {
     Date debut(2017,1,8,1,20,0,0);
     Date fin(2017,14,1,23,20,0,0);
     map<string,tuple<double, double, double, Date>> res = services.evolutionGlobale(p, rayon, debut, fin);
+    double obj = 337.829;
+    ASSERT_EQ(get<2>(res["PM10"]), obj);
 }
 
 TEST_F(Services_test, testDetecterCapteursDysfonctionnels){
