@@ -127,3 +127,33 @@ TEST_F(Services_test,testQualiteAirPointMoment){
     ASSERT_EQ(get<1>(res["O3"]),17.8902017543936);
     ASSERT_EQ(get<1>(res["PM10"]),1.55796479844986);
 }
+
+TEST_F(Services_test, testEvolutionGlobale) {
+    Point p(0.0, 0.0);
+    double rayon = 100;
+    Date debut(2017,1,8,1,20,0,0);
+    Date fin(2017,14,1,23,20,0,0);
+    map<string,tuple<double, double, double, Date>> res = services.evolutionGlobale(p, rayon, debut, fin);
+    double obj = 337.829;
+    ASSERT_EQ(get<2>(res["PM10"]), obj);
+}
+
+TEST_F(Services_test, testDetecterCapteursDysfonctionnels){
+    Point p(0.0,0.0);
+    double rayon = 100;
+    unordered_map<string,bool> fonct;
+    services.detecterCapteursDysfonctionnels(p, rayon, fonct);
+    ASSERT_EQ(fonct["Sensor0"], true);
+    ASSERT_EQ(fonct["Sensor2"], false);
+}
+
+TEST_F(Services_test, testVerifierCapteurs){
+    bool status0 = services.verifierCapteurs("Sensor0");
+    ASSERT_EQ(status0, true);
+    bool status4 = services.verifierCapteurs("Sensor4");
+    ASSERT_EQ(status4, false);
+}
+
+TEST_F(Services_test, testComportementsSimilaires){
+
+}
