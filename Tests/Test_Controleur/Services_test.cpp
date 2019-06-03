@@ -107,17 +107,21 @@ TEST_F(Services_test,testQualiteAirTerritoirePeriodeBasique)
     ASSERT_EQ(get<1>(res["PM10"]),(1.55796479844986+1.99603267330184)/2.0);
 }
 
+TEST_F(Services_test,testQualiteAirTerritoirePeriodeAucunCapteurFichier)
+{
+    Point p1(0.0,0.0);
+    //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
+    Date debut(2017,1,8,0,1,20,0);
+    Date fin(2017,1,8,0,32,0,0);
+    map<string,tuple<int, double, int>> res = servicesEmpty.qualiteAirTerritoirePeriode(p1,5,debut,fin);
+    ASSERT_EQ(get<1>(res["O3"]),-1.0);
+    ASSERT_EQ(get<1>(res["NO2"]),-1.0);
+    ASSERT_EQ(get<1>(res["SO2"]),-1.0);
+    ASSERT_EQ(get<1>(res["PM10"]),-1.0);
+}
+
 TEST_F(Services_test,testQualiteAirTerritoirePeriodeAucunCapteurPeriode)
 {
-    /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
-    2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
-    2017-01-01T00:01:20.6090000;Sensor0;SO2;13.6449094925285;
-    2017-01-01T00:01:20.6090000;Sensor0;PM10;1.55796479844986;
-    2017-01-01T00:30:39.0040000;Sensor0;O3;36.7797600526823;
-    2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
-    2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
-    2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;*/
-
     Point p1(0.0,0.0);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
     Date debut(2018,1,8,0,1,20,0);
@@ -131,15 +135,6 @@ TEST_F(Services_test,testQualiteAirTerritoirePeriodeAucunCapteurPeriode)
 
 TEST_F(Services_test,testQualiteAirTerritoirePeriodeAucunCapteurZone)
 {
-    /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
-    2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
-    2017-01-01T00:01:20.6090000;Sensor0;SO2;13.6449094925285;
-    2017-01-01T00:01:20.6090000;Sensor0;PM10;1.55796479844986;
-    2017-01-01T00:30:39.0040000;Sensor0;O3;36.7797600526823;
-    2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
-    2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
-    2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;*/
-
     Point p1(100.0,100.0);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
     Date debut(2017,1,8,0,1,20,0);
