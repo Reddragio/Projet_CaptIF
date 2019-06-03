@@ -118,6 +118,7 @@ void Output::afficherCapteursEtBugs(const unordered_map<string,bool> & fonctionn
 
 void Output::afficherSimilarites(const unordered_map<string,unordered_map<string,bool>> & resultat)
 {
+    cout << "Les similarites suivantes ont ete detectees:" << endl;
     bool firstSimilarity;
     for(unordered_map<string,unordered_map<string,bool>>::const_iterator sensor1 = resultat.cbegin();sensor1 != resultat.cend();++sensor1)
     {
