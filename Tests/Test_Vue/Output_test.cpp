@@ -69,7 +69,7 @@ TEST_F(Output_test,testResultat)
     Date moment(2017,1,10,1,1,1,300);
     map<string,tuple<int, double, int>> res = services.qualiteAirTerritoireMoment(p,rayon,moment);
     testing::internal::CaptureStdout();
-    output.afficherResultatATMO(1, res) ;
+    output.afficherResultatATMO(2, res) ;
     string output = testing::internal::GetCapturedStdout();
 
     string objectif;
@@ -82,6 +82,48 @@ TEST_F(Output_test,testResultat)
     objectif.append("Type de gaz : PM10 , ATMO : 8  , Concentration : 50.6449  µg/m3, Nombre de valeurs utilises: 2");
     objectif.append("\n");
     objectif.append("Type de gaz : SO2  , ATMO : 6  , Concentration : 247.798  µg/m3, Nombre de valeurs utilises: 2");
+    objectif.append("\n");
+
+    ASSERT_EQ(output,objectif);
+}
+
+TEST_F(Output_test,testRevolution)
+{
+    Point p(0.0,0.0);
+    double rayon(5);
+    Date debut(2017,1,10,0,0,0,300);
+    Date fin(2017,1,10,1,0,0,300);
+    map<string,tuple<double, double, double, Date>> res = services.evolutionGlobale(p,rayon,debut,fin);
+    testing::internal::CaptureStdout();
+    output.afficherEvolution(5, res) ;
+    string output = testing::internal::GetCapturedStdout();
+
+    string objectif;
+    objectif.append("--- Resultat d'evolution ---");
+    objectif.append("\n");
+    objectif.append("Type de gaz : NO2, Concentration initiale : 279.237, Concentration finale: 305.177, Taux d'augmentation : 9.28933%, Date de derniere mesure : 2017-01-10T00:30:34.098");
+    objectif.append("\n");
+    objectif.append("Type de gaz : O3, Concentration initiale : 141.016, Concentration finale: 151.718, Taux d'augmentation : 7.58928%, Date de derniere mesure : 2017-01-10T00:30:34.098");
+    objectif.append("\n");
+    objectif.append("Type de gaz : PM10, Concentration initiale : 45.895, Concentration finale: 44.8451, Taux d'augmentation : -2.28766%, Date de derniere mesure : 2017-01-10T00:30:34.098");
+    objectif.append("\n");
+    objectif.append("Type de gaz : SO2, Concentration initiale : 269.536, Concentration finale: 254.335, Taux d'augmentation : -5.63966%, Date de derniere mesure : 2017-01-10T00:30:34.098");
+    objectif.append("\n");
+
+    ASSERT_EQ(output,objectif);
+}
+
+TEST_F(Output_test,testListeCapteur)
+{
+    Point p(0.0,0.0);
+    double rayon(5);
+    unordered_map<string,Sensor> sensors = services.listerCapteurs(p,rayon);
+    testing::internal::CaptureStdout();
+    output.afficherCapteurs(sensors);
+    string output = testing::internal::GetCapturedStdout();
+
+    string objectif;
+    objectif.append("ID : Sensor0, Desc : Le centre du monde, Status : true, Location : (0,0)");
     objectif.append("\n");
 
     ASSERT_EQ(output,objectif);
