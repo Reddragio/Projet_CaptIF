@@ -112,3 +112,19 @@ TEST_F(Output_test,testRevolution)
 
     ASSERT_EQ(output,objectif);
 }
+
+TEST_F(Output_test,testListeCapteur)
+{
+    Point p(0.0,0.0);
+    double rayon(5);
+    unordered_map<string,Sensor> sensors = services.listerCapteurs(p,rayon);
+    testing::internal::CaptureStdout();
+    output.afficherCapteurs(sensors);
+    string output = testing::internal::GetCapturedStdout();
+
+    string objectif;
+    objectif.append("ID : Sensor0, Desc : Le centre du monde, Status : true, Location : (0,0)");
+    objectif.append("\n");
+
+    ASSERT_EQ(output,objectif);
+}
