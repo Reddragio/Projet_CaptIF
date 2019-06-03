@@ -45,7 +45,7 @@ double Point::getLng(){
 //------------------------------- Surcharge des opérateurs d'Entrée/Sortie
 
 ostream & operator << (ostream & out, const Point & p) {
-    out << "( " << p.latitude << "," << p.longitude <<" ) ";
+    out << "(" << p.latitude << "," << p.longitude <<")";
     return out;
 }
 

@@ -31,8 +31,3 @@ protected:
     }
     // Objects declared here can be used by all tests in the test case for Foo.
 };
-
-TEST_F(CaptIF_test,testBidon)
-{
-    ASSERT_TRUE(true);
-}

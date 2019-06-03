@@ -25,14 +25,14 @@ Copyright            :
 
 void Output::afficherMessageAccueil(const Services & services) {
     cout << endl;
-    cout << "Bienvenue sur l'application Capt'IF" << endl;
+    cout << "### Initialisation terminee ###" << endl;
+    cout << "Nombre de capteurs : " << services.getSensors().size() << endl;
+    cout << "Nombre d'attributs : " << services.getAttributes().size() << endl;
+    cout << endl;
+    cout << "<<< Bienvenue sur l'application Capt'IF >>>" << endl;
     cout << endl;
     cout << "Un projet realise par:"<<endl;
     cout << "Jacques Charnay, Pierre Scheer, Sofiane Benslimane & Luoxiaofan Xiong"<< endl;
-    cout << endl;
-    cout << "Initialisation terminee" << endl;
-    cout << "Nombre de capteurs : " << services.getSensors().size() << endl;
-    cout << "Nombre d'attributs : " << services.getAttributes().size() << endl;
     cout << endl;
 }
 
@@ -62,18 +62,45 @@ void Output::afficherCapteurs(const unordered_map<string,Sensor> & sensors) {
 }
 
 void Output::afficherResultatATMO(int methode, const map<string,tuple<int, double, int>> & resultat) {
+    ios init(NULL);
+    init.copyfmt(cout);
+
+    cout.width(20);
+    cout.fill(' ');
+    cout << left;
+    ios param(NULL);
+    param.copyfmt(cout);
+
     cout << "--- ATMO ---" << endl;
     for (map<string,tuple<int, double, int>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        cout << "Type de gaz : " << i->first << ", ATMO : " << get<0>(i->second) << ", Concentration : " << get<1>(i->second) << attributes[i->first].getUnit() <<", Nombre de valeurs utiles: " << get<2>(i->second) << endl;
+        cout << "Type de gaz : ";
+        cout.copyfmt(param);
+        cout.width(5);
+        cout << i->first;
+        cout << ", ATMO : ";
+        cout.copyfmt(param);
+        cout.width(3);
+        cout << get<0>(i->second);
+        cout << ", Concentration : ";
+        cout.copyfmt(param);
+        cout.width(9);
+        cout << get<1>(i->second);
+        cout.copyfmt(param);
+        cout.width(5);
+        cout << attributes[i->first].getUnit();
+        cout <<", Nombre de valeurs utilises: ";
+        cout << get<2>(i->second) << endl;
     }
+
+    cout.copyfmt(init);
 }
 
 void Output::afficherEvolution(int methode, const map<string,tuple<double, double, double, Date>> & resultat) {
     cout << "--- Resultat d'evolution ---" << endl;
     for (map<string,tuple<double, double, double, Date>>::const_iterator i = resultat.cbegin(); i != resultat.cend(); i++)
     {
-        cout << "Type de gaz : " << i->first << ", Concentration initiale : " << get<0>(i->second) << ", Concentration finale: " << get<1>(i->second)  <<", Taux d'augmentation : " << get<2>(i->second) <<"%, Date de mesure : " << get<3>(i->second)<< endl;
+        cout << "Type de gaz : " << i->first << ", Concentration initiale : " << get<0>(i->second) << ", Concentration finale: " << get<1>(i->second)  <<", Taux d'augmentation : " << get<2>(i->second) <<"%, Date de derniere mesure : " << get<3>(i->second)<< endl;
     }
 }
 
@@ -117,9 +144,13 @@ void Output::afficherSimilarites(const unordered_map<string,unordered_map<string
     }
 }
 
-void Output::afficherResultatCapteur(bool resultat)
+void Output::afficherResultatCapteur(bool resultat,string & idCapteur)
 {
-    if(resultat)
+    if(sensors.find(idCapteur)==sensors.end())
+    {
+        cout << "Aucun capteur ne possede cet id" << endl;
+    }
+    else if(resultat)
     {
         cout << "Le capteur fonctionne correctemment" << endl;
     }

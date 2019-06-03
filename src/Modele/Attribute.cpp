@@ -27,7 +27,7 @@ string Attribute::getUnit() const{
 
 //------------------------------- Surcharge des opérateurs d'Entrée/Sortie
 
-ostream & operator << (ostream & out,const Attribute & att){
+ostream & operator << (ostream & out, const Attribute & att){
     out << att.id;
     return out;
 }

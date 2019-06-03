@@ -114,7 +114,7 @@ void CaptIF::run()
                 string idCapteur=input.rentrerIdCapteur();
                 bool res=services.verifierCapteurs(idCapteur);
                 cout << endl;
-                output.afficherResultatCapteur(res);
+                output.afficherResultatCapteur(res,idCapteur);
                 cout << endl;
                 break;
             }

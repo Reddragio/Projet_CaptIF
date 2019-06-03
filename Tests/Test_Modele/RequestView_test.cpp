@@ -9,7 +9,12 @@ protected:
     RequestView_test()
     {
         // You can do set-up work for each test here.
+       vector<string> fichiers;
+        fichiers.push_back("dataTest.csv");
+        fichiers.push_back("AttributeType.csv");
+
     }
+
     virtual ~RequestView_test()
     {
         // You can do clean-up work that doesn't throw exceptions here.
@@ -32,7 +37,6 @@ protected:
     // Objects declared here can be used by all tests in the test case for Foo.
 };
 
-TEST_F(RequestView_test,testBidon)
+TEST_F(RequestView_test,testConstructeur)
 {
-    ASSERT_TRUE(true);
 }

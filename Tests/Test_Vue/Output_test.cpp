@@ -41,7 +41,23 @@ protected:
     Services services;
 };
 
-TEST_F(Output_test,testBidon)
+TEST_F(Output_test,testMessage)
 {
-    ASSERT_TRUE(true);
+    testing::internal::CaptureStdout();
+    output.afficherMessageAccueil(services);
+    string output = testing::internal::GetCapturedStdout();
+
+    string objectif;
+    objectif.append("\n");
+    objectif.append("### Initialisation terminee ###\n");
+    objectif.append("Nombre de capteurs : 10\n");
+    objectif.append("Nombre d'attributs : 4\n");
+    objectif.append("\n");
+    objectif.append("<<< Bienvenue sur l'application Capt'IF >>>\n");
+    objectif.append("\n");
+    objectif.append("Un projet realise par:\n");
+    objectif.append("Jacques Charnay, Pierre Scheer, Sofiane Benslimane & Luoxiaofan Xiong\n");
+    objectif.append("\n");
+
+    ASSERT_EQ(output,objectif);
 }

@@ -42,7 +42,7 @@ public:
 
     void afficherCapteursEtBugs(const unordered_map<string,bool> & fonctionnel);
     void afficherSimilarites(const unordered_map<string,unordered_map<string,bool>> & resultat);
-    void afficherResultatCapteur(bool resultat);
+    void afficherResultatCapteur(bool resultat,string & idCapteur);
 
     //------------------------------------------------- Surcharge d'opérateurs
 

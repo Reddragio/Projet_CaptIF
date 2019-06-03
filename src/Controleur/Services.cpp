@@ -180,18 +180,22 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointPeriode(Point p, Da
         attrIdMeas = meas.getAttributeId();
         double distanceCentre = p.distance(sensors[meas.getSensorId()].getLocation());
 
-        if(distanceCentre <= epsilon)
+        if(!tresProcheTrouve[attrIdMeas])
         {
-            tresProcheTrouve[attrIdMeas] = true;
-            valeurTresProche[attrIdMeas] = meas.getValue();
-            compteur[attrIdMeas] = 1;
+            if(distanceCentre <= epsilon)
+            {
+                tresProcheTrouve[attrIdMeas] = true;
+                valeurTresProche[attrIdMeas] = meas.getValue();
+                compteur[attrIdMeas] = 1;
+            }
+            else
+            {
+                somme[attrIdMeas] += meas.getValue() * (1.0/distanceCentre);
+                diviseur[attrIdMeas] += (1.0/distanceCentre);
+                ++compteur[attrIdMeas];
+            }
         }
-        else if(!tresProcheTrouve[attrIdMeas])
-        {
-            somme[attrIdMeas] += meas.getValue() * (1.0/distanceCentre);
-            diviseur[attrIdMeas] += (1.0/distanceCentre);
-            ++compteur[attrIdMeas];
-        }
+
     }
 
     map<string,tuple<int, double, int>> resultat;
@@ -225,7 +229,6 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Dat
 {
     // Récupération des capteurs sur un rayon de 10 kms par défaut.
     unordered_set<string> sensorsId = getSensorsTerritoryIds(p, 10);
-    cout << "Nombre de capteurs : " + sensorsId.size() << endl;
     // Récupération de la requestView pour le parcours des fichiers : récupération à 10 km et pour Temps = [moment - 2h; moment + 2h]
     time_t mom = moment.getTemps();
     int mSec = moment.getMsec();
@@ -248,7 +251,7 @@ map<string,tuple<int, double, int>> Services::qualiteAirPointMoment(Point p, Dat
 
     map<string, tuple<int, double, int>> resultat;
     int indice;
-    int concentration;
+    double concentration;
     for(unordered_map<string,Attribute>::const_iterator gazs = attributes.cbegin(); gazs != attributes.cend(); ++gazs) {
         if (valeurs[gazs->first] != -1.0) {
             concentration = valeurs[gazs->first];

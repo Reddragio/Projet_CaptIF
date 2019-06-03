@@ -47,7 +47,14 @@ TEST_F(Date_test,testComparaison)
     ASSERT_TRUE(d4 > d3);
 }
 
-TEST_F(Date_test,testBidon)
-{
-    ASSERT_TRUE(true);
+TEST_F(Date_test,testAffichage){
+    Date d1(2020,1,1,1,1,1,300);
+
+    testing::internal::CaptureStdout();
+    cout << d1;
+    string output = testing::internal::GetCapturedStdout();
+    string objectif;
+    objectif.append("2020-01-01T01:01:01.300");
+
+    ASSERT_EQ(output,objectif);
 }
