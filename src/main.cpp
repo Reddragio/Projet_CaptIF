@@ -23,11 +23,11 @@ int main() {
     do{
         if(!auMoinsUn)
         {
-            cout << "--> Veuillez rentrer le nom du 1er fichier csv" << endl;
+            cout << "--> Veuillez rentrer le nom du premier fichier csv." << endl;
         }
         else
         {
-            cout << "--> Veuillez rentrer un a un le nom des autres fichiers csv" << endl;
+            cout << "--> Veuillez rentrer un a un le nom des autres fichiers csv .." << endl;
             cout << "(Pour terminer, tapez simplement \"0\")" << endl;
         }
         cin >> rep;
@@ -78,5 +78,3 @@ int main() {
     application.run();
     return 0;
 }
-// essai xiaofan
-//esaie sofiane
