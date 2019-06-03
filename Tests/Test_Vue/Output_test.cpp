@@ -128,3 +128,18 @@ TEST_F(Output_test,testListeCapteur)
 
     ASSERT_EQ(output,objectif);
 }
+
+TEST_F(Output_test,testFinctionnementCapteur)
+{
+    string idCapteur = "Sensor1";
+    bool res=services.verifierCapteurs(idCapteur);
+    testing::internal::CaptureStdout();
+    output.afficherResultatCapteur(res,idCapteur);
+    string output = testing::internal::GetCapturedStdout();
+
+    string objectif;
+    objectif.append("Le capteur fonctionne correctemment");
+    objectif.append("\n");
+
+    ASSERT_EQ(output,objectif);
+}
