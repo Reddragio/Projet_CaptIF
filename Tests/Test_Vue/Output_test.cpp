@@ -160,3 +160,20 @@ TEST_F(Output_test,testCapteurDyfonctionnel)
 
     ASSERT_EQ(output,objectif);
 }
+
+TEST_F(Output_test,testCapteurSimulaire)
+{
+    Point p(0.0,0.0);
+    double rayon(5);
+    unordered_map<string,unordered_map<string,bool>> res;
+    services.detecterComportementSimilaires(p,rayon,res);
+    testing::internal::CaptureStdout();
+    output.afficherSimilarites(res);
+    string output = testing::internal::GetCapturedStdout();
+
+    string objectif;
+    objectif.append("Les similarites suivantes ont ete detectees:");
+    objectif.append("\n");
+
+    ASSERT_EQ(output,objectif);
+}
