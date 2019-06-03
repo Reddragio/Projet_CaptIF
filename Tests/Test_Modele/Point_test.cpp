@@ -42,11 +42,6 @@ TEST_F(Point_test,testConstructeur)
     ASSERT_TRUE(p.getLng()==7.0);
 }
 
-TEST_F(Point_test,testBidon)
-{
-    ASSERT_TRUE(true);
-}
-
 TEST_F(Point_test,testDistanceMemePoint){
     Point p1(0.0,0.0);
     Point p2(0.0,0.0);
