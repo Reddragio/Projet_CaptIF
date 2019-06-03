@@ -1,4 +1,6 @@
 #include "../../src/Modele/RequestView.h"
+#include "../../src/Controleur/Services.h"
+#include "../../src/Modele/Parser.h"
 #include "gtest/gtest.h"
 
 class RequestView_test : public ::testing::Test
@@ -9,9 +11,10 @@ protected:
     RequestView_test()
     {
         // You can do set-up work for each test here.
-       vector<string> fichiers;
+        vector<string> fichiers;
         fichiers.push_back("dataTest.csv");
         fichiers.push_back("AttributeType.csv");
+        services = Services(fichiers);
 
     }
 
@@ -35,8 +38,19 @@ protected:
         // before the destructor).
     }
     // Objects declared here can be used by all tests in the test case for Foo.
+    Services services;
+    Parser parser;
 };
 
-TEST_F(RequestView_test,testConstructeur)
+TEST_F(RequestView_test, testParcoursFichier)
 {
+    vector<string> fichiers;
+    fichiers.push_back("dataTest.csv");
+    unordered_set<string> sensorsId = services.getSensorsTerritoryIds(Point(0.0,0.0), 10000);
+    RequestView request(fichiers,sensorsId,Date::getMoinsInfini(),Date::getPlusInfini());
+    int nbLines = 0;
+    while (request.goToNext()) {
+        nbLines++;
+    }
+    ASSERT_EQ(nbLines, 100);
 }

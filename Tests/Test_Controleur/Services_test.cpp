@@ -205,16 +205,13 @@ TEST_F(Services_test,testQualiteAirPointPeriode){
     ASSERT_EQ(get<1>(res["PM10"]),1.99603267330184);
 }
 
-
-
 TEST_F(Services_test, testEvolutionGlobale) {
     Point p(0.0, 0.0);
     double rayon = 100;
     Date debut(2017,1,8,1,20,0,0);
     Date fin(2017,14,1,23,20,0,0);
     map<string,tuple<double, double, double, Date>> res = services.evolutionGlobale(p, rayon, debut, fin);
-    double obj = 337.829;
-    ASSERT_EQ(get<2>(res["PM10"]), obj);
+    ASSERT_EQ(get<2>(res["PM10"]), (48.0876642664453-10.9832137846515)/10.9832137846515*100.0);
 }
 
 TEST_F(Services_test, testEvolutionGlobaleAucunCapteurZone) {
