@@ -155,5 +155,16 @@ TEST_F(Services_test, testVerifierCapteurs){
 }
 
 TEST_F(Services_test, testComportementsSimilaires){
+    Point p(0.0,0.0);
+    double rayon = 1000;
+    unordered_map<string,unordered_map<string,bool>> sim;
+    services.detecterComportementSimilaires(p, rayon, sim);
 
+    unordered_map<string, bool> obj;
+    obj.insert(make_pair<std::string,double>("Sensor1", false));
+    obj.insert(make_pair<std::string,double>("Sensor2", false));
+    obj.insert(make_pair<std::string,double>("Sensor3", false));
+    obj.insert(make_pair<std::string,double>("Sensor4", false));
+
+    ASSERT_EQ(sim["Sensor0"], obj);
 }
