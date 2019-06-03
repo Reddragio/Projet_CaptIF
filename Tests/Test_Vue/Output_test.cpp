@@ -103,7 +103,7 @@ TEST_F(Output_test,testRevolution)
     objectif.append("\n");
     objectif.append("Type de gaz : NO2, Concentration initiale : 279.237, Concentration finale: 305.177, Taux d'augmentation : 9.28933%, Date de derniere mesure : 2017-01-10T00:30:34.098");
     objectif.append("\n");
-    objectif.append("Type de gaz : O3, Concentration initiale : 141.016, Concentration finale: 151.718, Taux d'augmentation : 7.58928%, Date de derniere mesure : 2017-01-10T00:30:34.098");
+    objectif.append("Type de gaz : O3, Concentration initiale : 141.016, Concentration finale: 151.718, Taux d'augmentation : 7.58928%, Date de derniere mesure : 2017-01-10T00:0:34.098");
     objectif.append("\n");
     objectif.append("Type de gaz : PM10, Concentration initiale : 45.895, Concentration finale: 44.8451, Taux d'augmentation : -2.28766%, Date de derniere mesure : 2017-01-10T00:30:34.098");
     objectif.append("\n");
@@ -139,6 +139,23 @@ TEST_F(Output_test,testFinctionnementCapteur)
 
     string objectif;
     objectif.append("Le capteur fonctionne correctemment");
+    objectif.append("\n");
+
+    ASSERT_EQ(output,objectif);
+}
+
+TEST_F(Output_test,testCapteurDyfonctionnel)
+{
+    Point p(0.0,0.0);
+    double rayon(5);
+    unordered_map<string,bool> res;
+    services.detecterCapteursDysfonctionnels(p,rayon,res);
+    testing::internal::CaptureStdout();
+    output.afficherCapteursEtBugs(res);
+    string output = testing::internal::GetCapturedStdout();
+
+    string objectif;
+    objectif.append("Les capteurs d'id suivants presentent un dysfonctionnement:");
     objectif.append("\n");
 
     ASSERT_EQ(output,objectif);
