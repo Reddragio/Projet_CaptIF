@@ -114,10 +114,7 @@ TEST_F(Services_test,testQualiteAirTerritoirePeriodeAucunCapteurFichier)
     Date debut(2017,1,8,0,1,20,0);
     Date fin(2017,1,8,0,32,0,0);
     map<string,tuple<int, double, int>> res = servicesEmpty.qualiteAirTerritoirePeriode(p1,5,debut,fin);
-    ASSERT_EQ(get<1>(res["O3"]),-1.0);
-    ASSERT_EQ(get<1>(res["NO2"]),-1.0);
-    ASSERT_EQ(get<1>(res["SO2"]),-1.0);
-    ASSERT_EQ(get<1>(res["PM10"]),-1.0);
+    ASSERT_EQ(res.size(),0);
 }
 
 TEST_F(Services_test,testQualiteAirTerritoirePeriodeAucunCapteurPeriode)
@@ -220,6 +217,45 @@ TEST_F(Services_test, testEvolutionGlobale) {
     ASSERT_EQ(get<2>(res["PM10"]), obj);
 }
 
+TEST_F(Services_test, testEvolutionGlobaleAucunCapteurZone) {
+    Point p(100.0, 100.0);
+    double rayon = 5;
+    Date debut(2017,1,8,1,20,0,0);
+    Date fin(2017,12,1,23,20,0,0);
+    map<string,tuple<double, double, double, Date>> res = services.evolutionGlobale(p, rayon, debut, fin);
+    ASSERT_EQ(get<1>(res["O3"]),-1.0);
+    ASSERT_EQ(get<1>(res["NO2"]),-1.0);
+    ASSERT_EQ(get<1>(res["SO2"]),-1.0);
+    ASSERT_EQ(get<1>(res["PM10"]),-1.0);
+    ASSERT_EQ(get<0>(res["PM10"]),-1.0);
+    ASSERT_EQ(get<2>(res["PM10"]),0.0);
+    ASSERT_TRUE(get<3>(res["PM10"])==Date());
+}
+
+TEST_F(Services_test, testEvolutionGlobaleAucunCapteurPeriode) {
+    Point p(0.0, 0.0);
+    double rayon = 5;
+    Date debut(2018,1,8,1,20,0,0);
+    Date fin(2018,12,1,23,20,0,0);
+    map<string,tuple<double, double, double, Date>> res = services.evolutionGlobale(p, rayon, debut, fin);
+    ASSERT_EQ(get<1>(res["O3"]),-1.0);
+    ASSERT_EQ(get<1>(res["NO2"]),-1.0);
+    ASSERT_EQ(get<1>(res["SO2"]),-1.0);
+    ASSERT_EQ(get<1>(res["PM10"]),-1.0);
+    ASSERT_EQ(get<0>(res["PM10"]),-1.0);
+    ASSERT_EQ(get<2>(res["PM10"]),0.0);
+    ASSERT_TRUE(get<3>(res["PM10"])==Date());
+}
+
+TEST_F(Services_test, testEvolutionGlobaleAucunFichier) {
+    Point p(0.0, 0.0);
+    double rayon = 5;
+    Date debut(2017,1,8,1,20,0,0);
+    Date fin(2017,12,1,23,20,0,0);
+    map<string,tuple<double, double, double, Date>> res = servicesEmpty.evolutionGlobale(p, rayon, debut, fin);
+    ASSERT_EQ(res.size(), 0);
+}
+
 TEST_F(Services_test, testDetecterCapteursDysfonctionnels){
     Point p(0.0,0.0);
     double rayon = 100;
@@ -229,11 +265,29 @@ TEST_F(Services_test, testDetecterCapteursDysfonctionnels){
     ASSERT_EQ(fonct["Sensor2"], false);
 }
 
+TEST_F(Services_test, testDetecterCapteursDysfonctionnelsAucunFichier){
+    Point p(0.0,0.0);
+    double rayon = 100;
+    unordered_map<string,bool> fonct;
+    servicesEmpty.detecterCapteursDysfonctionnels(p, rayon, fonct);
+    ASSERT_EQ(fonct.size(), 0);
+}
+
+TEST_F(Services_test, testDetecterCapteursDysfonctionnelsAucunCapteurZone){
+    Point p(100.0,0.0);
+    double rayon = 100;
+    unordered_map<string,bool> fonct;
+    services.detecterCapteursDysfonctionnels(p, rayon, fonct);
+    ASSERT_EQ(fonct.size(), 0);
+}
+
 TEST_F(Services_test, testVerifierCapteurs){
     bool status0 = services.verifierCapteurs("Sensor0");
     ASSERT_EQ(status0, true);
     bool status4 = services.verifierCapteurs("Sensor4");
     ASSERT_EQ(status4, false);
+    bool status5 = services.verifierCapteurs("abcd");
+    ASSERT_EQ(status5, false);
 }
 
 TEST_F(Services_test, testComportementsSimilaires){
@@ -249,4 +303,22 @@ TEST_F(Services_test, testComportementsSimilaires){
     obj.insert(make_pair<std::string,double>("Sensor4", false));
 
     ASSERT_EQ(sim["Sensor0"], obj);
+}
+
+TEST_F(Services_test, testComportementsSimilairesAucunFichier){
+    Point p(0.0,0.0);
+    double rayon = 1000;
+    unordered_map<string,unordered_map<string,bool>> sim;
+    servicesEmpty.detecterComportementSimilaires(p, rayon, sim);
+
+    ASSERT_EQ(sim.size(),0);
+}
+
+TEST_F(Services_test, testComportementsSimilairesAucunCapteurZone){
+    Point p(100.0,0.0);
+    double rayon = 1;
+    unordered_map<string,unordered_map<string,bool>> sim;
+    services.detecterComportementSimilaires(p, rayon, sim);
+
+    ASSERT_EQ(sim.size(),0);
 }
