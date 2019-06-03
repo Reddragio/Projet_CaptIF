@@ -87,6 +87,8 @@ TEST_F(Services_test,verifierInitialisationAttributs)
     ASSERT_EQ(services.getAttributes().size(),4);
 }
 
+//Territoire et Période
+
 TEST_F(Services_test,testQualiteAirTerritoirePeriodeBasique)
 {
     /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
@@ -143,6 +145,8 @@ TEST_F(Services_test,testQualiteAirTerritoirePeriodeAucunCapteurZone)
     ASSERT_EQ(get<1>(res["PM10"]),-1.0);
 }
 
+// Point et Moment
+
 TEST_F(Services_test,testQualiteAirPointMoment){
     /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
     2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
@@ -161,27 +165,50 @@ TEST_F(Services_test,testQualiteAirPointMoment){
     ASSERT_EQ(get<1>(res["PM10"]),1.55796479844986);
 }
 
+TEST_F(Services_test,testQualiteAirPointMomentSansSensors){
+
+    Point p1(45.837780,4.832710);
+    //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
+    Date moment(2017,1,8,1,20,0,0);
+    map<string,tuple<int, double, int>> res = services.qualiteAirPointMoment(p1,moment);
+    ASSERT_EQ(get<1>(res["O3"]),-1);
+    ASSERT_EQ(get<1>(res["PM10"]),-1);
+}
+
+TEST_F(Services_test,testQualiteAirPointMomentSansMesures){
+
+    Point p1(0.0,0.0);
+    //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
+    Date moment(2029,1,8,1,20,0,0);
+    map<string,tuple<int, double, int>> res = services.qualiteAirPointMoment(p1,moment);
+    ASSERT_EQ(get<1>(res["O3"]),-1);
+    ASSERT_EQ(get<1>(res["PM10"]),-1);
+}
+
+// Territoire et Moment
+
+TEST_F(Services_test,testQualiteAirTerritoireMoment)
+{
+    Point p1(0.0,0.0);
+    //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
+    Date moment(2017,1,8,1,20,0,0);
+    map<string,tuple<int, double, int>> res = services.qualiteAirTerritoireMoment(p1,5,moment);
+    ASSERT_EQ(get<1>(res["O3"]),64.14836534965675);
+    ASSERT_EQ(get<1>(res["PM10"]),8.658728917317945);
+}
+
 TEST_F(Services_test,testQualiteAirTerritoireMomentSansMesures)
 {
     Point p1(0.0,0.0);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
     Date moment(2029,1,8,0,1,20,0);
     map<string,tuple<int, double, int>> res = services.qualiteAirTerritoireMoment(p1,5,moment);
-    ASSERT_EQ(get<1>(res["O3"]),-1); /* changez les valeurs qu'on doit trouver */
+    ASSERT_EQ(get<1>(res["O3"]),-1);
     ASSERT_EQ(get<1>(res["PM10"]),-1);
 }
 
 TEST_F(Services_test,testQualiteAirTerritoireMomentSansSensors)
 {
-    /*2017-01-01T00:01:20.6090000;Sensor0;O3;17.8902017543936;
-    2017-01-01T00:01:20.6090000;Sensor0;NO2;42.4807462361763;
-    2017-01-01T00:01:20.6090000;Sensor0;SO2;13.6449094925285;
-    2017-01-01T00:01:20.6090000;Sensor0;PM10;1.55796479844986;
-    2017-01-01T00:30:39.0040000;Sensor0;O3;36.7797600526823;
-    2017-01-01T00:30:39.0040000;Sensor0;NO2;80.2280346451481;
-    2017-01-01T00:30:39.0040000;Sensor0;SO2;38.151540049253;
-    2017-01-01T00:30:39.0040000;Sensor0;PM10;1.99603267330184;*/
-
     Point p1(45.837780,4.832710);
     //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
     Date moment(2017,1,8,0,1,20,0);
@@ -190,10 +217,8 @@ TEST_F(Services_test,testQualiteAirTerritoireMomentSansSensors)
     ASSERT_EQ(get<1>(res["PM10"]),-1);
 }
 
-TEST_F(Services_test,verifierInitialisationCapteursServiceEmpty)
-{
-    ASSERT_EQ(servicesEmpty.getSensors().size(),0);
-}
+
+//Point et Période
 
 TEST_F(Services_test,testQualiteAirPointPeriode){
     Point p1(0.0,0.0);
@@ -205,7 +230,30 @@ TEST_F(Services_test,testQualiteAirPointPeriode){
     ASSERT_EQ(get<1>(res["PM10"]),1.99603267330184);
 }
 
+TEST_F(Services_test,testQualiteAirPointPeriodeSansSensor){
+    Point p1(45.837780,4.832710);
+    //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
+    Date debut(2017,1,8,0,7,20,0);
+    Date fin(2017,1,8,0,32,0,0);
+    map<string,tuple<int, double, int>> res = services.qualiteAirPointPeriode(p1,debut,fin);
+    ASSERT_EQ(get<1>(res["O3"]),-1);
+    ASSERT_EQ(get<1>(res["PM10"]),-1);
+}
 
+TEST_F(Services_test,testQualiteAirPointPeriodeSansMesures){
+    Point p1(0.0,0.0);
+    //Date(int year, int month,int day,int hour, int min, int sec,int msecInit);
+    Date debut(2029,1,8,0,7,20,0);
+    Date fin(2029,1,8,0,32,0,0);
+    map<string,tuple<int, double, int>> res = services.qualiteAirPointPeriode(p1,debut,fin);
+    ASSERT_EQ(get<1>(res["O3"]),-1);
+    ASSERT_EQ(get<1>(res["PM10"]),-1);
+}
+
+TEST_F(Services_test,verifierInitialisationCapteursServiceEmpty)
+{
+    ASSERT_EQ(servicesEmpty.getSensors().size(),0);
+}
 
 TEST_F(Services_test, testEvolutionGlobale) {
     Point p(0.0, 0.0);
